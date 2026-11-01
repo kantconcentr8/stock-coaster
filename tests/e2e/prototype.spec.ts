@@ -136,9 +136,7 @@ test('unknown recap falls back visibly and absent canvas retains dated text and 
   await expect(page.getByRole('dialog')).toContainText(title);
   await expect(page.getByRole('dialog')).toContainText('Oct 30, 2026');
   await expect(
-    page
-      .getByRole('dialog')
-      .getByRole('link', { name: 'Join the Predictourney waitlist', exact: true }),
+    page.getByRole('dialog').getByRole('link', { name: 'Join waitlist', exact: true }),
   ).toBeVisible();
 });
 
@@ -194,4 +192,29 @@ test('phone-first text remains readable and controls stay separate at narrow and
     ).toBeGreaterThanOrEqual(16);
     await page.getByRole('button', { name: 'Close briefing' }).click();
   }
+});
+
+test('briefing footer offers waitlist and return buttons without resetting the ride', async ({
+  page,
+}) => {
+  await page.goto('/?prototype=coaster&utm_source=footer-qa');
+  await page.getByRole('button', { name: 'Start ride', exact: true }).click();
+  await expect(page.locator('.ride-stage')).toHaveText('The climb');
+  await page.getByRole('button', { name: 'Read briefing & sources' }).click();
+  const dialog = page.getByRole('dialog');
+  const waitlist = dialog.getByRole('link', { name: 'Join waitlist', exact: true });
+  const back = dialog.getByRole('button', { name: 'Back to game', exact: true });
+  await back.scrollIntoViewIfNeeded();
+  await expect(waitlist).toBeInViewport({ ratio: 0.98 });
+  await expect(back).toBeInViewport({ ratio: 0.98 });
+  expect(new URL((await waitlist.getAttribute('href'))!).searchParams.get('utm_source')).toBe(
+    'footer-qa',
+  );
+  const paused = await page.locator('.ride-progress').getAttribute('style');
+  await page.screenshot({ path: `test-results/briefing-footer-${test.info().project.name}.png` });
+  await back.click();
+  await expect(dialog).not.toBeVisible();
+  await expect(page.getByRole('button', { name: 'Resume ride' })).toBeVisible();
+  expect(await page.locator('.ride-progress').getAttribute('style')).toBe(paused);
+  await expect(page.getByRole('button', { name: 'Read briefing & sources' })).toBeFocused();
 });

@@ -285,3 +285,8 @@ Shorter intro copy/date; full metadata/review context in briefing. Read briefing
 Sparse candle tags now use 20px symbols/16px moves; market table 16px values behind readable disclosure, with explicit missing-data explanation.
 Validation: npm run check (108 units), 14 focused browser checks, draft build/bundle pass; 320/390/1440px reading/scroll/touch/overlap checks and screenshots inspected.
 Narrow-phone header collision found visually and fixed; additional overlap check added. No real-phone testing or launch approval inferred; G5 remains open, analytics disabled.
+
+### P5.R2b - Briefing footer actions (2026-11-01)
+Result: replaced adjacent plain links with orange Join waitlist CTA and secondary Back to game button; side by side on desktop, stacked on phones.
+Waitlist retains attributed destination. Back closes the briefing and restores opener focus, preserving the paused ride instead of navigating to the original game.
+Verification: four desktop/mobile footer and text-fallback checks pass; typecheck, lint and draft production build/bundle pass. Release gates unchanged.

@@ -156,15 +156,34 @@
 .ride-briefing a {
   font-size: 18px;
 }
-.ride-briefing > a:last-child {
-  display: inline-block;
-  padding: 14px 0;
+.ride-briefing-actions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid #8294a7;
+}
+.ride-briefing-actions > * {
+  min-height: 52px;
+  font:
+    650 18px/1.4 system-ui,
+    sans-serif;
+  text-align: center;
+}
+.ride-briefing-actions .recap-cta {
+  background: #fca311;
+  border-color: #fca311;
+  color: #07101d;
 }
 .ride-prototype[data-phase='intro'] .ride-disclaimer,
 .ride-prototype[data-phase='results'] .ride-disclaimer {
   display: none;
 }
 @media (max-width: 700px) {
+  .ride-briefing-actions {
+    grid-template-columns: 1fr;
+  }
   .recap-card {
     top: 176px;
     bottom: 94px;

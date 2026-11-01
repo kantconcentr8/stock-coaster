@@ -151,7 +151,16 @@ export function createRecapFlow(
   end.append(endBody, el('div', { class: 'recap-card-actions' }, [share, cta]));
   const panel = createBriefingPanel(briefing, () => {}, { ctaUrl });
   panel.root.classList.add('ride-briefing');
-  panel.root.append(el('a', { href: location.pathname, text: 'Open original game' }));
+  const briefingCta = panel.root.querySelector<HTMLAnchorElement>(':scope > a');
+  if (briefingCta) {
+    briefingCta.textContent = 'Join waitlist';
+    briefingCta.classList.add('recap-cta');
+  }
+  const back = el('button', { type: 'button', class: 'btn-secondary', text: 'Back to game' });
+  back.onclick = () => panel.close();
+  panel.root.append(
+    el('div', { class: 'ride-briefing-actions' }, [...(briefingCta ? [briefingCta] : []), back]),
+  );
   const openBriefing = () => {
     read.focus({ preventScroll: true });
     controls.pause();
