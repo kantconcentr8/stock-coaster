@@ -31,3 +31,4 @@ Living architecture map. Update when a public export, file, or folder changes. K
 | `scripts/` | validate-content, check-fairness, report | (later) | — |
 | `tests/` | Vitest, mirrors `src/`; `e2e/` from Phase 4 | — | — |
 | `docs/` | CONTEXT, PROGRESS, AUTHORING, implementation-plan | — | — |
+

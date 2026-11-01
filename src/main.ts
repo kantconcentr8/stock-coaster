@@ -28,3 +28,4 @@ if (supportsGraphics()) {
 } else {
   renderFallback(ui);
 }
+

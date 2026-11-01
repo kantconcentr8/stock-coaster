@@ -45,6 +45,7 @@ body {
   padding: 1rem;
 }
 
+h1.screen,
 .screen h1 {
   color: var(--color-orange);
   margin: 0 0 0.5rem;
@@ -53,3 +54,4 @@ body {
 .screen a {
   color: var(--color-white);
 }
+

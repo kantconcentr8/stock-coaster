@@ -11,3 +11,4 @@ export function createGame(app: App, parent: string): Phaser.Game {
     scene: [new GameScene(app)],
   });
 }
+

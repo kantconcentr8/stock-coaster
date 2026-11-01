@@ -50,3 +50,4 @@ export const TUNING = Object.freeze({
   /** Points per world unit travelled. */
   distancePointsPerWu: 0.05,
 });
+

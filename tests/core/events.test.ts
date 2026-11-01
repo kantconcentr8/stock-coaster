@@ -26,3 +26,4 @@ describe('event bus', () => {
     err.mockRestore();
   });
 });
+

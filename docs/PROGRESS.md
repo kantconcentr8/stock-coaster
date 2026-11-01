@@ -38,3 +38,4 @@ Files: src/core/events.ts, src/app.ts, src/main.ts, tests/core/events.test.ts.
 ### P0.5 — Phaser canvas + HTML overlay + capability check (2026-10-31)
 Result: done (manual browser check of `npm run dev` pending by owner)
 Files: src/render/{GameScene,createGame}.ts, src/ui/dom.ts, src/ui/screens/fallback.ts, src/styles.css, src/main.ts.
+

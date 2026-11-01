@@ -89,3 +89,4 @@ export interface Briefing {
   socialImage: string;
   learningQuestion?: unknown;
 }
+
