@@ -277,3 +277,11 @@ Shared links retain the allowlisted prototype route and discard private/debug fi
 Split scene/audio/HTML/timeline modules; scrolling text is keyboard accessible, mobile dialog focus restored, end actions remain visible and manual share scrolls into view.
 Validation: npm run check (108 unit tests), all 28 browser regressions, six passenger rechecks after card adjustment, draft production build/bundle pass; intro/end axe scans clear.
 Updated plan/acceptance/session docs; candidate remains isolated until release promotion. G5 open: editorial sources/approval, five real phone sessions, physical-device checks and rollback/launch sign-off. Phase 6 unstarted.
+
+### P5.R2a - Phone-first readability (2026-11-01)
+Result: addressed owner-reported illegible desktop text; phone/social is the primary audience assumption.
+Body/source copy 18px, captions >=22px, labels 14-16px, controls >=52px; opaque text panels and wider desktop cards.
+Shorter intro copy/date; full metadata/review context in briefing. Read briefing moved to header; three large ride controls at bottom.
+Sparse candle tags now use 20px symbols/16px moves; market table 16px values behind readable disclosure, with explicit missing-data explanation.
+Validation: npm run check (108 units), 14 focused browser checks, draft build/bundle pass; 320/390/1440px reading/scroll/touch/overlap checks and screenshots inspected.
+Narrow-phone header collision found visually and fixed; additional overlap check added. No real-phone testing or launch approval inferred; G5 remains open, analytics disabled.

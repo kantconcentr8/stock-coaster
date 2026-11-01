@@ -9,7 +9,7 @@ Validation: `npm run check` passed (108 unit tests), all 28 browser regression t
 
 | Area | Check | Evidence / limit |
 | --- | --- | --- |
-| Dated entry | Selected briefing title, publication and coverage cutoff; draft disclosure | `tests/e2e/prototype.spec.ts`, intro screenshot |
+| Dated entry | Selected briefing title and market-close date; full publication/cutoff in briefing; draft disclosure | `tests/e2e/prototype.spec.ts`, intro screenshot |
 | Editorial connection | Source chapters at 0-17s, 17-24s, 24-28s; hypothetical label | `tests/prototype/recapTimeline.test.ts`, full passenger browser sequence |
 | Reading | Full text, glossary, coverage, pending-source notice; opening pauses and closing restores focus without auto-resume | Passenger browser sequence; existing source dialog reused |
 | Ending | Classified takeaways, hypothetical/illustrative distinction, no score | Passenger browser sequence and end screenshot |
@@ -23,6 +23,16 @@ Validation: `npm run check` passed (108 unit tests), all 28 browser regression t
 | Build | Draft build and compressed-bundle checks | Run with existing `ALLOW_UNAPPROVED=1`; strict production content gate remains intact |
 
 Screenshot outputs are generated under `test-results/coaster-<browser>-{intro,crest,drop,end,landscape}.png`. These are browser emulations, not physical-phone evidence.
+
+## Phone-first readability revision
+
+Owner reports small desktop text was barely legible and expects most viewers to arrive on phones from social feeds. Phone-first is the design priority, not an analytics-derived audience measurement.
+
+Body copy is now 18px, live captions at least 22px, supporting labels 14-16px, source-dialog text 18px and controls at least 52px tall. Text panels are opaque. The compact intro shows the coverage date and short instructions; full metadata and review notes remain in the briefing. Takeaway cards omit inline internal TODO suffixes while retaining draft labels and full review context in the briefing.
+
+Read briefing moved into the header; three large ride controls remain at the bottom. Market data expands from a readable button into a dated/provider-attributed table, with 16px values. Sparse candle tags use 20px symbols and 16px moves instead of a dense field of tiny labels. Missing data has an explicit illustrative explanation.
+
+Verification: 108 unit tests and 14 focused desktop/mobile browser checks passed; additional narrow-layout checks cover 320x568, 390x664 and 1440x900, readable text, usable scrolling space, non-overlapping header/data/card/controls, source text and touch targets. Screenshots are under `test-results/readability-*`. Actual social in-app browsers, device text scaling and physical-phone viewing remain pending.
 
 ## Remaining release work
 

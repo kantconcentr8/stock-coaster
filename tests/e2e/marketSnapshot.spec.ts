@@ -34,8 +34,11 @@ test('recap candles load once from a saved file, with accessible OHLC and no pro
   });
   await page.goto('/?prototype=coaster');
   const summary = page.locator('.ride-market summary');
-  await expect(summary).toHaveText('2026-10-30 close / 1 symbol / Twelve Data');
+  await expect(summary).toHaveText('Market data');
   await summary.click();
+  await expect(page.locator('.ride-market-panel')).toContainText(
+    '2026-10-30 close / 1 symbol / Twelve Data',
+  );
   await expect(page.getByRole('cell', { name: 'AAPL', exact: true })).toBeVisible();
   await expect(page.getByRole('cell', { name: '110.00', exact: true })).toBeVisible();
   await expect(page.getByText('Unavailable in this snapshot:', { exact: false })).toContainText(
@@ -56,7 +59,7 @@ test('missing recap data keeps candles explicitly illustrative', async ({ page }
     route.fulfill({ status: 404, body: 'Not found' }),
   );
   await page.goto('/?prototype=coaster');
-  await expect(page.locator('.ride-market summary')).toContainText('Illustrative candles');
+  await expect(page.locator('.ride-market summary')).toHaveText('No saved data');
   await page.getByRole('button', { name: 'Start ride', exact: true }).click();
   await expect(page.locator('.ride-stage')).toHaveText('The climb');
 });
@@ -88,6 +91,6 @@ test('a saved candle file for the wrong session is not presented as recap data',
     }),
   );
   await page.goto('/?prototype=coaster');
-  await expect(page.locator('.ride-market summary')).toContainText('Illustrative candles');
+  await expect(page.locator('.ride-market summary')).toHaveText('No saved data');
   await expect(page.locator('.ride-market table')).toHaveCount(0);
 });

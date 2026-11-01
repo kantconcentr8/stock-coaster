@@ -50,7 +50,7 @@ export function drawScenery(
     ctx.stroke();
   }
   for (let layer = 0; layer < 3; layer++) {
-    const spacing = layer === 2 ? 120 : 68;
+    const spacing = layer === 2 ? 200 : 68;
     const movement = cameraX * [0.035, 0.08, 0.14][layer]!;
     const start = Math.floor(movement / spacing) - 3;
     for (let index = start; index < start + width / spacing + 7; index++) {
@@ -79,7 +79,7 @@ export function drawScenery(
       ctx.moveTo(x + w / 2, candle ? priceY(candle.high) : y - 32 - seed * 35);
       ctx.lineTo(x + w / 2, candle ? priceY(candle.low) : y + body + 28);
       ctx.stroke();
-      if (candle) {
+      if (candle && x >= 16 && x + 152 <= width - 16) {
         labels.push({
           x: x - 4,
           y: top - 39,
@@ -132,17 +132,17 @@ export function drawMarketLabels(
     if (Math.abs(label.x - trainX) < 130 && Math.abs(label.y - trainY) < 65) continue;
     ctx.fillStyle = '#0a1729eb';
     ctx.beginPath();
-    ctx.roundRect(label.x, label.y, 90, 34, 4);
+    ctx.roundRect(label.x, label.y - 18, 152, 58, 6);
     ctx.fill();
-    ctx.font = '600 12px sans-serif';
+    ctx.font = '700 20px sans-serif';
     ctx.fillStyle = '#f1e7d5';
-    ctx.fillText(label.symbol, label.x + 5, label.y + 13);
-    ctx.font = '10px sans-serif';
+    ctx.fillText(label.symbol, label.x + 10, label.y + 5);
+    ctx.font = '16px sans-serif';
     ctx.fillStyle = '#c8d3de';
     ctx.fillText(
       `O/C ${label.change >= 0 ? '+' : ''}${label.change.toFixed(2)}%`,
-      label.x + 5,
-      label.y + 27,
+      label.x + 10,
+      label.y + 29,
     );
   }
 }

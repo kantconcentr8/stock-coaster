@@ -1,10 +1,11 @@
 .ride-prototype {
   position: fixed;
   inset: 0;
-  background: #060e20;
-  color: #e5e5e5;
-  font-family: system-ui, sans-serif;
   overflow: hidden;
+  background: #060e20;
+  color: #f1eee7;
+  font-family: system-ui, sans-serif;
+  font-size: 18px;
 }
 .ride-prototype canvas {
   width: 100%;
@@ -13,236 +14,261 @@
 }
 .ride-top {
   position: absolute;
-  left: clamp(18px, 4vw, 60px);
-  right: clamp(18px, 4vw, 60px);
-  top: 24px;
+  inset: max(18px, env(safe-area-inset-top)) clamp(16px, 4vw, 60px) auto;
   display: flex;
   justify-content: space-between;
   align-items: start;
-  gap: 20px;
+  gap: 16px;
   pointer-events: none;
 }
 .ride-eyebrow {
   margin: 0 0 8px;
-  color: #fca311;
-  font-size: 11px;
-  letter-spacing: 0.18em;
+  color: #ffbc4d;
+  font-size: 14px;
+  line-height: 1.4;
   font-weight: 750;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 .ride-top h1 {
   margin: 0;
-  font-size: clamp(24px, 3.5vw, 48px);
-  letter-spacing: -0.045em;
-  line-height: 1.06;
+  font-size: clamp(28px, 3.4vw, 46px);
+  line-height: 1.1;
+  letter-spacing: -0.04em;
 }
-.ride-top a {
+.ride-top > button {
   pointer-events: auto;
-  color: #c3cddb;
-  text-decoration: none;
-  font-size: 12px;
-  border-bottom: 1px solid #8495ac66;
-  padding: 8px 0;
+  flex-shrink: 0;
+  margin-top: 4px;
 }
 .ride-stage {
   position: absolute;
-  top: 145px;
-  left: clamp(18px, 4vw, 60px);
+  top: 120px;
+  right: clamp(16px, 4vw, 60px);
   display: flex;
   align-items: center;
-  gap: 10px;
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: 0.14em;
-  color: #c6d1dd;
+  gap: 9px;
+  color: #e5e9ee;
+  font-size: 16px;
+  line-height: 1.4;
+  font-weight: 600;
 }
 .ride-stage::before {
   content: '';
-  width: 6px;
-  height: 6px;
+  width: 7px;
+  height: 7px;
   border-radius: 50%;
   background: #fca311;
-  box-shadow: 0 0 14px #fca31199;
 }
 .ride-bottom {
   position: absolute;
-  bottom: 24px;
-  left: clamp(18px, 4vw, 60px);
-  right: clamp(18px, 4vw, 60px);
+  bottom: max(20px, env(safe-area-inset-bottom));
+  left: clamp(16px, 4vw, 60px);
+  right: clamp(16px, 4vw, 60px);
   display: flex;
-  justify-content: space-between;
   align-items: end;
-  gap: 20px;
+  justify-content: space-between;
+  gap: 24px;
 }
 .ride-caption {
-  max-width: 390px;
-  font-size: 12px;
-  line-height: 1.6;
-  color: #c0cbd7;
+  max-width: 650px;
+  padding: 16px 20px;
+  border: 1px solid #738597;
+  border-radius: 12px;
+  background: #0a1729;
+  color: #fff3dd;
+  font-size: clamp(22px, 2vw, 28px);
+  line-height: 1.4;
+  font-weight: 550;
 }
 .ride-caption strong {
   display: block;
-  color: #fff;
+  margin-bottom: 8px;
   font-size: 15px;
-  font-weight: 550;
-  margin-bottom: 4px;
+  line-height: 1.4;
+  color: #ffd185;
+  font-weight: 700;
+}
+.ride-disclaimer {
+  margin: 8px 0 0;
+  color: #d6e0ea;
+  font-size: 14px;
+  line-height: 1.4;
 }
 .ride-controls {
   display: flex;
-  align-items: center;
-  gap: 8px;
-  flex-wrap: wrap;
-  justify-content: end;
+  gap: 10px;
+  flex-shrink: 0;
 }
-.ride-controls button {
-  color: #e5e5e5;
-  background: #102035e8;
-  border: 1px solid #627386;
+.ride-controls button,
+.ride-top > button {
+  min-height: 52px;
+  padding: 12px 18px;
+  border: 1px solid #8294a7;
   border-radius: 10px;
-  min-height: 48px;
-  padding: 12px 20px;
-  font-family: inherit;
-  font-size: 13px;
-  font-weight: 600;
+  background: #102035;
+  color: #f1eee7;
+  font:
+    650 16px/1.3 system-ui,
+    sans-serif;
   cursor: pointer;
   touch-action: manipulation;
 }
 .ride-controls button:first-child {
-  color: #07101d;
   background: #fca311;
+  color: #07101d;
   border-color: #fca311;
-  min-width: 135px;
+  min-width: 136px;
 }
 .ride-controls button[aria-pressed='true'] {
   border-color: #fca311;
 }
-.ride-controls button:focus-visible,
-.ride-top a:focus-visible {
+.ride-prototype :focus-visible {
   outline: 3px solid white;
-  outline-offset: 4px;
+  outline-offset: 3px;
 }
 .ride-progress {
   position: absolute;
   bottom: 0;
   left: 0;
-  height: 3px;
-  background: #fca311;
   width: 0;
-  box-shadow: 0 0 12px #fca31188;
+  height: 4px;
+  background: #fca311;
 }
 .ride-market {
   position: absolute;
-  top: 104px;
-  left: clamp(18px, 4vw, 60px);
-  max-width: min(540px, calc(100vw - 36px));
-  color: #c6d1dd;
-  font-size: 11px;
-  z-index: 2;
+  top: 108px;
+  left: clamp(16px, 4vw, 60px);
+  color: #e5e9ee;
+  font-size: 16px;
+  z-index: 3;
 }
 .ride-market summary {
+  min-height: 48px;
+  padding: 12px 16px;
+  border: 1px solid #738597;
+  border-radius: 10px;
+  background: #0a1729;
   cursor: pointer;
-  padding: 6px 8px;
-  background: #0a1729e8;
-  border-radius: 6px;
 }
 .ride-market-panel {
-  padding: 12px;
-  background: #0a1729f5;
-  border: 1px solid #627386;
-  border-radius: 8px;
-  max-height: 35vh;
+  position: absolute;
+  left: 0;
+  width: min(680px, calc(100vw - 32px));
+  max-height: 52dvh;
+  padding: 18px;
   overflow: auto;
+  border: 1px solid #8294a7;
+  border-radius: 10px;
+  background: #0a1729;
+  box-shadow: 0 16px 40px #0009;
 }
 .ride-market-panel p {
+  margin: 0 0 16px;
   line-height: 1.5;
-  margin: 0 0 10px;
 }
 .ride-market-panel table {
   border-collapse: collapse;
-  font-size: 10px;
+  font-size: 16px;
+  min-width: 560px;
 }
 .ride-market-panel th,
 .ride-market-panel td {
-  padding: 5px;
+  padding: 10px 8px;
   text-align: right;
+  border-bottom: 1px solid #46596b;
+}
+.ride-market-panel th {
+  font-size: 14px;
 }
 .ride-market-panel a {
-  color: #fca311;
+  display: inline-block;
+  padding: 12px 0;
+  color: #ffc66b;
 }
-@media (max-width: 600px) {
-  .ride-market {
-    top: 94px;
-  }
+@media (max-width: 700px) {
   .ride-top {
-    top: 20px;
+    gap: 12px;
   }
   .ride-top h1 {
-    font-size: 28px;
+    font-size: 26px;
   }
-  .ride-top a {
-    max-width: 90px;
-    text-align: right;
+  .ride-eyebrow {
+    font-size: 14px;
+    letter-spacing: 0.02em;
+  }
+  .ride-top > button {
+    font-size: 16px;
+    padding: 10px 12px;
+    max-width: 132px;
   }
   .ride-stage {
-    top: 125px;
+    top: 122px;
+    font-size: 14px;
+  }
+  .ride-market {
+    top: 108px;
+  }
+  .ride-market summary {
+    padding: 12px;
   }
   .ride-bottom {
-    bottom: 20px;
-    display: block;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+    bottom: max(16px, env(safe-area-inset-bottom));
   }
   .ride-caption {
-    font-size: 11px;
-    max-width: 100%;
-    margin-bottom: 12px;
+    max-width: none;
+    padding: 14px 16px;
+    font-size: 22px;
   }
   .ride-caption strong {
     font-size: 14px;
   }
+  .ride-disclaimer {
+    font-size: 14px;
+  }
   .ride-controls {
-    justify-content: start;
-    gap: 6px;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
   }
-  .ride-controls button {
-    padding: 10px 14px;
-    font-size: 12px;
-  }
+  .ride-controls button,
   .ride-controls button:first-child {
-    min-width: 115px;
+    min-width: 0;
+    font-size: 16px;
+    min-height: 52px;
+    padding: 10px 8px;
   }
 }
-
-.ride-disclaimer {
-  font-size: 10px;
-  color: #b8c4d3;
-  margin: 8px 0 12px;
-}
-.ride-top {
-  top: max(20px, env(safe-area-inset-top));
-}
-.ride-bottom {
-  bottom: max(24px, env(safe-area-inset-bottom));
-}
-@media (max-height: 500px) {
-  .ride-market {
-    top: 60px;
+@media (max-height: 500px) and (min-width: 701px) {
+  .ride-top {
+    top: 10px;
+  }
+  .ride-eyebrow {
+    margin-bottom: 4px;
   }
   .ride-top h1 {
-    font-size: 24px;
+    font-size: 28px;
+  }
+  .ride-market {
+    top: 76px;
   }
   .ride-stage {
     top: 90px;
   }
   .ride-bottom {
     bottom: 12px;
-    gap: 12px;
-    display: flex;
+    gap: 16px;
   }
   .ride-caption {
-    max-width: 300px;
-    font-size: 11px;
-    margin-bottom: 0;
+    max-width: 430px;
+    padding: 10px 14px;
+    font-size: 22px;
   }
   .ride-controls button {
-    padding: 8px 12px;
+    padding: 10px 12px;
   }
 }

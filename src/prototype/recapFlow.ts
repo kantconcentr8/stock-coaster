@@ -1,6 +1,5 @@
 import type { Briefing } from '@/core/types';
 import { el } from '@/ui/dom';
-import { formatCoverage } from '@/ui/format';
 import { createBriefingPanel } from '@/ui/screens/briefing';
 import { buildCtaUrl, captureAttribution } from '@/services/attribution';
 import { shareBriefing } from '@/services/share';
@@ -29,11 +28,10 @@ export function createRecapFlow(
     el('div', {}, [
       el('p', {
         class: 'ride-eyebrow',
-        text: `Candlestick Coaster / ${draft ? 'Draft recap' : 'Passenger recap'}`,
+        text: draft ? 'Draft recap' : 'Candlestick Coaster',
       }),
       el('h1', { text: 'The market is a ride.' }),
     ]),
-    el('a', { href: location.pathname, text: 'Original game' }),
   ]);
   const stage = el('div', { class: 'ride-stage', text: 'Ready to climb' });
   const ride = el('button', { type: 'button', text: 'Start ride' }) as HTMLButtonElement;
@@ -47,7 +45,12 @@ export function createRecapFlow(
     text: 'Sound off',
     'aria-pressed': 'false',
   }) as HTMLButtonElement;
-  const read = el('button', { type: 'button', text: 'Read briefing & sources' });
+  const read = el('button', {
+    type: 'button',
+    text: 'Read briefing',
+    'aria-label': 'Read briefing & sources',
+  });
+  header.append(read);
   const captionTitle = el('strong'),
     captionText = el('span');
   const caption = el(
@@ -57,21 +60,24 @@ export function createRecapFlow(
   );
   const progress = el('div', { class: 'ride-progress', 'aria-hidden': 'true' });
   const intro = el('section', { class: 'recap-card', 'aria-labelledby': 'recap-intro-title' }, [
-    el('p', { class: 'recap-kicker', text: 'Your seat for the market recap' }),
+    el('p', { class: 'recap-kicker', text: 'Your seat for the recap' }),
     el('h2', { id: 'recap-intro-title', text: briefing.title }),
   ]);
   const introBody = el(
     'div',
     { class: 'recap-card-body', tabindex: '0', 'aria-label': 'Recap introduction details' },
     [
-      el('p', { class: 'recap-coverage', text: formatCoverage(briefing) }),
+      el('p', {
+        class: 'recap-coverage',
+        text: `Market close: ${new Intl.DateTimeFormat('en-US', { timeZone: briefing.displayTimezone, month: 'short', day: 'numeric', year: 'numeric' }).format(new Date(briefing.coverageEnd))}`,
+      }),
       el('p', { class: 'recap-lede', text: briefing.chapters[0]!.caption }),
       el('p', {
-        text: 'A 28-second passenger ride through this briefing. Read along as the train climbs, plunges and recovers. Pause whenever you need more time.',
+        text: 'A 28-second ride. Read along and pause anytime.',
       }),
       el('p', {
         class: 'recap-integrity',
-        text: 'The track illustrates the narrative. Labeled background candles are saved daily market data when available; they do not determine the ride.',
+        text: 'Illustrative track. Saved daily candles provide market context.',
       }),
     ],
   );
@@ -79,7 +85,7 @@ export function createRecapFlow(
     introBody.append(
       el('p', {
         class: 'recap-draft',
-        text: 'Draft review: the editorial interpretation and research links are not approved. Saved market data does not establish the briefing thesis.',
+        text: 'Draft: research and interpretation are not approved.',
       }),
     );
   if (notice)
@@ -110,7 +116,7 @@ export function createRecapFlow(
         briefing.takeaways.map((takeaway) =>
           el('li', {}, [
             el('strong', { text: takeaway.label }),
-            el('span', { text: takeaway.text }),
+            el('span', { text: takeaway.text.split('TODO(owner):')[0]!.trim() }),
           ]),
         ),
       ),
@@ -145,6 +151,7 @@ export function createRecapFlow(
   end.append(endBody, el('div', { class: 'recap-card-actions' }, [share, cta]));
   const panel = createBriefingPanel(briefing, () => {}, { ctaUrl });
   panel.root.classList.add('ride-briefing');
+  panel.root.append(el('a', { href: location.pathname, text: 'Open original game' }));
   const openBriefing = () => {
     read.focus({ preventScroll: true });
     controls.pause();
@@ -159,12 +166,7 @@ export function createRecapFlow(
         text: `${draft ? 'Draft recap / ' : ''}Illustrative track / Not a historical price path`,
       }),
     ]),
-    el('div', { class: 'ride-controls', 'aria-label': 'Ride controls' }, [
-      ride,
-      replay,
-      sound,
-      read,
-    ]),
+    el('div', { class: 'ride-controls', 'aria-label': 'Ride controls' }, [ride, replay, sound]),
   ]);
   root.append(header, stage, intro, end, footer, progress, panel.root);
   document.title = `${briefing.title} | Candlestick Coaster`;

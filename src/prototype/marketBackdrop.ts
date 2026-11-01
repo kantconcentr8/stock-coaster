@@ -10,8 +10,13 @@ export function createMarketBackdrop(
 ) {
   const state: { candles: MarketCandle[] } = { candles: [] };
   const status = el('details', { class: 'ride-market' });
-  const summary = el('summary', { text: 'Illustrative candles / No saved recap data' });
-  status.append(summary);
+  const summary = el('summary', { text: 'No saved data' });
+  status.append(
+    summary,
+    el('div', { class: 'ride-market-panel' }, [
+      el('p', { text: 'No saved market candles for this recap. The background is illustrative.' }),
+    ]),
+  );
   root.append(status);
   if (!/^\d{4}-\d{2}-\d{2}-[a-z0-9-]+$/.test(id)) return state;
   void fetch(`/market/${encodeURIComponent(id)}.json`, { signal: AbortSignal.timeout(5000) })
@@ -21,8 +26,11 @@ export function createMarketBackdrop(
       if (!isMarketSnapshot(snapshot, id) || (sessionDate && snapshot.sessionDate !== sessionDate))
         return;
       state.candles = snapshot.candles;
-      summary.textContent = `${snapshot.sessionDate} close / ${snapshot.candles.length} ${snapshot.candles.length === 1 ? 'symbol' : 'symbols'} / Twelve Data`;
+      summary.textContent = 'Market data';
       const panel = el('div', { class: 'ride-market-panel' }, [
+        el('p', {
+          text: `${snapshot.sessionDate} close / ${snapshot.candles.length} ${snapshot.candles.length === 1 ? 'symbol' : 'symbols'} / Twelve Data`,
+        }),
         el('p', {
           text: 'Labeled candles use saved daily OHLC, scaled independently. O/C is the open-to-close move. Cream: close at or above open. Orange: close below open. Unlabeled scenery and coaster track remain illustrative.',
         }),
@@ -60,7 +68,7 @@ export function createMarketBackdrop(
           text: 'Data: Twelve Data',
         }),
       );
-      status.append(panel);
+      status.replaceChildren(summary, panel);
     })
     .catch(() => {
       /* Missing or invalid snapshot leaves the illustrative ride available. */

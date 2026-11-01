@@ -11,6 +11,7 @@ This is the current product overlay on plan v1.0 and the original game PRD. The 
 - Saved daily OHLC candles provide market context. Fetch once when preparing the recap after close; playback/builds make no provider calls. Candles are individually scaled. The track is illustrative and is not derived from those bars.
 - Editorial interpretation, factual market candles and hypothetical outlooks remain distinct. Existing draft labels, TODOs and approval metadata remain until explicitly finalized. Do not invent research sources.
 - Analytics remains disabled by owner decision. Do not add analytics or use fabricated funnel statistics to evaluate this version.
+- Design primarily for phone/social viewers, per owner direction. Use 18px body text, captions at least 22px, readable supporting labels and large touch controls; do not shrink the phone layout back to dashboard-sized type. Full metadata belongs in readable disclosures, not tiny overlays.
 
 ## Where the project stands
 

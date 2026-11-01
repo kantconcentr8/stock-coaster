@@ -69,7 +69,9 @@ test('passenger recap connects introduction, briefing chapters, ending, sharing 
     await page.getByRole('textbox', { name: 'Recap share link' }).inputValue(),
   );
   // Allow less than one CSS pixel of subpixel scroll rounding in Chromium.
-  await expect(page.getByRole('textbox', { name: 'Recap share link' })).toBeInViewport({ ratio: 0.98 });
+  await expect(page.getByRole('textbox', { name: 'Recap share link' })).toBeInViewport({
+    ratio: 0.98,
+  });
   expect(Object.fromEntries(shared.searchParams)).toEqual({
     b: '2026-10-31-lower-value',
     utm_source: 'share',
@@ -138,4 +140,58 @@ test('unknown recap falls back visibly and absent canvas retains dated text and 
       .getByRole('dialog')
       .getByRole('link', { name: 'Join the Predictourney waitlist', exact: true }),
   ).toBeVisible();
+});
+
+test('phone-first text remains readable and controls stay separate at narrow and desktop widths', async ({
+  page,
+}) => {
+  for (const [width, height] of [
+    [320, 568],
+    [390, 664],
+    [1440, 900],
+  ]) {
+    await page.setViewportSize({ width: width!, height: height! });
+    await page.goto('/?prototype=coaster');
+    await expect(page.locator('.ride-market summary')).toHaveText('Market data');
+    const headerBox = (await page.locator('.ride-top').boundingBox())!;
+    const dataBox = (await page.locator('.ride-market summary').boundingBox())!;
+    expect(headerBox.y + headerBox.height).toBeLessThanOrEqual(dataBox.y);
+    const card = page.locator('section.recap-card:not([hidden])');
+    const metrics = await card.evaluate((element) => {
+      const body = element.querySelector('.recap-card-body')!;
+      return {
+        bodyFont: parseFloat(getComputedStyle(body).fontSize),
+        bodyHeight: body.clientHeight,
+        bottom: element.getBoundingClientRect().bottom,
+      };
+    });
+    expect(metrics.bodyFont).toBeGreaterThanOrEqual(16);
+    expect(metrics.bodyHeight).toBeGreaterThanOrEqual(72);
+    const start = page.getByRole('button', { name: 'Start ride', exact: true });
+    const button = (await start.boundingBox())!;
+    expect(button.height).toBeGreaterThanOrEqual(44);
+    expect(button.width).toBeGreaterThanOrEqual(44);
+    expect(metrics.bottom).toBeLessThan(button.y);
+    await expect(start).toBeInViewport({ ratio: 0.98 });
+    await expect(page.getByRole('button', { name: 'Read briefing & sources' })).toBeInViewport({
+      ratio: 0.98,
+    });
+    await page.screenshot({
+      path: `test-results/readability-${test.info().project.name}-${width}-intro.png`,
+    });
+    await start.click();
+    await expect(page.locator('.ride-caption')).toBeVisible();
+    expect(
+      await page.locator('.ride-caption').evaluate((e) => parseFloat(getComputedStyle(e).fontSize)),
+    ).toBeGreaterThanOrEqual(20);
+    await page.getByRole('button', { name: 'Pause ride' }).click();
+    await page.screenshot({
+      path: `test-results/readability-${test.info().project.name}-${width}-ride.png`,
+    });
+    await page.getByRole('button', { name: 'Read briefing & sources' }).click();
+    expect(
+      await page.getByRole('dialog').evaluate((e) => parseFloat(getComputedStyle(e).fontSize)),
+    ).toBeGreaterThanOrEqual(16);
+    await page.getByRole('button', { name: 'Close briefing' }).click();
+  }
 });
