@@ -91,3 +91,9 @@ Living architecture map. Update when a public export, file, or folder changes. K
 
 - Phase 5 live QA: `scripts/audit-live.mjs` (full runs, metadata, headers, axe and intercepted CTA), `measure-live-performance.mjs` (CDP start readiness), `check-contrast.ts`; evidence under `docs/qa/p5-live/` and `p5.2/`.
 - `docs/qa/acceptance-audit.md`, `usability-sessions.md`: per-area release evidence and remaining real-user/owner gates. UI shell is the persistent main landmark.
+
+## Coaster visual prototype
+
+- `main.ts`: `?prototype=coaster` lazily mounts the separate motion study; normal URL retains briefing game.
+- `prototype/{geometry,track,train,scenery,prototype}.ts`, `prototype.css`: original Canvas 2D coaster, arc-length cars, rails/trestles, candlestick parallax, momentum and responsive controls.
+- `docs/coaster-visual-prototype.md`, `tests/e2e/prototype.spec.ts`: scope, art limitations and desktop/mobile motion verification. No main-game mechanics or editorial changes.

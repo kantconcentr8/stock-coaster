@@ -241,3 +241,10 @@ Performance: Lighthouse 79/100, accessibility 100/100; throttled Start ready 1.3
 Social asset field now points to the original final PNG; no editorial facts or approval metadata changed.
 G5 remains OPEN: approved source links/content sign-off, five real phone sessions, physical-device checks, rollback rehearsal and launch approval pending.
 No Phase 6 work started. Analytics remains disabled.
+
+### Visual direction reset - Coaster motion study 01 (2026-10-31)
+Result: separate ?prototype=coaster scene built from the chosen references' crest/drop composition and restrained palette.
+Four cars follow one physical track independently, with wheels, riders, couplings, steel trestles and layered candlestick scenery.
+Original procedural Canvas 2D study, not final 3D artwork. Held boost/brake changes momentum; pause/replay and reduced-motion/visibility behavior included.
+Existing normal-route game, editorial draft, scoring and release gates unchanged. Phase 6 not started.
+Verification: prototype sequence passes Chromium and mobile WebKit smoke checks; crest/drop screenshots inspected.
