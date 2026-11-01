@@ -1,7 +1,7 @@
-# Coaster passenger study 02
+# Complete passenger recap candidate
 
 Open `/?prototype=coaster`. The normal URL retains the existing briefing game.
-This separate Canvas 2D motion study uses original procedural artwork and illustrative track geometry, not historical market data or finished cinematic 3D art.
+This separate Canvas 2D passenger candidate uses original procedural artwork and illustrative track geometry, not a historical price path or finished cinematic 3D art. It now loads the selected dated briefing and connects entry, ride and ending.
 
 ## Passenger experience
 
@@ -9,7 +9,7 @@ Start begins an automatic 28-second active-time ride: seven-second climb, three-
 Four independently oriented cars, couplings, wheels, rails and trestles keep the train physical. Passengers raise their arms with speed; restrained air streaks accompany the plunge. Camera follow conveys the change in pace.
 
 Brake, boost, momentum, predictions and scoring are absent. Start/Pause/Resume and Replay use native buttons (keyboard and touch); Escape pauses. Replay immediately restarts the ride. Completion offers Ride again.
-Captions explain each illustrative section. They are motion-study copy, not a sourced or approved market briefing.
+Captions use the selected briefing's actual editorial chapters: context/lower value through the plunge (0-17s), bounce during recovery (17-24s), and conditional outlook labeled hypothetical (24-28s). Source chapter timestamps and coverage dates remain unchanged. The current editorial briefing remains unapproved.
 Sound defaults off. Optional original synthesized rail pulses and a speed-responsive rumble start only after a user gesture. Pause, completion, tab hiding, blur and page exit stop sound. Audio failure does not block the ride.
 Reduced motion removes streaks, passenger arm motion and camera easing. Nothing moves before Start. Pausing freezes ride time, scenery and camera; resuming continues the same sequence. The frame delta is capped at 100ms to accommodate slower rendering without large jumps.
 
@@ -23,6 +23,10 @@ Reduced motion removes streaks, passenger arm motion and camera easing. Nothing 
 
 Verification uses Chromium desktop and iPhone 13 WebKit emulation: complete ride, caption order, pause stability, replay, native Space activation, Escape, reduced motion, blocked audio, blur and landscape control visibility. Crest, drop and landscape screenshots are saved under `test-results/`.
 Physical-phone performance, audio quality and visual preference still require review. Editorial approval and Phase 5 release gates remain open; Phase 6 has not started. Analytics remains disabled.
+
+The intro displays the briefing title, coverage/publication dates, passenger instructions and draft status. Read briefing & sources works before/during/after the ride and pauses active time. Completion shows classified takeaways, Replay, safe route-preserving Share (native/clipboard/manual) and the existing attributed CTA, with no score. Missing canvas retains the full text/source path and CTA.
+
+Current implementation is split into `recapFlow.ts`/`recap.css` (HTML flow), `recapTimeline.ts` (stage/chapter presentation timing), `scene.ts` (renderer/camera/lifecycle) and `rideAudio.ts` (original synthesis), composed by `prototype.ts`. See [the revised plan](implementation-plan/passenger-experience.md) and [candidate QA](qa/passenger-recap.md).
 
 ## Dated market candles
 

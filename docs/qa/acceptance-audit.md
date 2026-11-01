@@ -43,3 +43,11 @@ OG/Twitter/canonical metadata and an absolute social-image URL are present; thir
 4. Resolve or explicitly accept any remaining gaps and approve public release. Remove ALLOW_UNAPPROVED only after content is finalized.
 
 No final release tag or G5 sign-off is issued while these items remain open. Phase 6 has not started.
+
+## Passenger candidate revision - November 1, 2026
+
+The table above records original-game evidence. It does not automatically approve the passenger candidate. Current product requirements are in [the passenger plan](../implementation-plan/passenger-experience.md); candidate-specific checks are in [passenger-recap.md](passenger-recap.md).
+
+Retired for the passenger version: brake/boost, lane selection, hazards/pickups, gameplay fairness, score/local bests and analytics-report requirements. Existing game behavior remains tested on the normal route while the passenger candidate stays at `?prototype=coaster`.
+
+The passenger candidate must demonstrate dated entry, caption/classification timing, hypothetical disclosure, full text/source access, pause/replay, saved-candle integrity, score-free takeaways, safe sharing/CTA attribution, accessibility/failure handling and mobile rendering. Physical-device evidence, five real first-time sessions, editorial approval, deliberate root-route promotion and rollback/launch sign-off remain outstanding. Phase 6 remains unstarted.

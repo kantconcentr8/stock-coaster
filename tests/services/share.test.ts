@@ -23,6 +23,27 @@ it('silently handles native cancellation without copying', async () => {
   expect(copy).not.toHaveBeenCalled();
   expect(emit).toHaveBeenCalledExactlyOnceWith('native');
 });
+it('keeps only the allowlisted coaster route when sharing a passenger recap', () => {
+  const url = new URL(
+    buildShareUrl(
+      'https://example.test/?prototype=coaster&email=private&testSpeed=8#secret',
+      'recap',
+      'manual',
+    ),
+  );
+  expect(Object.fromEntries(url.searchParams)).toEqual({
+    b: 'recap',
+    utm_source: 'share',
+    utm_medium: 'manual',
+    prototype: 'coaster',
+  });
+  expect(url.hash).toBe('');
+  expect(
+    new URL(
+      buildShareUrl('https://example.test/?prototype=unknown', 'recap', 'copy'),
+    ).searchParams.has('prototype'),
+  ).toBe(false);
+});
 it('falls through failed native and clipboard APIs to manual', async () => {
   const emit = vi.fn();
   const result = await shareBriefing(briefing, emit, {

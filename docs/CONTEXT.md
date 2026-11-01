@@ -104,3 +104,12 @@ Living architecture map. Update when a public export, file, or folder changes. K
 - `scripts/import-market-snapshot.ts`: `npm run recap:snapshot -- <briefingId>`; private-key, after-close import to immutable `public/market/<briefingId>.json`; repeat imports skip provider calls.
 - `prototype/marketBackdrop.ts`: `createMarketBackdrop`, one saved-file read, accessible data disclosure/table, illustrative fallback. `scenery.ts` draws labeled normalized candles; `drawMarketLabels` preserves label visibility over supports.
 - `docs/market-snapshots.md`: recap workflow, timing, symbol limitations and data semantics. No provider requests from browser playback or builds.
+
+## Complete passenger recap candidate
+
+- `prototype/prototype.ts`: selects the dated briefing and matching candle session; composes flow, scene and saved backdrop on the isolated route.
+- `prototype/recapFlow.ts`, `recap.css`: dated intro, classified captions, pause-to-read source dialog, score-free takeaways, safe share/manual fallback and attributed CTA; text access when canvas is absent.
+- `prototype/recapTimeline.ts`: `RIDE_DURATION`, `rideStage`, `recapChapter`; source chapter objects retimed for the passenger presentation without editing editorial timestamps.
+- `prototype/scene.ts`, `rideAudio.ts`: renderer/camera/pause/replay lifecycle and gesture-only original synthesis, separated from recap UI.
+- `services/share.ts`: shared URL allowlist also preserves `prototype=coaster` for passenger links; other private/debug fields remain excluded.
+- `docs/implementation-plan/passenger-experience.md`: current product overlay; revised Phase 6 uses observed evidence and a timed second recap, with analytics still disabled. G5 open.

@@ -51,7 +51,7 @@ test('recap candles load once from a saved file, with accessible OHLC and no pro
   expect(providerRequests).toEqual([]);
 });
 
-test('missing or mismatched recap data keeps candles explicitly illustrative', async ({ page }) => {
+test('missing recap data keeps candles explicitly illustrative', async ({ page }) => {
   await page.route('**/market/*.json', (route) =>
     route.fulfill({ status: 404, body: 'Not found' }),
   );
@@ -59,4 +59,35 @@ test('missing or mismatched recap data keeps candles explicitly illustrative', a
   await expect(page.locator('.ride-market summary')).toContainText('Illustrative candles');
   await page.getByRole('button', { name: 'Start ride', exact: true }).click();
   await expect(page.locator('.ride-stage')).toHaveText('The climb');
+});
+
+test('a saved candle file for the wrong session is not presented as recap data', async ({
+  page,
+}) => {
+  await page.route('**/market/*.json', (route) =>
+    route.fulfill({
+      json: {
+        version: 1,
+        briefingId: '2026-10-31-lower-value',
+        sessionDate: '2026-10-29',
+        fetchedAt: '2026-11-01T12:00:00Z',
+        source: 'Twelve Data',
+        unavailable: [],
+        candles: [
+          {
+            symbol: 'AAPL',
+            kind: 'stock',
+            date: '2026-10-29',
+            open: 100,
+            high: 110,
+            low: 95,
+            close: 105,
+          },
+        ],
+      },
+    }),
+  );
+  await page.goto('/?prototype=coaster');
+  await expect(page.locator('.ride-market summary')).toContainText('Illustrative candles');
+  await expect(page.locator('.ride-market table')).toHaveCount(0);
 });

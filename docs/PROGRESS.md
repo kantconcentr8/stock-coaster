@@ -267,3 +267,13 @@ Prototype labels real candles, independently scaled, with open-to-close percenta
 Validation: npm run check (105 unit tests), all 24 desktop/mobile browser tests, repeat-import no-call check and draft build/bundle checks pass; key absent from build/snapshot.
 Inspected desktop/mobile labels; refined disclosure placement and reran four snapshot browser checks plus build. Workflow in docs/market-snapshots.md.
 Original game/editorial approval/open G5 gates unchanged. Analytics disabled; Phase 6 unstarted. Physical-device review remains pending.
+
+### P5.R1-R2 - Complete draft passenger recap and revised plan (2026-11-01)
+Result: plan v1.1 makes passenger release the active milestone; Phase 6 revised to observed evidence + timed second recap, without analytics.
+Candidate now loads the dated briefing, introduces its context, times actual classified chapters to the ride and ends with takeaways, Replay, Share and attributed CTA.
+Chapter presentation: lower-value context through plunge 0-17s, bounce 17-24s, hypothetical outlook 24-28s; source JSON/timestamps/approval unchanged.
+Read briefing & sources works throughout and pauses the ride; canvas failure retains dated text/source/CTA access; unknown recap visibly falls back.
+Shared links retain the allowlisted prototype route and discard private/debug fields; backdrop rejects wrong-session data and Replay never refetches.
+Split scene/audio/HTML/timeline modules; scrolling text is keyboard accessible, mobile dialog focus restored, end actions remain visible and manual share scrolls into view.
+Validation: npm run check (108 unit tests), all 28 browser regressions, six passenger rechecks after card adjustment, draft production build/bundle pass; intro/end axe scans clear.
+Updated plan/acceptance/session docs; candidate remains isolated until release promotion. G5 open: editorial sources/approval, five real phone sessions, physical-device checks and rollback/launch sign-off. Phase 6 unstarted.

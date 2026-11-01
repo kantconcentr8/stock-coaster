@@ -9,6 +9,8 @@ export function buildShareUrl(href: string, id: string, method: ShareMethod): st
   const current = new URL(href);
   const url = new URL(current.pathname, current.origin);
   url.search = new URLSearchParams({ b: id, utm_source: 'share', utm_medium: method }).toString();
+  if (current.searchParams.get('prototype') === 'coaster')
+    url.searchParams.set('prototype', 'coaster');
   return url.href;
 }
 function browserEnvironment(): ShareEnvironment {

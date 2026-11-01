@@ -1,5 +1,7 @@
 # Phase 5 — Pilot Release (PRD Milestone 5)
 
+Passenger revision: [passenger-experience.md](passenger-experience.md) governs the current candidate. Existing game-specific tasks below are historical implementation requirements. Retired controls/scoring are not passenger release requirements; analytics stays disabled. G5 still requires editorial approval, real-phone evidence, rollback rehearsal and launch sign-off for the selected passenger version.
+
 **Goal:** Audio and brand polish, accessibility and failure hardening, performance budget, static deployment with preview + rollback, first-time usability sessions, and a full acceptance audit.
 **PRD refs:** §10 accessibility, §15 performance/browser targets, §16, §17 (all), §18, §19 M5, §20, §22.
 **Exit (Gate G5):** All PRD §17 rows pass or have owner-accepted gaps; ≥ 5 usability sessions done with recurring issues resolved; owner approves public release.
