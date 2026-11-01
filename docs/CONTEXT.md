@@ -88,3 +88,6 @@ Living architecture map. Update when a public export, file, or folder changes. K
 - `docs/assets-attribution.md`: original visual/audio sources. Production schema rejects unresolved editorial TODOs.
 
 - `scripts/vercel-env.ts`: `vercelBuildEnv` resolves metadata URLs from Vercel system variables and preserves an explicit draft-review override; unapproved HTML has noindex/nofollow.
+
+- Phase 5 live QA: `scripts/audit-live.mjs` (full runs, metadata, headers, axe and intercepted CTA), `measure-live-performance.mjs` (CDP start readiness), `check-contrast.ts`; evidence under `docs/qa/p5-live/` and `p5.2/`.
+- `docs/qa/acceptance-audit.md`, `usability-sessions.md`: per-area release evidence and remaining real-user/owner gates. UI shell is the persistent main landmark.

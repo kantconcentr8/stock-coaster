@@ -1,12 +1,8 @@
 import { expect, test, type Page } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 async function audit(page: Page) {
-  const result = await new AxeBuilder({ page })
-    .withTags(['wcag2a', 'wcag2aa', 'wcag21aa'])
-    .analyze();
-  expect(
-    result.violations.filter((item) => ['serious', 'critical'].includes(item.impact ?? '')),
-  ).toEqual([]);
+  const result = await new AxeBuilder({ page }).analyze();
+  expect(result.violations).toEqual([]);
 }
 test('keyboard menus, briefing, pause and results are accessible', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' });

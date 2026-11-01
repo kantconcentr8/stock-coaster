@@ -11,3 +11,8 @@ Mute is available before play and in pause; sound is optional and defaults to mu
 Manual VoiceOver/NVDA and physical-device reduced-motion checks remain pending.
 The action game is not designed for fully nonvisual gameplay; text briefing and conversion path are available without completing a run.
 See `tests/e2e/a11y.spec.ts` and the screenshots emitted to `test-results/`.
+
+Live check: no serious/critical axe violations on Chromium/WebKit intro/results; a moderate landmark warning was found.
+Fixed by making the persistent UI shell the main landmark and keeping intro as a section.
+Local full axe scans (all rules, no severity filter) then pass with zero violations on intro/briefing/pause/results on both engines.
+Lighthouse live accessibility score: 100. See p5-live reports for the audited pre-fix deployment.

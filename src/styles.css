@@ -118,7 +118,8 @@ h1.screen,
   cursor: pointer;
 }
 
-.btn-primary {
+.btn-primary,
+.screen a.btn-primary {
   background: var(--color-orange);
   color: var(--color-black);
   border: none;

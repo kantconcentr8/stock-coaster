@@ -232,3 +232,12 @@ Repository sync includes the existing local review-sheet edits; their checklist 
 Result: SITE_URL now defaults to Vercel project/deployment URLs; explicit overrides are HTTPS-validated.
 Strict editorial validation remains the default; explicit ALLOW_UNAPPROVED=1 supports draft review on the default domain.
 Unapproved builds carry noindex/nofollow and retain draft labels/approval metadata. README/DEPLOY instructions updated.
+
+### P5.2-P5.8 - Live technical audit and remaining owner gates (2026-10-31)
+Result: live Chromium/mobile WebKit full runs pass; headers, caching, Brotli, canonical/OG and attributed CTA verified.
+Files: scripts/{audit-live,measure-live-performance}.mjs, check-contrast.ts, docs/qa/{p5-live,p5.2,acceptance-audit,usability-sessions}.
+Contrast: eight pairs pass. Fixed fallback CTA contrast and persistent main landmark; zero-violation local axe scans pass on both engines.
+Performance: Lighthouse 79/100, accessibility 100/100; throttled Start ready 1.3s (9 Mbps, 40ms, CPU 4x, Windows host emulation).
+Social asset field now points to the original final PNG; no editorial facts or approval metadata changed.
+G5 remains OPEN: approved source links/content sign-off, five real phone sessions, physical-device checks, rollback rehearsal and launch approval pending.
+No Phase 6 work started. Analytics remains disabled.

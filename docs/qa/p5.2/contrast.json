@@ -1,0 +1,66 @@
+[
+  {
+    "label": "Body text",
+    "foreground": "#e5e5e5",
+    "background": "#14213d",
+    "minimum": 4.5,
+    "ratio": 12.68,
+    "pass": true
+  },
+  {
+    "label": "White links/text",
+    "foreground": "#ffffff",
+    "background": "#14213d",
+    "minimum": 4.5,
+    "ratio": 15.97,
+    "pass": true
+  },
+  {
+    "label": "Classification/headings",
+    "foreground": "#fca311",
+    "background": "#14213d",
+    "minimum": 4.5,
+    "ratio": 7.9,
+    "pass": true
+  },
+  {
+    "label": "Primary button/link",
+    "foreground": "#000000",
+    "background": "#fca311",
+    "minimum": 4.5,
+    "ratio": 10.39,
+    "pass": true
+  },
+  {
+    "label": "Secondary text",
+    "foreground": "#ffffff",
+    "background": "#28313f",
+    "minimum": 4.5,
+    "ratio": 13.11,
+    "pass": true
+  },
+  {
+    "label": "Muted results text",
+    "foreground": "#b4bfd0",
+    "background": "#080d16",
+    "minimum": 4.5,
+    "ratio": 10.47,
+    "pass": true
+  },
+  {
+    "label": "Rail/control outline",
+    "foreground": "#90e0ef",
+    "background": "#14213d",
+    "minimum": 3,
+    "ratio": 10.72,
+    "pass": true
+  },
+  {
+    "label": "Pickup glyph",
+    "foreground": "#001219",
+    "background": "#00bbf9",
+    "minimum": 3,
+    "ratio": 8.61,
+    "pass": true
+  }
+]

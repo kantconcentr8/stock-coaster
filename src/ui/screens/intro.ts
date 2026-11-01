@@ -31,7 +31,7 @@ export function createIntroScreen(
 
   startBtn.addEventListener('click', () => onStart());
 
-  const root = el('main', { id: 'screen-intro', class: 'screen modal-card' }, [
+  const root = el('section', { id: 'screen-intro', class: 'screen modal-card' }, [
     el('div', { class: 'brand-lockup' }, [
       brandMark(),
       el('span', { text: options?.briefing.brandName ?? 'Candlestick Coaster' }),

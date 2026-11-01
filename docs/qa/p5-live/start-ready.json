@@ -1,0 +1,22 @@
+{
+  "target": "https://stock-coaster-seven.vercel.app/",
+  "conditions": {
+    "browser": "Chromium Pixel 5 emulation on Windows host",
+    "rttMs": 40,
+    "downloadMbps": 9,
+    "uploadMbps": 1.5,
+    "cpuSlowdown": 4,
+    "cache": "disabled"
+  },
+  "startReadyMs": 1302.0999999046326,
+  "paints": [
+    {
+      "name": "first-paint",
+      "startTime": 288
+    },
+    {
+      "name": "first-contentful-paint",
+      "startTime": 604
+    }
+  ]
+}

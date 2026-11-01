@@ -52,3 +52,11 @@ Official references, checked 2026-10-31:
 - [Instant Rollback](https://vercel.com/docs/instant-rollback)
 - [Hobby plan](https://vercel.com/docs/plans/hobby)
 - [Fair use](https://vercel.com/docs/limits/fair-use-guidelines)
+
+## Live draft verification (2026-10-31)
+
+Owner deployed https://stock-coaster-seven.vercel.app/.
+Automated checks confirmed HTTP 200, Brotli, CSP, Referrer-Policy, nosniff, Permissions-Policy,
+revalidated HTML, immutable hashed assets, correct canonical/OG image URLs, noindex draft metadata,
+and working full runs/attributed CTA on Chromium and WebKit emulation. See qa/p5-live/report.json.
+Actual Vercel rollback rehearsal remains pending owner execution/account access; it is not claimed complete.

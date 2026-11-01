@@ -190,8 +190,10 @@ Mark `[x]` when the task's PROGRESS entry is written.
 - **Phase 2:** [x] P2.1 [x] P2.2 [x] P2.3 [x] P2.4 [x] P2.5 · [ ] **G2**
 - **Phase 3:** [x] P3.1 [x] P3.2 [x] P3.3 [x] P3.4 [x] P3.5 [x] P3.6 [x] P3.7 [x] P3.8 [ ] P3.9 · [ ] **G3**
 - **Phase 4:** [x] P4.1 [x] P4.2 [x] P4.3 [x] P4.4 [x] P4.5 [x] P4.6 · [ ] **G4** (local funnel passed; public card debugger pending hosting)
-- **Phase 5:** [ ] P5.1 [ ] P5.2 [ ] P5.3 [ ] P5.4 [ ] P5.5 [ ] P5.6 [ ] P5.7 [ ] P5.8 · [ ] **G5**
+- **Phase 5:** [ ] P5.1 [x] P5.2 [ ] P5.3 [x] P5.4 [ ] P5.5 [ ] P5.6 [ ] P5.7 [ ] P5.8 · [ ] **G5**
 - **Phase 6:** [ ] P6.1 [ ] P6.2 [ ] P6.3 · [ ] **G6**
+
+Phase 5 technical/live evidence and remaining owner checks: [acceptance audit](../qa/acceptance-audit.md). Hosting is live; physical-device, editorial, usability and rollback gates remain open.
 
 **Totals:** 48 tasks (15 S, 33 M) + 6 gates.
 
