@@ -33,11 +33,12 @@ Import this GitHub repository into your Vercel project. Framework: Vite.
 Install command: `npm ci`. Build command: `npm run build:vercel`. Output: `dist`.
 Use `main` as the production branch. Do not set `VITE_*` variables containing secrets.
 
-Preview deployments automatically permit draft content and use the deployment URL for social metadata.
-For production, set `SITE_URL` to the final HTTPS URL and finish editorial approval in the briefing JSON.
-Production builds intentionally fail while `TODO(owner)` text or unapproved content remains,
-even if `ALLOW_UNAPPROVED` is set. Use a preview deployment to review the current draft.
-The Vercel build command expects Vercel's standard `VERCEL_ENV` and `VERCEL_URL` system variables.
+Vercel's project/deployment URL is used automatically for social metadata; `SITE_URL` is an optional HTTPS override.
+Preview deployments permit draft content. Production builds require approved content by default.
+To review the existing draft on the default Vercel domain, set `ALLOW_UNAPPROVED=1` in the
+Vercel project's Production environment and redeploy. This review override leaves the draft
+label and approval metadata intact; unapproved builds include `noindex, nofollow` metadata.
+Remove the override and complete editorial approval before public launch.
 
 Security/cache headers are in `vercel.json`. No analytics provider, paid service, server,
 API token or database is required by the game. Hosting/account eligibility and billing are managed by the owner.

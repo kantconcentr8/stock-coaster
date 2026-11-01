@@ -12,8 +12,11 @@ Pull requests/branches produce previews according to the project's Git settings.
 Preview environment permits the draft and uses `https://$VERCEL_URL` for metadata.
 Unlike local test-preview, Vercel previews compile out diagnostic analytics and accelerated simulation.
 
-Production requires an HTTPS `SITE_URL`, approved content with owner/date attribution,
-and zero unresolved `TODO(owner)` markers. The preview override cannot bypass these production checks.
+SITE_URL is optional: production uses VERCEL_PROJECT_PRODUCTION_URL then VERCEL_URL; previews use VERCEL_URL.
+An explicit SITE_URL must be HTTPS. Strict production builds require approved content and zero TODOs.
+For draft review on the default Vercel domain, explicitly set ALLOW_UNAPPROVED=1 in Production and redeploy.
+This permits review only; editorial approval stays false, draft labels remain, and robots metadata is noindex/nofollow.
+Remove the override before public launch.
 Configure deployment protection/approval controls in the Vercel project before enabling public release.
 The repository CI verifies code, a preview build, and browser tests; CI success is not launch approval.
 

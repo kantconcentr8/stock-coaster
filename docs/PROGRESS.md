@@ -227,3 +227,8 @@ No analytics added; no paid plan/overage enabled. Phase 6 has not started.
 GitHub handoff verification: `npm run check` passed (96 unit tests); all 16 Chromium/mobile WebKit tests passed.
 Local draft preview build passed: initial HTML/CSS/JS 20,395 bytes gzip; full playable payload 378,177 bytes gzip.
 Repository sync includes the existing local review-sheet edits; their checklist alone does not modify content approval metadata.
+
+### P5.6a - Vercel reimport build fix (2026-10-31)
+Result: SITE_URL now defaults to Vercel project/deployment URLs; explicit overrides are HTTPS-validated.
+Strict editorial validation remains the default; explicit ALLOW_UNAPPROVED=1 supports draft review on the default domain.
+Unapproved builds carry noindex/nofollow and retain draft labels/approval metadata. README/DEPLOY instructions updated.

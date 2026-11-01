@@ -35,6 +35,7 @@ export function socialMetadata(): Plugin {
           `<title>${escape(briefing.title)} | Candlestick Coaster</title>`,
         ),
         tags: [
+          ...(!briefing.approval.approved ? [tag('robots', 'noindex, nofollow')] : []),
           tag('description', description),
           tag('og:type', 'website', true),
           tag('og:title', briefing.title, true),

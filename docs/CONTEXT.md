@@ -86,3 +86,5 @@ Living architecture map. Update when a public export, file, or folder changes. K
 - `vercel.json`, `.github/workflows/ci.yml`, `README.md`, `docs/DEPLOY.md`: hosting handoff, headers, CI and rollback instructions.
 - `tests/e2e/a11y.spec.ts`, `failures.spec.ts`: axe, keyboard, reduced motion, blocked graphics/storage/audio, runtime and renderer download failures.
 - `docs/assets-attribution.md`: original visual/audio sources. Production schema rejects unresolved editorial TODOs.
+
+- `scripts/vercel-env.ts`: `vercelBuildEnv` resolves metadata URLs from Vercel system variables and preserves an explicit draft-review override; unapproved HTML has noindex/nofollow.
