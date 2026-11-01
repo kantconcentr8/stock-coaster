@@ -1,5 +1,6 @@
 import Phaser from 'phaser';
 import type { App } from '@/app';
+import type { LayoutRegion } from '@/ui/layout';
 import { createCameraRig, type CameraRig } from './camera';
 import { createEffects, type Effects } from './effects';
 import { createKartView, type KartView } from './kartView';
@@ -12,6 +13,7 @@ export class GameScene extends Phaser.Scene {
   private objectView?: ObjectView;
   private readonly cameraRig: CameraRig;
   private readonly effects: Effects;
+  private trackRegion?: LayoutRegion;
   private readonly onFrame?: (visibleAheadSec: number, frameSec: number, steps: number) => void;
 
   constructor(
@@ -28,6 +30,13 @@ export class GameScene extends Phaser.Scene {
     this.onFrame = onFrame;
   }
 
+  setTrackRegion(region: LayoutRegion): void {
+    this.trackRegion = region;
+    if (this.scale) {
+      this.cameraRig.resize(this.scale.width, this.scale.height, this.trackRegion);
+    }
+  }
+
   create(): void {
     this.trackView = createTrackView(this, this.app.track);
     this.objectView = createObjectView(this, this.app.course.objects, this.app.track);
@@ -37,9 +46,9 @@ export class GameScene extends Phaser.Scene {
     this.app.bus.on('hazardHit', () => this.effects.triggerHazardNudge());
 
     this.scale.on('resize', (gameSize: Phaser.Structs.Size) => {
-      this.cameraRig.resize(gameSize.width, gameSize.height);
+      this.cameraRig.resize(gameSize.width, gameSize.height, this.trackRegion);
     });
-    this.cameraRig.resize(this.scale.width, this.scale.height);
+    this.cameraRig.resize(this.scale.width, this.scale.height, this.trackRegion);
     this.syncViews();
   }
 

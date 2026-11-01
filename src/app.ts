@@ -21,6 +21,9 @@ export interface App {
   restartRun(): void;
   pauseRun(): void;
   resumeRun(): void;
+  exitRun(): void;
+  /** Wires visibilitychange (hidden) and pagehide to pauseRun() without auto-resuming. */
+  bindVisibilityPause(doc?: Document, win?: Window): () => void;
   /** Called once per render frame with elapsed seconds; returns steps executed this frame. */
   tick(frameSeconds: number): number;
 }
@@ -31,6 +34,12 @@ export interface AppDeps {
   clock: RunClock;
   course?: CourseDef;
   input?: InputController;
+}
+
+function syncPlayingClass(phase: string): void {
+  if (typeof document === 'undefined' || !document.body) return;
+  const active = phase === 'running' || phase === 'countdown';
+  document.body.classList.toggle('is-playing', active);
 }
 
 export function createApp({
@@ -61,6 +70,7 @@ export function createApp({
       clock.reset();
       input.clearAll();
       countdownRemaining = TUNING.COUNTDOWN_SECONDS;
+      syncPlayingClass(machine.phase);
     },
     restartRun() {
       if (!machine.send('restart')) return;
@@ -68,17 +78,47 @@ export function createApp({
       clock.reset();
       input.clearAll();
       countdownRemaining = TUNING.COUNTDOWN_SECONDS;
+      syncPlayingClass(machine.phase);
       bus.emit({ type: 'restart', t: 0 });
     },
     pauseRun() {
       if (!machine.send('pause')) return;
       input.clearAll();
+      syncPlayingClass(machine.phase);
       bus.emit({ type: 'pause', t: clock.activeTime });
     },
     resumeRun() {
       if (!machine.send('resume')) return;
       input.clearAll();
       countdownRemaining = TUNING.RESUME_COUNTDOWN_SECONDS;
+      syncPlayingClass(machine.phase);
+    },
+    exitRun() {
+      if (!machine.send('exit')) return;
+      sim.reset();
+      clock.reset();
+      input.clearAll();
+      countdownRemaining = 0;
+      syncPlayingClass(machine.phase);
+    },
+    bindVisibilityPause(
+      doc = typeof document !== 'undefined' ? document : undefined,
+      win = typeof window !== 'undefined' ? window : undefined,
+    ) {
+      const onVis = () => {
+        if (doc?.visibilityState === 'hidden') {
+          this.pauseRun();
+        }
+      };
+      const onPageHide = () => {
+        this.pauseRun();
+      };
+      doc?.addEventListener('visibilitychange', onVis);
+      win?.addEventListener('pagehide', onPageHide);
+      return () => {
+        doc?.removeEventListener('visibilitychange', onVis);
+        win?.removeEventListener('pagehide', onPageHide);
+      };
     },
     tick(frameSeconds) {
       const clamped = Math.min(Math.max(frameSeconds, 0), TUNING.MAX_FRAME);
@@ -88,10 +128,14 @@ export function createApp({
         if (countdownRemaining <= 0) {
           if (machine.isResumeCountdown) {
             if (machine.send('resumeCountdownDone')) {
+              input.clearAll();
+              syncPlayingClass(machine.phase);
               bus.emit({ type: 'resume', t: clock.activeTime });
             }
           } else {
             if (machine.send('countdownDone')) {
+              input.clearAll();
+              syncPlayingClass(machine.phase);
               bus.emit({ type: 'runStart', t: 0 });
             }
           }
@@ -107,6 +151,7 @@ export function createApp({
       if (result.finished) {
         sim.state.done = true;
         if (machine.send('timeUp')) {
+          syncPlayingClass(machine.phase);
           bus.emit({ type: 'runComplete', score: sim.state.stats.score, t: clock.activeTime });
         }
       }

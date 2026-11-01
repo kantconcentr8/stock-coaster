@@ -98,3 +98,27 @@ Notes: `npm run fairness` verifies course length, >=1 open rail per cluster, DP 
 Result: done (awaiting owner Gate 1 playtest sign-off)
 Files: src/ui/debugOverlay.ts, src/config/tuning.ts, src/main.ts.
 Notes: `?debug=1` loads `debugOverlay.ts` only under `import.meta.env.DEV` (tree-shaken from production build). Tuning baseline: `vMin=120`, `vCruise=220`, `vMax=320`, `vMaxBoost=420`, `gravityK=180`, `boostAccel=160`, `brakeDecel=220`, `laneChangeSeconds=0.25`.
+
+### P2.1 — Responsive layout, safe areas, DPR scaling (2026-10-31)
+Result: done
+Files: src/ui/layout.ts, src/styles.css, src/render/{camera,createGame,GameScene}.ts, tests/ui/layout.test.ts.
+Notes: `computeLayoutMetrics` reserves HUD top band and portrait controls bottom band (~24% height), caps DPR at 2, and centers camera vertically in `trackRegion` while keeping `visibleAheadSeconds >= 2.0`.
+
+### P2.2 — Touch controls with Pointer Events (2026-10-31)
+Result: done
+Files: src/input/touch.ts, src/ui/touchControls.ts, src/styles.css, tests/input/touch.test.ts.
+Notes: Four `<button>` controls (>= 44x44px) with ARIA labels and shape+text; multi-touch tracked per `pointerId` with `pointercancel`/`lostpointercapture`/`blur`/`orientationchange` cleanup.
+
+### P2.3 — Pause, visibility auto-pause, resume countdown (2026-10-31)
+Result: done
+Files: src/ui/screens/pause.ts, src/ui/hud.ts, src/app.ts, src/main.ts, tests/core/pauseFlow.test.ts.
+Notes: HUD pause button + Escape key; `visibilitychange` (hidden) and `pagehide` auto-pause without auto-resuming; Resume triggers 3s `RESUME_COUNTDOWN_SECONDS`; focus trapped inside Pause modal.
+
+### P2.4 — Scroll, zoom, and gesture suppression; in-app browser hardening (2026-10-31)
+Result: done
+Files: src/styles.css, src/app.ts, src/ui/inAppBrowser.ts, docs/qa/p2.4.md, tests/ui/layout.test.ts.
+Notes: `body.is-playing` suppresses touch-action/overscroll/selection only during `running`/`countdown`; in-app WebView detector shows dismissible copy-link banner on intro.
+
+### P2.5 — Reference-device test pass and Gate 2 (2026-10-31)
+Result: done (automated checks green; physical device rows in `docs/qa/device-matrix.md` ready for owner LAN check)
+Files: docs/qa/device-matrix.md, docs/PROGRESS.md.

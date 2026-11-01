@@ -4,11 +4,12 @@ import { el } from './dom';
 
 export interface Hud {
   readonly root: HTMLElement;
+  readonly pauseBtn: HTMLButtonElement;
   update(state: SimState, activeTime: number): void;
   setVisible(visible: boolean): void;
 }
 
-export function createHud(): Hud {
+export function createHud(onPause?: () => void): Hud {
   const timeVal = el('span', { class: 'hud-value', text: '60.0s' });
   const scoreVal = el('span', { class: 'hud-value', text: '0' });
   const boostFill = el('div', { class: 'hud-boost-fill' });
@@ -25,6 +26,16 @@ export function createHud(): Hud {
     [boostFill],
   );
 
+  const pauseBtn = el('button', {
+    id: 'btn-hud-pause',
+    type: 'button',
+    class: 'hud-pause-btn',
+    'aria-label': 'Pause',
+    text: '❚❚',
+  }) as HTMLButtonElement;
+
+  pauseBtn.addEventListener('click', () => onPause?.());
+
   const root = el('header', { id: 'hud', class: 'hud', hidden: '' }, [
     el('div', { class: 'hud-item' }, [el('span', { class: 'hud-label', text: 'Time' }), timeVal]),
     el('div', { class: 'hud-item' }, [el('span', { class: 'hud-label', text: 'Score' }), scoreVal]),
@@ -32,6 +43,7 @@ export function createHud(): Hud {
       el('span', { class: 'hud-label', text: 'Boost' }),
       boostBar,
     ]),
+    pauseBtn,
   ]);
 
   let lastTimeStr = '';
@@ -40,6 +52,7 @@ export function createHud(): Hud {
 
   return {
     root,
+    pauseBtn,
     update(state, activeTime) {
       const rem = Math.max(0, TUNING.RUN_SECONDS - activeTime);
       const timeStr = `${rem.toFixed(1)}s`;

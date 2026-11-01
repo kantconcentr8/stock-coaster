@@ -14,8 +14,8 @@ Living architecture map. Update when a public export, file, or folder changes. K
 
 | Path | Responsibility | Public exports | Depends on |
 | --- | --- | --- | --- |
-| `src/main.ts` | Bootstrap: capability check, app, Phaser, HUD & screens, debug overlay | — | app, core/*, input/keyboard, render/createGame, ui/* |
-| `src/app.ts` | Frame-loop hook `tick`; owns bus/machine/clock/sim/input wiring | `createApp`, `App`, `AppDeps` | core/*, sim/*, input/inputState |
+| `src/main.ts` | Bootstrap: capability check, app, Phaser, HUD, touch, screens, debug | — | app, core/*, input/*, render/*, ui/* |
+| `src/app.ts` | Frame-loop hook `tick`; owns bus/machine/clock/sim/input + visibility pause | `createApp`, `App`, `AppDeps` | core/*, sim/*, input/inputState |
 | `src/config/tuning.ts` | All physics/scoring/timing constants | `TUNING`, `SCORING_VERSION`, `Tuning` | — |
 | `src/core/types.ts` | Shared contract types (no runtime code) | `RailIndex`, `InputState`, `KartState`, `CourseDef`, `CourseSegment`, `SimState`, `RunPhase`, `GameEvent`, `Briefing` | — |
 | `src/core/stateMachine.ts` | Run phase transitions | `createRunMachine`, `RunAction`, `RunMachine` | core/types |
@@ -30,16 +30,20 @@ Living architecture map. Update when a public export, file, or folder changes. K
 | `src/sim/simulation.ts` | Pure step composition + deterministic reset | `createSim`, `Sim` | core/types, sim/* |
 | `src/input/inputState.ts` | Device-agnostic `InputState` controller | `createInput`, `InputController` | core/types |
 | `src/input/keyboard.ts` | Desktop keyboard adapter (Up/W, Down/S, Space, Shift, Esc, R) | `attachKeyboard`, `KeyboardOptions` | core/types, input/inputState |
-| `src/render/camera.ts` | Camera zoom & scroll guaranteeing >= 2.0s preview | `createCameraRig`, `CameraRig` | config/tuning |
+| `src/input/touch.ts` | Multi-touch Pointer Events adapter with pointerId tracking | `attachTouch`, `TouchBindingOptions` | input/inputState, ui/touchControls |
+| `src/render/camera.ts` | Camera zoom & scroll guaranteeing >= 2.0s preview in trackRegion | `createCameraRig`, `CameraRig` | config/tuning, ui/layout |
 | `src/render/trackView.ts` | Chunked Phaser Graphics rails distinguished by style + width | `createTrackView`, `TrackView` | phaser, sim/track |
 | `src/render/kartView.ts` | Vector kart view + <= 3 Hz invulnerability pulse | `createKartView`, `KartView` | phaser, core/types, sim/{lanes,track} |
 | `src/render/objectView.ts` | Pooled pickups (+) and hazards (!) distinguishable in grayscale | `createObjectView`, `ObjectView` | phaser, core/types, sim/track |
 | `src/render/effects.ts` | Screen-nudge on hazard hit (respects `reducedMotion`) | `createEffects`, `Effects` | — |
-| `src/render/GameScene.ts` | Phaser scene syncing sim state to views | `GameScene` | phaser, app, render/* |
-| `src/render/createGame.ts` | Phaser game factory | `createGame` | phaser, app, render/GameScene |
+| `src/render/GameScene.ts` | Phaser scene syncing sim state and layout trackRegion | `GameScene` | phaser, app, render/*, ui/layout |
+| `src/render/createGame.ts` | Phaser game factory (DPR capped at 2) | `createGame` | phaser, app, render/GameScene |
 | `src/ui/dom.ts` | `el`, `show`, `hide` DOM helpers (`textContent` only) | `el`, `show`, `hide` | — |
-| `src/ui/hud.ts` | HTML HUD (remaining time, score, ARIA boost meter) | `createHud`, `Hud` | config/tuning, core/types, ui/dom |
-| `src/ui/screens/` | `intro.ts`, `countdown.ts`, `results.ts`, `fallback.ts` | `createIntroScreen`, `createCountdownScreen`, `createResultsScreen`, `renderFallback` | core/types, sim/scoring, ui/dom |
+| `src/ui/layout.ts` | Portrait/landscape regions, DPR cap, debounced resize | `computeLayoutMetrics`, `createLayoutManager`, `LayoutMetrics` | — |
+| `src/ui/touchControls.ts` | Accessible on-screen Up/Down/Brake/Boost buttons | `createTouchControls`, `TouchControlElements` | ui/dom |
+| `src/ui/inAppBrowser.ts` | In-app WebView detector & non-blocking copy-link banner | `isInAppBrowser`, `createInAppBrowserBanner` | ui/dom |
+| `src/ui/hud.ts` | HTML HUD (time, score, boost meter, pause button) | `createHud`, `Hud` | config/tuning, core/types, ui/dom |
+| `src/ui/screens/` | `intro.ts`, `countdown.ts`, `pause.ts`, `results.ts`, `fallback.ts` | `createIntroScreen`, `createCountdownScreen`, `createPauseScreen`, `createResultsScreen`, `renderFallback` | core/types, sim/scoring, ui/dom |
 | `src/ui/debugOverlay.ts` | Dev-only `?debug=1` live readout & tuning sliders | `createDebugOverlay`, `DebugOverlay` | config/tuning, core/types, sim/track, ui/dom |
 | `src/content/courses/` | `dev-course.json`, `course-01.json` | — | — |
 | `scripts/check-fairness.ts` | Automated fairness verifier (`npm run fairness`) | `evaluateCourseFairness` | config/tuning, core/types, sim/* |

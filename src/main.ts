@@ -6,12 +6,18 @@ import { createRunClock } from '@/core/runClock';
 import { createRunMachine } from '@/core/stateMachine';
 import type { CourseDef } from '@/core/types';
 import { attachKeyboard } from '@/input/keyboard';
+import { attachTouch } from '@/input/touch';
 import { createGame } from '@/render/createGame';
+import type { GameScene } from '@/render/GameScene';
 import { createHud } from '@/ui/hud';
+import { createInAppBrowserBanner, isInAppBrowser } from '@/ui/inAppBrowser';
+import { createLayoutManager } from '@/ui/layout';
 import { createCountdownScreen } from '@/ui/screens/countdown';
 import { renderFallback } from '@/ui/screens/fallback';
 import { createIntroScreen } from '@/ui/screens/intro';
+import { createPauseScreen } from '@/ui/screens/pause';
 import { createResultsScreen } from '@/ui/screens/results';
+import { createTouchControls } from '@/ui/touchControls';
 
 function supportsGraphics(): boolean {
   if (typeof requestAnimationFrame !== 'function') return false;
@@ -30,33 +36,108 @@ const app = createApp({
 });
 
 if (supportsGraphics()) {
-  const hud = createHud();
+  const layout = createLayoutManager(window);
+  let touchEnabled =
+    typeof window.matchMedia === 'function' && window.matchMedia('(pointer: coarse)').matches;
+
+  const hud = createHud(() => app.pauseRun());
+  const touchControls = createTouchControls();
+  const countdown = createCountdownScreen();
+
+  const updateTouchVisibility = () => {
+    const active = app.machine.phase === 'running' || app.machine.phase === 'countdown';
+    touchControls.setVisible(touchEnabled && active);
+  };
+
   const intro = createIntroScreen(() => {
     intro.hide();
     countdown.show();
     hud.setVisible(true);
     hud.update(app.sim.state, app.clock.activeTime);
     app.startRun();
+    updateTouchVisibility();
   });
-  const countdown = createCountdownScreen();
+
+  if (isInAppBrowser()) {
+    intro.root.prepend(createInAppBrowserBanner());
+  }
+
+  const pauseScreen = createPauseScreen({
+    onResume: () => {
+      pauseScreen.hide();
+      countdown.show();
+      app.resumeRun();
+      updateTouchVisibility();
+    },
+    onRestart: () => {
+      pauseScreen.hide();
+      countdown.show();
+      app.restartRun();
+      hud.setVisible(true);
+      hud.update(app.sim.state, app.clock.activeTime);
+      updateTouchVisibility();
+    },
+    onExit: () => {
+      pauseScreen.hide();
+      countdown.hide();
+      hud.setVisible(false);
+      app.exitRun();
+      updateTouchVisibility();
+      intro.show();
+    },
+  });
+
   const results = createResultsScreen(() => {
     results.hide();
     countdown.show();
     app.restartRun();
     hud.setVisible(true);
     hud.update(app.sim.state, app.clock.activeTime);
+    updateTouchVisibility();
   });
 
-  ui.append(hud.root, intro.root, countdown.root, results.root);
+  ui.append(
+    hud.root,
+    intro.root,
+    countdown.root,
+    pauseScreen.root,
+    results.root,
+    touchControls.root,
+  );
   intro.show();
 
   app.bus.on('runStart', () => {
     countdown.hide();
+    updateTouchVisibility();
+  });
+
+  app.bus.on('pause', () => {
+    countdown.hide();
+    pauseScreen.show();
+    updateTouchVisibility();
+  });
+
+  app.bus.on('resume', () => {
+    countdown.hide();
+    updateTouchVisibility();
   });
 
   app.bus.on('runComplete', () => {
     hud.setVisible(false);
+    updateTouchVisibility();
     results.show(app.sim.state.stats);
+  });
+
+  app.bindVisibilityPause(document, window);
+
+  const touchBinding = attachTouch(touchControls, app.input, {
+    isActive: () => app.machine.phase === 'running',
+    onFirstTouch: () => {
+      if (!touchEnabled) {
+        touchEnabled = true;
+        updateTouchVisibility();
+      }
+    },
   });
 
   attachKeyboard(window, app.input, {
@@ -69,6 +150,7 @@ if (supportsGraphics()) {
       app.restartRun();
       hud.setVisible(true);
       hud.update(app.sim.state, app.clock.activeTime);
+      updateTouchVisibility();
     },
   });
 
@@ -84,13 +166,19 @@ if (supportsGraphics()) {
     });
   }
 
-  createGame(app, 'game', (visAhead, frameSec, steps) => {
+  const game = createGame(app, 'game', (visAhead, frameSec, steps) => {
     if (app.machine.phase === 'countdown') {
       countdown.update(app.countdownRemaining);
     } else if (app.machine.phase === 'running') {
       hud.update(app.sim.state, app.clock.activeTime);
     }
     debugUpdater?.(visAhead, frameSec, steps);
+  });
+
+  layout.onChange((m) => {
+    touchBinding.clearPointers();
+    const scene = game.scene.getScene('GameScene') as GameScene | undefined;
+    scene?.setTrackRegion(m.trackRegion);
   });
 } else {
   renderFallback(ui);
