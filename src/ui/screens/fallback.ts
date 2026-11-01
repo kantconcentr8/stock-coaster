@@ -18,5 +18,13 @@ export function renderFallback(root: HTMLElement, contentError = false): void {
         }),
       ]),
     );
+  if (contentError)
+    screen.append(
+      el('a', {
+        href: 'https://predictourney.site/waitlist',
+        class: 'btn-primary',
+        text: 'Join the Predictourney waitlist',
+      }),
+    );
   root.replaceChildren(screen);
 }

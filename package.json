@@ -6,7 +6,7 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "tsc --noEmit && vite build",
+    "build": "tsc --noEmit && vite build && tsx scripts/check-bundle.ts",
     "preview": "vite preview",
     "test": "vitest run",
     "lint": "eslint .",
@@ -16,7 +16,9 @@
     "validate": "tsx scripts/validate-content.ts",
     "prebuild": "tsx scripts/validate-content.ts --production",
     "test:e2e": "playwright test",
-    "build:preview": "tsx scripts/validate-content.ts && tsc --noEmit && vite build --mode test-preview"
+    "build:preview": "tsx scripts/validate-content.ts && tsc --noEmit && vite build --mode test-preview",
+    "build:vercel": "tsx scripts/build-vercel.ts",
+    "check:bundle": "tsx scripts/check-bundle.ts"
   },
   "keywords": [],
   "author": "",
@@ -26,6 +28,7 @@
     "phaser": "^4.2.1"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.13.0",
     "@eslint/js": "^10.0.1",
     "@playwright/test": "^1.64.1",
     "@types/node": "^26.6.6",

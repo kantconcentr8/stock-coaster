@@ -1,4 +1,6 @@
 import Phaser from 'phaser';
+import { PALETTE } from './palette';
+import { gameStorage } from '@/services/storage';
 import type { CourseObject } from '@/core/types';
 import type { Track } from '@/sim/track';
 
@@ -65,6 +67,11 @@ export function createObjectView(
       }
     },
     popPickup(objectId) {
+      if (
+        gameStorage.getPrefs().reducedMotion ??
+        window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
+      )
+        return;
       const item = nodes.get(objectId);
       if (item) {
         item.popUntil = performance.now() + 180;
@@ -78,8 +85,8 @@ export function createObjectView(
 
 function drawPickup(gfx: Phaser.GameObjects.Graphics): void {
   // Diamond outer ring + circle + '+' symbol (cyan + white, high contrast in grayscale)
-  gfx.fillStyle(0x00bbf9, 0.9);
-  gfx.lineStyle(2.5, 0xffffff, 1);
+  gfx.fillStyle(PALETTE.pickup, 0.9);
+  gfx.lineStyle(2.5, PALETTE.white, 1);
   gfx.beginPath();
   gfx.moveTo(0, -13);
   gfx.lineTo(13, 0);
@@ -90,15 +97,15 @@ function drawPickup(gfx: Phaser.GameObjects.Graphics): void {
   gfx.strokePath();
 
   // '+' glyph
-  gfx.lineStyle(3, 0x001219, 1);
+  gfx.lineStyle(3, PALETTE.ink, 1);
   gfx.lineBetween(-5, 0, 5, 0);
   gfx.lineBetween(0, -5, 0, 5);
 }
 
 function drawHazard(gfx: Phaser.GameObjects.Graphics): void {
   // Angular warning triangle with stripes / '!' mark
-  gfx.fillStyle(0xf77f00, 0.95);
-  gfx.lineStyle(2.5, 0x000000, 1);
+  gfx.fillStyle(PALETTE.orange, 0.95);
+  gfx.lineStyle(2.5, PALETTE.black, 1);
   gfx.beginPath();
   gfx.moveTo(0, -15);
   gfx.lineTo(15, 12);
@@ -108,11 +115,11 @@ function drawHazard(gfx: Phaser.GameObjects.Graphics): void {
   gfx.strokePath();
 
   // Outer white border for dark-background readability
-  gfx.lineStyle(1.5, 0xffffff, 0.9);
+  gfx.lineStyle(1.5, PALETTE.white, 0.9);
   gfx.strokeTriangle(0, -16, 16, 13, -16, 13);
 
   // '!' glyph inside triangle
-  gfx.fillStyle(0x000000, 1);
+  gfx.fillStyle(PALETTE.black, 1);
   gfx.fillRect(-2, -7, 4, 9);
   gfx.fillCircle(0, 6, 2.2);
 }

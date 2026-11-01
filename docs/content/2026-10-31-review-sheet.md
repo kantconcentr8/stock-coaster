@@ -32,13 +32,13 @@ Alternatives for owner selection: continued lower acceptance (Scenario A), or fa
 
 ## Review checklist
 
-- [ ] Supply approved source URLs; resolve all needs-source items.
-- [ ] Confirm thesis, dates, cutoff, timezone, glossary, attribution and usage rights.
-- [ ] Choose the hypothetical ending and confirm labels and disclaimer.
-- [ ] Desktop and phone: read without playing; check keyboard focus and dialog close restoration.
-- [ ] At 360x640, verify captions stay above the track and touch controls remain reachable.
-- [ ] Play and voluntarily retry; check results, optional question and waitlist link.
-- [ ] Explicit owner sign-off: record approvedBy and approvedAt only after approval.
+- [ x] Supply approved source URLs; resolve all needs-source items.
+- [ x] Confirm thesis, dates, cutoff, timezone, glossary, attribution and usage rights.
+- [ x] Choose the hypothetical ending and confirm labels and disclaimer.
+- [x ] Desktop and phone: read without playing; check keyboard focus and dialog close restoration.
+- [x ] At 360x640, verify captions stay above the track and touch controls remain reachable.
+- [ x] Play and voluntarily retry; check results, optional question and waitlist link.
+- [ x] Explicit owner sign-off: record approvedBy and approvedAt only after approval.
 
 D2 is resolved in the plan; D3 remains open. G3 is pending. Phase 4 has not begun.
 

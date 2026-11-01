@@ -37,7 +37,10 @@ export function createHud(onPause?: () => void): Hud {
   pauseBtn.addEventListener('click', () => onPause?.());
 
   const root = el('header', { id: 'hud', class: 'hud', hidden: '' }, [
-    el('div', { class: 'hud-item' }, [el('span', { class: 'hud-label', text: 'Time' }), timeVal]),
+    el('div', { class: 'hud-item' }, [
+      el('span', { class: 'hud-label', text: 'CC / Time' }),
+      timeVal,
+    ]),
     el('div', { class: 'hud-item' }, [el('span', { class: 'hud-label', text: 'Score' }), scoreVal]),
     el('div', { class: 'hud-item hud-boost' }, [
       el('span', { class: 'hud-label', text: 'Boost' }),

@@ -209,3 +209,21 @@ Removed stray classification question marks, styled sharing, kept draft review n
 Original briefing data and approval remain unchanged; Retry focus no longer scrolls away from the score.
 Validation: project checks (94 unit tests) and desktop/mobile funnel tests; action visibility and horizontal overflow checked.
 Phase 5 remains unstarted.
+
+### P5.1-P5.5 - Release-readiness implementation / GitHub handoff (2026-10-31)
+Result: implemented local audio, original brand assets, accessibility/failure specs, lazy renderer and bundle budget; Phase 5 release gate remains open.
+Audio is original oscillator synthesis (0 KB transfer); muted default, gesture-only context, pause/visibility stop; Phaser audio disabled.
+Intro renders before the dynamic renderer; Start waits for loading. Normal builds retain no diagnostic analytics/test acceleration.
+Production validation rejects editorial TODOs as well as missing approval; existing draft content was not edited or approved.
+Physical-device audio/screen-reader/FPS checks, Lighthouse measurement, contrast audit and five real usability sessions remain pending.
+
+### P5.6-P5.8 - Vercel preparation and release status (2026-10-31)
+Result: Vercel config, build script, GitHub CI and deployment/rollback instructions prepared. Owner will configure Vercel.
+GitHub target supplied by owner: https://github.com/kantconcentr8/stock-coaster.git.
+Vercel preview permits draft content; production requires HTTPS SITE_URL and approved content without TODOs.
+No deployed URL, live headers, public card-debugger result, rollback rehearsal, usability sessions or G5 release approval claimed.
+No analytics added; no paid plan/overage enabled. Phase 6 has not started.
+
+GitHub handoff verification: `npm run check` passed (96 unit tests); all 16 Chromium/mobile WebKit tests passed.
+Local draft preview build passed: initial HTML/CSS/JS 20,395 bytes gzip; full playable payload 378,177 bytes gzip.
+Repository sync includes the existing local review-sheet edits; their checklist alone does not modify content approval metadata.

@@ -8,6 +8,7 @@ export interface PauseScreen {
 }
 
 export interface PauseCallbacks {
+  getMuted?: () => boolean;
   onResume: () => void;
   onRestart: () => void;
   onToggleSound?: (muted: boolean) => void;
@@ -19,7 +20,7 @@ export interface PauseCallbacks {
  * Traps Tab focus inside while open; Escape triggers Resume.
  */
 export function createPauseScreen(callbacks: PauseCallbacks): PauseScreen {
-  let muted = false;
+  let muted = callbacks.getMuted?.() ?? false;
 
   const resumeBtn = el('button', {
     id: 'btn-pause-resume',
@@ -39,8 +40,8 @@ export function createPauseScreen(callbacks: PauseCallbacks): PauseScreen {
     id: 'btn-pause-sound',
     type: 'button',
     class: 'btn-secondary',
-    'aria-pressed': 'false',
-    text: 'Sound: On',
+    'aria-pressed': String(muted),
+    text: muted ? 'Sound: Muted' : 'Sound: On',
   }) as HTMLButtonElement;
 
   const exitBtn = el('button', {
@@ -111,6 +112,9 @@ export function createPauseScreen(callbacks: PauseCallbacks): PauseScreen {
       return muted;
     },
     show() {
+      muted = callbacks.getMuted?.() ?? muted;
+      soundBtn.setAttribute('aria-pressed', String(muted));
+      soundBtn.textContent = muted ? 'Sound: Muted' : 'Sound: On';
       root.removeAttribute('hidden');
       queueMicrotask(() => resumeBtn.focus());
     },

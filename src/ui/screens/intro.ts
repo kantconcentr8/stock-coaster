@@ -1,3 +1,4 @@
+import { brandMark } from '@/ui/brand';
 import type { Briefing } from '../../core/types';
 import type { BriefingNotice } from '../../content/loader';
 import { formatCoverage } from '../format';
@@ -6,6 +7,7 @@ import type { GameStorage } from '@/services/storage';
 
 export interface IntroScreen {
   readonly root: HTMLElement;
+  setReady(ready: boolean): void;
   show(): void;
   hide(): void;
 }
@@ -16,6 +18,7 @@ export function createIntroScreen(
     briefing: Briefing;
     storage?: GameStorage;
     notice?: BriefingNotice;
+    onSound?: (muted: boolean) => void;
     onRead: () => void;
   },
 ): IntroScreen {
@@ -29,7 +32,10 @@ export function createIntroScreen(
   startBtn.addEventListener('click', () => onStart());
 
   const root = el('main', { id: 'screen-intro', class: 'screen modal-card' }, [
-    el('p', { text: options?.briefing.brandName ?? 'Candlestick Coaster' }),
+    el('div', { class: 'brand-lockup' }, [
+      brandMark(),
+      el('span', { text: options?.briefing.brandName ?? 'Candlestick Coaster' }),
+    ]),
     el('h1', { text: options?.briefing.title ?? 'Candlestick Coaster' }),
     el('p', {
       class: 'controls-hint',
@@ -51,7 +57,10 @@ export function createIntroScreen(
     read.addEventListener('click', onRead);
     const sound = el('input', { type: 'checkbox', id: 'sound-preference' }) as HTMLInputElement;
     sound.checked = !(options.storage?.getPrefs().muted ?? true);
-    sound.addEventListener('change', () => options.storage?.setPrefs({ muted: !sound.checked }));
+    sound.addEventListener('change', () => {
+      options.storage?.setPrefs({ muted: !sound.checked });
+      options.onSound?.(!sound.checked);
+    });
     const motion = el('input', { type: 'checkbox', id: 'motion-preference' }) as HTMLInputElement;
     motion.checked =
       options.storage?.getPrefs().reducedMotion ??
@@ -78,6 +87,10 @@ export function createIntroScreen(
   }
   return {
     root,
+    setReady(ready) {
+      startBtn.disabled = !ready;
+      startBtn.textContent = ready ? 'Start Run' : 'Loading game...';
+    },
     show() {
       root.removeAttribute('hidden');
       queueMicrotask(() => startBtn.focus());

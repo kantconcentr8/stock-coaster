@@ -1,4 +1,5 @@
 import Phaser from 'phaser';
+import { PALETTE } from './palette';
 import type { Track } from '@/sim/track';
 
 const CHUNK_WU = 1200;
@@ -46,7 +47,7 @@ export function createTrackView(scene: Phaser.Scene, track: Track): TrackView {
 
 function drawChunk(gfx: Phaser.GameObjects.Graphics, track: Track, s0: number, s1: number): void {
   // Subtle vertical candlestick-like grid bars every 240 wu
-  gfx.lineStyle(1, 0xffffff, 0.08);
+  gfx.lineStyle(1, PALETTE.white, 0.08);
   const firstGrid = Math.ceil(s0 / 240) * 240;
   for (let s = firstGrid; s <= s1; s += 240) {
     const p = track.sample(s);
@@ -56,7 +57,7 @@ function drawChunk(gfx: Phaser.GameObjects.Graphics, track: Track, s0: number, s
   }
 
   // Rail cross-ties every 120 wu
-  gfx.lineStyle(1, 0xe5e5e5, 0.16);
+  gfx.lineStyle(1, PALETTE.alabaster, 0.16);
   const firstTie = Math.ceil(s0 / 120) * 120;
   for (let s = firstTie; s <= s1; s += 120) {
     const p = track.sample(s);
@@ -64,11 +65,11 @@ function drawChunk(gfx: Phaser.GameObjects.Graphics, track: Track, s0: number, s
   }
 
   // Upper rail (-1): long-dashed, 2px
-  drawRailSegment(gfx, track, s0, s1, -1, 2, 0x90e0ef, 0.85, 24, 12);
+  drawRailSegment(gfx, track, s0, s1, -1, 2, PALETTE.cyan, 0.85, 24, 12);
   // Middle rail (0): solid, 4px
-  drawRailSegment(gfx, track, s0, s1, 0, 4, 0xfca311, 1.0, 0, 0);
+  drawRailSegment(gfx, track, s0, s1, 0, 4, PALETTE.orange, 1.0, 0, 0);
   // Lower rail (+1): short-dashed, 2.5px
-  drawRailSegment(gfx, track, s0, s1, 1, 2.5, 0xe5e5e5, 0.85, 10, 10);
+  drawRailSegment(gfx, track, s0, s1, 1, 2.5, PALETTE.alabaster, 0.85, 10, 10);
 }
 
 function drawRailSegment(

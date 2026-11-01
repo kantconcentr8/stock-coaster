@@ -161,7 +161,7 @@ PRD §22 items do not block prototyping. They block the tasks below.
 | D1 | Brand name, logo, colors, public title | P5.2 | **Resolved:** Title: "Candlestick Coaster"; Brand Palette: `#000000` (Black), `#14213D` (Prussian Blue), `#FCA311` (Orange), `#E5E5E5` (Alabaster Grey), `#FFFFFF` (White) |
 | D2 | Primary CTA URL + qualified-acquisition definition | P3.3 (draft), P5.8 (final) | **Resolved:** CTA URL: `https://predictourney.site/waitlist`; Goal: waitlist sign-up |
 | D3 | First-briefing facts, sources, cutoff, hypothetical ending | Gate 3 | Draft content prepared by agent; owner reviews and approves before launch |
-| D4 | Hosting + custom domain | P5.6 | Recommended: GitHub Pages, Cloudflare Pages, or Vercel (free static tier) |
+| D4 | Hosting + custom domain | P5.6 | **Resolved:** Vercel selected; owner will configure account/project and deployment from GitHub. |
 | D5 | Analytics service + consent behavior | P4.5 | **Resolved (2026-10-31):** Owner: "not using analytics - not required". No provider; production no-op, local debug only. |
 | D6 | Reference phones + usability testers | Gate 2, P5.8 | Your own smartphone (iOS/Android) + 3–5 friends/followers to test the link |
 | D7 | Campaign conversion baseline + acceptable cost | P6.3 | Optional benchmark (how many signups/clicks you usually get from a post) |

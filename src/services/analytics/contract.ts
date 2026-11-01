@@ -9,7 +9,7 @@ export interface Payloads {
   learning_answer: { questionId: string; correct: boolean };
   cta_click: { ctaId: string; destinationCategory: string };
   share_action: { method: 'native' | 'copy' | 'manual' };
-  app_error: { code: 'content_invalid' | 'graphics_unavailable' | 'unknown' };
+  app_error: { code: 'content_invalid' | 'graphics_unavailable' | 'runtime_error' | 'unknown' };
 }
 export type EventName = keyof Payloads;
 export type AnalyticsRecord = {
@@ -42,7 +42,7 @@ const enums: Record<string, string[]> = {
   entryScreen: ['intro', 'results', 'fallback'],
   sourceScreen: ['paused', 'results'],
   deviceClass: ['mobile', 'desktop'],
-  code: ['content_invalid', 'graphics_unavailable', 'unknown'],
+  code: ['content_invalid', 'graphics_unavailable', 'runtime_error', 'unknown'],
 };
 export function sanitizeEvent(name: EventName, input: Record<string, unknown>): AnalyticsRecord {
   const properties: AnalyticsRecord['properties'] = {};

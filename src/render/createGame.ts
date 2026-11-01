@@ -12,6 +12,7 @@ export function createGame(
     type: Phaser.AUTO,
     parent,
     transparent: true,
+    audio: { noAudio: true },
     scale: {
       mode: Phaser.Scale.RESIZE,
       width: '100%',

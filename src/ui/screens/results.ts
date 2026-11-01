@@ -1,3 +1,4 @@
+import { brandMark } from '@/ui/brand';
 import { createLearningQuestion } from './learningQuestion';
 import { isHttps } from '../../content/schema';
 import type { GameStorage } from '@/services/storage';
@@ -43,7 +44,7 @@ export function createResultsScreen(
     'section',
     { id: 'screen-results', class: 'screen modal-card results-card', hidden: '' },
     [
-      el('h1', { text: 'Run Complete' }),
+      el('div', { class: 'brand-lockup' }, [brandMark(), el('h1', { text: 'Run Complete' })]),
       el('p', { class: 'results-score' }, ['Arcade score: ', scoreEl]),
       el('ul', { class: 'results-stats' }, [
         el('li', {}, ['Distance: ', distEl]),

@@ -72,4 +72,17 @@ Living architecture map. Update when a public export, file, or folder changes. K
 - Intro persists preferences; renderer honors reduced motion. Results submit versioned bests and share; briefing/results use attributed CTA and emit click before navigation.
 - `scripts/inject-meta.ts`: Vite default-briefing social metadata; `SITE_URL` overrides local preview canonical; placeholder PNG under `public/social/`.
 - `playwright.config.ts`, `tests/e2e/`: Chromium and mobile WebKit funnel/failure checks. `?testSpeed=8` available in dev or explicit `test-preview` mode, compiled out of normal production builds.
-- `docs/qa/g4-funnel.md`: evidence and remaining public social-card check; Phase 5 remains unstarted.
+- `docs/qa/g4-funnel.md`: evidence and remaining public social-card check; Phase 5 local implementation is in progress; see PROGRESS.
+
+## Phase 5 additions
+
+- `main.ts`: imports styles and starts `bootstrap.ts`, with fatal initialization fallback.
+- `bootstrap.ts`: HTML-first UI lifecycle; dynamically imports renderer; wires gesture-only audio and frame sync.
+- `ui/setupServices.ts`: storage, attribution, local diagnostic analytics, reduced-motion CSS state, briefing and recovery wiring.
+- `core/errorBoundary.ts`: `installErrorBoundary`, sanitized runtime error handling and text-access recovery.
+- `services/audio.ts`: `createAudio`, original synthesized SFX, gesture unlock, mute/visibility/pause cleanup. Phaser built-in audio disabled.
+- `ui/brand.ts`, `render/palette.ts`, `public/brand/`: original mark/icons and CSS-derived renderer colors.
+- `scripts/check-bundle.ts`: Vite manifest initial + playable gzip budget; `build-vercel.ts`: preview/production policy and build.
+- `vercel.json`, `.github/workflows/ci.yml`, `README.md`, `docs/DEPLOY.md`: hosting handoff, headers, CI and rollback instructions.
+- `tests/e2e/a11y.spec.ts`, `failures.spec.ts`: axe, keyboard, reduced motion, blocked graphics/storage/audio, runtime and renderer download failures.
+- `docs/assets-attribution.md`: original visual/audio sources. Production schema rejects unresolved editorial TODOs.

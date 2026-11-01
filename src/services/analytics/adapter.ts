@@ -81,8 +81,8 @@ export function createAnalytics(options: {
     bus.on('shareAction', (e) => emit('share_action', { method: e.method })),
     bus.on('app_error', (e) =>
       emit('app_error', {
-        code: ['content_invalid', 'graphics_unavailable'].includes(e.code)
-          ? (e.code as 'content_invalid' | 'graphics_unavailable')
+        code: ['content_invalid', 'graphics_unavailable', 'runtime_error'].includes(e.code)
+          ? (e.code as 'content_invalid' | 'graphics_unavailable' | 'runtime_error')
           : 'unknown',
       }),
     ),

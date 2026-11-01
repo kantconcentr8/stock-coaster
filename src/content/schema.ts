@@ -154,6 +154,12 @@ export function validateBriefing(
     str(approval, 'approvedBy');
     date(str(approval, 'approvedAt'), 'approval.approvedAt');
   }
+  if (
+    options.production &&
+    !options.allowUnapproved &&
+    JSON.stringify(value).includes('TODO(owner)')
+  )
+    errors.push('content: production cannot contain unresolved editorial TODOs');
   if (options.production && !options.allowUnapproved && approval.approved !== true)
     errors.push('approval: production requires owner approval (ALLOW_UNAPPROVED=1 for preview)');
   if (b.learningQuestion !== undefined) {
