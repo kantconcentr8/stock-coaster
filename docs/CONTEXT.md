@@ -95,5 +95,5 @@ Living architecture map. Update when a public export, file, or folder changes. K
 ## Coaster visual prototype
 
 - `main.ts`: `?prototype=coaster` lazily mounts the separate motion study; normal URL retains briefing game.
-- `prototype/{geometry,track,train,scenery,prototype}.ts`, `prototype.css`: original Canvas 2D coaster, arc-length cars, rails/trestles, candlestick parallax, momentum and responsive controls.
+- `prototype/{geometry,track,train,scenery,prototype}.ts`, `prototype.css`: original Canvas 2D coaster, arc-length cars, rails/trestles, candlestick parallax, timed passenger choreography, captions, optional synthesized audio and responsive controls.
 - `docs/coaster-visual-prototype.md`, `tests/e2e/prototype.spec.ts`: scope, art limitations and desktop/mobile motion verification. No main-game mechanics or editorial changes.

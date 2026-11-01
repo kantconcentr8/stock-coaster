@@ -1,32 +1,25 @@
-# Coaster visual study 01
+# Coaster passenger study 02
 
-Open `/?prototype=coaster` on the deployed site or local dev server.
-The normal URL keeps the existing briefing game. This is a separate presentation/motion prototype, not a replacement production game.
+Open `/?prototype=coaster`. The normal URL retains the existing briefing game.
+This separate Canvas 2D motion study uses original procedural artwork and illustrative track geometry, not historical market data or finished cinematic 3D art.
 
-## What to evaluate
+## Passenger experience
 
-- Does the opening crest and large visible drop immediately read as a rollercoaster?
-- Do four individually sampled cars, visible wheels/couplings, rails/ties and steel trestles make the ride feel physical?
-- Does accelerating downhill and losing momentum on the recovery feel compelling?
-- Is the restrained candlestick skyline recognizably financial without overpowering the train?
+Start begins an automatic 28-second active-time ride: seven-second climb, three-second crest hesitation, five-second accelerating plunge, two-second trough, and eleven-second slower recovery to the next crest.
+Four independently oriented cars, couplings, wheels, rails and trestles keep the train physical. Passengers raise their arms with speed; restrained air streaks accompany the plunge. Camera follow conveys the change in pace.
 
-Ride the drop starts the short sequence. Pause, Replay, held Boost/Brake, Space/Shift and touch controls are available.
-The scene stops on tab hiding or blur. Reduced motion suppresses effect streaks and camera easing. No animation starts before pressing Ride.
-All art is original procedural Canvas 2D geometry; the supplied concept images are art direction references, not pasted backgrounds.
-This first study uses illustrated shapes and gradients. It does not claim the final cinematic 3D materials/passenger detail of those references.
-The next decision is whether the silhouette, movement and camera are worth carrying into the main game.
-
-No editorial content, scoring, 60-second game rules, or release approval has changed. No analytics, autoplay audio or external assets were added.
+Brake, boost, momentum, predictions and scoring are absent. Start/Pause/Resume and Replay use native buttons (keyboard and touch); Escape pauses. Replay immediately restarts the ride. Completion offers Ride again.
+Captions explain each illustrative section. They are motion-study copy, not a sourced or approved market briefing.
+Sound defaults off. Optional original synthesized rail pulses and a speed-responsive rumble start only after a user gesture. Pause, completion, tab hiding, blur and page exit stop sound. Audio failure does not block the ride.
+Reduced motion removes streaks, passenger arm motion and camera easing. Nothing moves before Start. Pausing freezes ride time, scenery and camera; resuming continues the same sequence. The frame delta is capped at 100ms to accommodate slower rendering without large jumps.
 
 ## Modules
 
-`src/prototype/geometry.ts`: illustrative sampled track and arc-length interpolation.
-`track.ts`: paired rails, cross ties, trestles and footings.
-`train.ts`: independently oriented cars, couplings, passengers, wheels and held-input effect streaks.
-`scenery.ts`: restrained layered candlestick landscape, grid and haze.
-`prototype.ts` / `.css`: camera, momentum, responsive scene, pause/replay and safe input release.
+- `geometry.ts`: illustrative sampled track and arc-length interpolation.
+- `track.ts`: paired rails, ties, trestles and footings.
+- `train.ts`: independent cars, passengers and speed-driven effects.
+- `scenery.ts`: layered candlestick landscape, grid and haze.
+- `prototype.ts` / `.css`: timed choreography, responsive camera/UI, captions and optional audio.
 
-Validation: Chromium and mobile WebKit prototype smoke tests capture crest/drop screenshots, complete the sequence, pause/replay and release held input.
-Physical-phone performance and visual preference still need user review.
-
-Reviewed screenshots: [desktop crest](qa/coaster-study/desktop-crest.png), [desktop drop](qa/coaster-study/desktop-drop.png), [mobile crest](qa/coaster-study/mobile-crest.png).
+Verification uses Chromium desktop and iPhone 13 WebKit emulation: complete ride, caption order, pause stability, replay, native Space activation, Escape, reduced motion, blocked audio, blur and landscape control visibility. Crest, drop and landscape screenshots are saved under `test-results/`.
+Physical-phone performance, audio quality and visual preference still require review. Editorial approval and Phase 5 release gates remain open; Phase 6 has not started. Analytics remains disabled.

@@ -5,8 +5,6 @@ export function drawTrain(
   position: number,
   speed: number,
   time: number,
-  boosting: boolean,
-  braking: boolean,
   reduced: boolean,
 ) {
   const cars = 4,
@@ -80,11 +78,12 @@ export function drawTrain(
       ctx.lineCap = 'round';
       ctx.beginPath();
       ctx.moveTo(px - 5, -59);
-      ctx.lineTo(px - 12, -76);
-      ctx.lineTo(px - 14, -87);
+      const lift = reduced ? 0 : Math.min(1, speed / 420);
+      ctx.lineTo(px - 12, -62 - lift * 14);
+      ctx.lineTo(px - 14, -58 - lift * 29);
       ctx.moveTo(px + 5, -59);
-      ctx.lineTo(px + 13, -73);
-      ctx.lineTo(px + 17, -84);
+      ctx.lineTo(px + 13, -61 - lift * 12);
+      ctx.lineTo(px + 17, -57 - lift * 27);
       ctx.stroke();
       ctx.fillStyle = skin;
       ctx.beginPath();
@@ -128,14 +127,14 @@ export function drawTrain(
     ctx.fillText('CC', -6, -21);
     if (car === 0) {
       ctx.fillStyle = '#fff3ce';
-      ctx.shadowColor = boosting ? '#80e9ff' : '#ffce79';
-      ctx.shadowBlur = boosting ? 25 : 12;
+      ctx.shadowColor = '#ffce79';
+      ctx.shadowBlur = 12;
       ctx.fillRect(37, -25, 7, 5);
       ctx.shadowBlur = 0;
     }
-    // Braking/boost feedback appears only while those controls are held.
-    if (!reduced && (boosting || braking)) {
-      ctx.strokeStyle = braking ? '#ffd69a' : '#8ee9ef';
+    // Restrained air streaks follow the plunge automatically.
+    if (!reduced && speed > 300) {
+      ctx.strokeStyle = '#ddd4be';
       ctx.lineWidth = 2;
       for (let i = 0; i < 5; i++) {
         const phase = (time * 4 + i * 0.19) % 1;

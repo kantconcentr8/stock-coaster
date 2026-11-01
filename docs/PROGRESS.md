@@ -248,3 +248,12 @@ Four cars follow one physical track independently, with wheels, riders, coupling
 Original procedural Canvas 2D study, not final 3D artwork. Held boost/brake changes momentum; pause/replay and reduced-motion/visibility behavior included.
 Existing normal-route game, editorial draft, scoring and release gates unchanged. Phase 6 not started.
 Verification: prototype sequence passes Chromium and mobile WebKit smoke checks; crest/drop screenshots inspected.
+
+### Passenger direction - Automatic coaster study 02 (2026-11-01)
+Result: implemented the agreed passenger experience in the isolated prototype; removed brake, boost and momentum.
+28 active seconds: climb 7s, crest 3s, plunge 5s, trough 2s, recovery 11s; continuous Hermite pacing, reactive passengers and camera.
+Added illustrative section captions and optional gesture-only synthesized sound (muted by default); no sourced market claims added.
+Start/Pause/Resume/Replay, Escape, blur/visibility pause, reduced motion and blocked-audio fallback verified.
+Validation: npm run check passes (101 unit tests); draft production build/bundle checks pass; four desktop/mobile WebKit prototype checks pass.
+Inspected crest/drop and landscape screenshots; mobile frame cap raised to 100ms after slow-render timing failure; disclaimer spacing refined.
+Original game, analytics-disabled decision, editorial draft and open G5 gates retained. Phase 6 has not started; physical-device/audio review pending.
