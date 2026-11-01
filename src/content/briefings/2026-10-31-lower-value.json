@@ -1,6 +1,6 @@
 {
   "briefingId": "2026-10-31-lower-value",
-  "contentVersion": 2,
+  "contentVersion": 3,
   "title": "Lower value: a bounce is not repair",
   "summary": "The Daily Ride — October 30, 2026. The approved research describes a selloff confirmed by weakening market participation, followed by a late bounce. That bounce alone did not establish repair. Earlier October events provide context; the November outlook remains conditional. The track illustrates the story rather than plotting prices.",
   "brandName": "Candlestick Coaster",
@@ -16,7 +16,7 @@
       "startSec": 0,
       "endSec": 20,
       "caption": "October 30: price fell, and market participation weakened with it.",
-      "summary": "The approved October 30 account describes lower prices alongside deteriorating breadth and cumulative advance/decline lines. This daily ride focuses on that session; the October 28 FOMC rejection is earlier context, not an event from the same day. The authored climb and descent are illustrative, not a measured intraday path.",
+      "summary": "October 30 price weakness was accompanied by a negative $ADD reading and weakening Nasdaq cumulative advance/decline panels in the supplied charts. The lower panel in the ES screenshot is configured for Nasdaq, not NYSE. This ride focuses on October 30; the October 28 FOMC rejection is earlier context. The authored climb and descent are illustrative, not a measured intraday path.",
       "classification": "interpretation",
       "label": "Interpretation",
       "forwardLooking": false
@@ -61,12 +61,38 @@
   ],
   "sources": [
     {
-      "title": "Approved session research — October 30 account (original filename: Oct_10_2026_Market-Recap.md)",
-      "url": "/research/october-30-session-notes.txt"
+      "title": "ES — price and participation",
+      "url": "/charts/october-30-es.jpg",
+      "context": "E-mini S&P 500 futures (/ES) • 20-day view, hourly bars • screenshot dated October 30, 2026",
+      "caption": "Price established lower trading areas before rebounding from the labeled 7558.25 low toward 7614.50. The rebound alone does not establish repair. The lower advance/decline panel is labeled Nasdaq; it is not a NYSE breadth series.",
+      "alt": "ES hourly chart showing declining price and volume-profile areas, a 7558.25 low and a late rebound. The lower Nasdaq advance/decline panel also declines.",
+      "attribution": "Owner-supplied thinkorswim screenshot, reproduced unchanged. Interpretation: Structural Alpha."
     },
     {
-      "title": "Approved context — October → November 2026 Market Structure (updated November 1)",
-      "url": "/research/october-november-2026-market-structure.txt"
+      "title": "Participation — $ADD, TICK and price",
+      "url": "/charts/october-30-participation.jpg",
+      "context": "$ADD, $TICK, SPX, /ES and NDX • mixed intraday and 20-day views • screenshot dated October 30, 2026",
+      "caption": "$ADD is shown near -691 after a sustained negative stretch. Read this alongside price: the late bounce does not by itself demonstrate broad participation improving. $ADD, TICK and cumulative advance/decline are distinct measures, not interchangeable readings.",
+      "alt": "Six-panel overview with TICK, hourly and intraday ADD, and SPX, ES and NDX price charts. Intraday ADD trends lower before a late uptick near minus 691.",
+      "attribution": "Owner-supplied thinkorswim screenshot, reproduced unchanged. Interpretation: Structural Alpha."
+    },
+    {
+      "title": "NDX — technology and Nasdaq breadth",
+      "url": "/charts/october-30-ndx.jpg",
+      "context": "Nasdaq-100 index • 20-day view, hourly bars • screenshot dated October 30, 2026",
+      "caption": "NDX reached a labeled low of 28093.25 and rebounded while remaining below the displayed cloud. The Nasdaq cumulative advance/decline panel weakened alongside price.",
+      "alt": "NDX hourly chart showing a decline to 28093.25, a modest rebound below the cloud and a falling Nasdaq advance/decline panel.",
+      "attribution": "Owner-supplied thinkorswim screenshot, reproduced unchanged. Interpretation: Structural Alpha.",
+      "secondary": true
+    },
+    {
+      "title": "SPX — the broader index",
+      "url": "/charts/october-30-spx.jpg",
+      "context": "S&P 500 index • 20-day view, hourly bars • screenshot dated October 30, 2026",
+      "caption": "SPX rebounded from the labeled 7527.56 low toward 7580.07, remaining below the displayed cloud. That supports distinguishing a price bounce from structural repair.",
+      "alt": "SPX hourly chart showing a sharp decline to 7527.56 and a late rebound toward 7580.07 below the displayed cloud.",
+      "attribution": "Owner-supplied thinkorswim screenshot, reproduced unchanged. Interpretation: Structural Alpha.",
+      "secondary": true
     }
   ],
   "cta": {
@@ -88,7 +114,7 @@
       "definition": "A price region where trading activity has concentrated over a specified period."
     }
   ],
-  "disclaimer": "An illustrative passenger briefing, not a trading simulation or investment advice. Coverage ends at the October 30, 2026 regular-session close; the adaptation was prepared November 1. Research documents were approved by the owner and are reproduced as supplied; references to charts and earlier notes inside them are not additional linked evidence. Index and futures levels are editorial references. Saved stock/ETF candles are separate market context. The track is not a historical price path. November scenarios are hypothetical, not observed outcomes.",
+  "disclaimer": "An illustrative passenger briefing, not a trading simulation or investment advice. Coverage ends at the October 30, 2026 regular-session close; the adaptation was prepared November 1. Charts are owner-supplied thinkorswim screenshots dated October 30, with the timeframes and capture timestamps shown in each image. Screenshot times are not asserted to share a timezone or represent final closing prints. Chart captions are editorial interpretations. Saved stock/ETF candles are separate daily market context. The track is not a historical price path. November scenarios are hypothetical, not observed outcomes.",
   "approval": {
     "approved": true,
     "approvedBy": "Project owner — both research documents approved in conversation; daily adaptation authorized",

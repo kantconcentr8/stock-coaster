@@ -41,13 +41,13 @@ test('passenger recap connects introduction, briefing chapters, ending, sharing 
   await page.screenshot({ path: `test-results/coaster-${test.info().project.name}-drop.png` });
   await page.getByRole('button', { name: 'Read briefing & sources' }).click();
   await expect(page.getByRole('dialog')).toBeVisible();
-  const sources = page.getByRole('dialog').locator('a[href^="/research/"]');
-  await expect(sources).toHaveCount(2);
+  const sources = page.getByRole('dialog').locator('.briefing-chart > a:last-child');
+  await expect(sources).toHaveCount(4);
   for (const source of await sources.all()) {
     const response = await page.request.get((await source.getAttribute('href'))!);
     expect(response.ok()).toBe(true);
-    expect(response.headers()['content-type']).toContain('text/plain');
-    expect((await response.text()).length).toBeGreaterThan(1000);
+    expect(response.headers()['content-type']).toContain('image/jpeg');
+    expect((await response.body()).length).toBeGreaterThan(1000);
   }
   await expect(page.getByRole('dialog')).not.toContainText('TODO(owner)');
   const paused = await progress.getAttribute('style');

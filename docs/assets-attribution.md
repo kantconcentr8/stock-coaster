@@ -1,6 +1,6 @@
 # Asset attribution
 
-All new game art and effects are original project assets. No external fonts, market chart images, excerpts, samples or music are used.
+Game art and effects are original project assets. The passenger briefing also uses four owner-supplied thinkorswim screenshots, authorized for publication by the owner on November 1, 2026. Images retain their original platform labels; no third-party ownership or redistribution rights are inferred beyond that owner authorization. No external fonts, samples or music are used.
 
 | Asset | Source / rights | Notes |
 | --- | --- | --- |
@@ -10,5 +10,6 @@ All new game art and effects are original project assets. No external fonts, mar
 | `src/services/audio.ts` | Original oscillator synthesis written for this project | Pickup 880 Hz, hazard 110 Hz, lane 440 Hz, boost 150 Hz, bell 660 Hz; 0 bytes downloaded audio |
 | `src/render/*` | Original procedural track, kart and object geometry | No trading chart or exact price path |
 | Phaser and tooling | Third-party packages under their respective package licenses | Retain package license notices; asset ownership does not replace dependency licenses |
+| `public/charts/october-30-{es,participation,ndx,spx}.jpg` | Owner-supplied thinkorswim screenshots; owner authorized use | Unchanged originals from ES.jpg, 6 charts.jpg, NDX.jpg, SPX.jpg. Plain-language captions are separate editorial interpretations. |
 
 Audio is optional and defaults to muted. Synthesizing effects replaces fetching encoded sound files, avoiding 404/loading and codec risks. Total external audio transfer is 0 KB (under the 300 KB budget).

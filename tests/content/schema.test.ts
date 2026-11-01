@@ -5,8 +5,8 @@ import valid from '../fixtures/briefings/valid.json';
 import type { Briefing } from '@/core/types';
 
 describe('briefing schema', () => {
-  it('allows packaged research but rejects traversal, external relative URLs and active content', () => {
-    expect(isSourceUrl('/research/october-30-session-notes.txt')).toBe(true);
+  it('allows chart images but rejects editorial notes, traversal and active content', () => {
+    expect(isSourceUrl('/charts/october-30-es.jpg')).toBe(true);
     expect(isSourceUrl('https://example.org/research')).toBe(true);
     for (const url of [
       '//example.org/research.txt',
@@ -16,12 +16,28 @@ describe('briefing schema', () => {
       'javascript:alert(1)',
       'file:///private.txt',
       '/research/notes.txt?redirect=1',
+      '/research/october-30-session-notes.txt',
+      '/charts/../private.jpg',
+      '/charts/%2e%2e/private.jpg',
+      '/charts/chart.svg',
+      '/charts/chart.jpg?redirect=1',
     ])
       expect(isSourceUrl(url)).toBe(false);
     const b = structuredClone(valid) as Briefing;
-    b.sources = [{ title: 'Packaged research', url: '/research/session.txt' }];
+    b.sources = [
+      {
+        title: 'Chart',
+        url: '/charts/session.jpg',
+        caption: 'Interpretation',
+        alt: 'Chart description',
+        context: 'ES hourly, October 30',
+        attribution: 'Owner screenshot',
+      },
+    ];
     expect(() => validateBriefing(b)).not.toThrow();
-    b.sources[0]!.url = '/research/../private.txt';
+    delete b.sources[0]!.alt;
+    expect(() => validateBriefing(b)).toThrow('sources.alt');
+    b.sources[0]!.url = '/research/session.txt';
     expect(() => validateBriefing(b)).toThrow('sources.url');
   });
   it('accepts complete content and enforces owner approval in production', () => {

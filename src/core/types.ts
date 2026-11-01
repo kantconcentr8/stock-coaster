@@ -113,7 +113,15 @@ export interface Briefing {
   scoringVersion: number;
   chapters: Chapter[];
   takeaways: { text: string; classification: Classification; label: string }[];
-  sources: { title: string; url: string }[];
+  sources: {
+    title: string;
+    url: string;
+    caption?: string;
+    alt?: string;
+    context?: string;
+    attribution?: string;
+    secondary?: boolean;
+  }[];
   cta: { id: string; label: string; url: string; campaignId: string; destinationCategory: string };
   shareText: string;
   socialImage: string;

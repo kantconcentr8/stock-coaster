@@ -8,7 +8,7 @@ Question: What changed in one completed session?
 
 Current edition: **October 30, 2026 — Lower value: a bounce is not repair**. Keep the existing briefing ID `2026-10-31-lower-value` so saved snapshot and shared links continue working. The ID reflects the earlier edition, not the session date. Coverage is October 30 at 16:00 New York time; this adaptation was prepared November 1.
 
-The owner approved both supplied research documents and authorized their adaptation. Packaged plain-text copies retain the originals, including unresolved references within the documents; they are not represented as independently verified third-party research. The misleading `Oct_10` source filename is disclosed rather than silently treated as the coverage date.
+The owner approved both supplied research documents and authorized their adaptation. Original notes are archived under `docs/editorial/archive/`, outside public assets. Public Charts & context uses four unchanged owner-supplied screenshots with concise interpretations; ES and participation appear first, NDX/SPX expand under More charts. The authoritative editorial correction identifies the ES lower panel as Nasdaq, not NYSE. The misleading `Oct_10` source filename is an internal provenance note, not the coverage date.
 
 | Presentation time | Caption | Purpose |
 | --- | --- | --- |

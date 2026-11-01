@@ -14,10 +14,11 @@ for (const file of files) {
       },
     );
     for (const source of briefing.sources) {
-      if (!source.url.startsWith('/research/')) continue;
+      if (!source.url.startsWith('/charts/')) continue;
       const packaged = new URL(`../public${source.url}`, import.meta.url);
-      if (!readFileSync(packaged, 'utf8').trim())
-        throw new Error(`Empty packaged research: ${source.url}`);
+      const bytes = readFileSync(packaged);
+      if (bytes.length < 3 || bytes[0] !== 0xff || bytes[1] !== 0xd8 || bytes[2] !== 0xff)
+        throw new Error(`Missing or invalid JPEG chart: ${source.url}`);
     }
     const courseDirectory = new URL('../src/content/courses/', import.meta.url);
     const courseExists = readdirSync(courseDirectory)

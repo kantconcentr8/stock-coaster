@@ -1,7 +1,7 @@
 # Passenger recap candidate - November 1, 2026
 
 Release route: `/` or `/?b=2026-10-31-lower-value`; old prototype links still work. Original game: `/?experience=game`.
-Status: owner explicitly approved passenger root release November 1. Complete passenger flow uses owner-approved research covering October 30. Research copies are packaged under `/research/`; the original source filename mismatch is disclosed. Pixel 8 Pro owner feedback is recorded separately. Five first-time phone sessions, remaining device/accessibility checks and hosted rollback rehearsal remain unrecorded. This is not a Phase 6 pilot result. Earlier evidence below describes the draft implementation; the newest validation is recorded in PROGRESS.
+Status: owner explicitly approved passenger root release November 1. Complete passenger flow uses owner-approved research covering October 30. Public Charts & context uses four owner-supplied screenshots; working notes live outside public assets under `docs/editorial/`, with the Nasdaq/NYSE correction recorded. Pixel 8 Pro owner feedback is recorded separately. Five first-time phone sessions, remaining device/accessibility checks and hosted rollback rehearsal remain unrecorded. This is not a Phase 6 pilot result. Earlier evidence below describes the draft implementation; the newest validation is recorded in PROGRESS.
 
 Validation: `npm run check` passed (108 unit tests), all 28 browser regression tests passed, and the draft production build/bundle checks passed. Six passenger checks were rerun after the final mobile card adjustment, including zero-violation intro/end axe scans on Chromium and mobile WebKit. The manual-share field is explicitly scrolled into view. No physical-phone results are claimed.
 
@@ -36,7 +36,7 @@ Verification: 108 unit tests and 14 focused desktop/mobile browser checks passed
 
 ## Remaining release work
 
-1. Verify the root-release deployment shows The Daily Ride, October 30 coverage and both packaged source links before recruiting viewers. Content and launch approval are recorded; no external research links were invented.
+1. Verify the deployment shows The Daily Ride, October 30 coverage and Charts & context with four working full-size chart links. Content and launch approval are recorded; public links to working notes are removed.
 2. Observe five real first-time phone viewers with the revised usability script; verify caption reading time, comprehension, hypothetical distinction and voluntary replay.
 3. Check actual Safari/Android/in-app browser performance, audio behavior, reduced motion, screen readers, rotation and app-switch resume.
 4. Resolve observed recurring issues and rehearse Vercel rollback; root promotion and launch authorization are now recorded.

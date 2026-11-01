@@ -9,9 +9,9 @@ export const isHttps = (value: string): boolean => {
     return false;
   }
 };
-// Only packaged plain-text research is allowed as a same-origin source.
+// Same-origin sources are published chart images, never internal editorial notes.
 export const isSourceUrl = (value: string): boolean =>
-  isHttps(value) || /^\/research\/[a-z0-9-]+\.txt$/.test(value);
+  isHttps(value) || /^\/charts\/[a-z0-9-]+\.jpg$/.test(value);
 export interface ValidationOptions {
   production?: boolean;
   allowUnapproved?: boolean;
@@ -138,7 +138,12 @@ export function validateBriefing(
     const s = object(item, 'sources');
     str(s, 'title');
     if (!isSourceUrl(str(s, 'url')))
-      errors.push('sources.url: HTTPS URL or packaged /research/*.txt required');
+      errors.push('sources.url: HTTPS URL or packaged /charts/*.jpg required');
+    if (String(s.url).startsWith('/charts/')) {
+      for (const key of ['caption', 'alt', 'context', 'attribution']) str(s, key, `sources.${key}`);
+    }
+    if (s.secondary !== undefined && typeof s.secondary !== 'boolean')
+      errors.push('sources.secondary: boolean required');
   }
   for (const item of array(b, 'glossary', 0)) {
     const g = object(item, 'glossary');

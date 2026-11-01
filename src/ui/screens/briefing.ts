@@ -2,6 +2,7 @@ import type { Briefing } from '../../core/types';
 import { isHttps, isSourceUrl } from '../../content/schema';
 import { el } from '../dom';
 import { formatCoverage } from '../format';
+import './briefingCharts.css';
 
 export function createBriefingPanel(
   briefing: Briefing,
@@ -34,21 +35,65 @@ export function createBriefingPanel(
       el('p', {}, [el('strong', { text: `${g.term}: ` }), g.definition]),
     ),
   );
-  section(
-    'Sources',
-    briefing.sources.length
-      ? briefing.sources
-          .filter((s) => isSourceUrl(s.url))
-          .map((s) =>
-            el('p', {}, [
-              el('a', { href: s.url, target: '_blank', rel: 'noopener noreferrer', text: s.title }),
-            ]),
-          )
-      : [
-          el('p', {
-            text: 'TODO(owner): approved public research links are pending. This draft is unapproved.',
+  const sourceCard = (source: Briefing['sources'][number]) => {
+    if (!source.url.startsWith('/charts/'))
+      return el('p', {}, [
+        el('a', {
+          href: source.url,
+          target: '_blank',
+          rel: 'noopener noreferrer',
+          text: source.title,
+        }),
+      ]);
+    return el('figure', { class: 'briefing-chart' }, [
+      el('figcaption', {}, [
+        el('h4', { text: source.title }),
+        el('p', { text: source.context! }),
+        el('p', { text: source.caption! }),
+      ]),
+      el(
+        'a',
+        {
+          href: source.url,
+          target: '_blank',
+          rel: 'noopener noreferrer',
+          'aria-label': `Open full-size chart: ${source.title} (new tab)`,
+        },
+        [
+          el('img', {
+            src: source.url,
+            alt: source.alt!,
+            loading: 'lazy',
+            decoding: 'async',
+            width: '1920',
+            height: '1032',
           }),
         ],
+      ),
+      el('p', { class: 'chart-attribution', text: source.attribution! }),
+      el('a', {
+        href: source.url,
+        target: '_blank',
+        rel: 'noopener noreferrer',
+        text: `Open full-size chart: ${source.title}`,
+      }),
+    ]);
+  };
+  const sources = briefing.sources.filter((s) => isSourceUrl(s.url));
+  const primary = sources.filter((s) => !s.secondary).map(sourceCard);
+  const secondary = sources.filter((s) => s.secondary).map(sourceCard);
+  if (secondary.length)
+    primary.push(
+      el('details', { class: 'briefing-more-charts' }, [
+        el('summary', { text: 'More charts — NDX and SPX' }),
+        ...secondary,
+      ]),
+    );
+  section(
+    'Charts & context',
+    primary.length
+      ? primary
+      : [el('p', { text: 'Supporting charts are not available for this briefing.' })],
   );
   section('Coverage & publication', [el('p', { text: formatCoverage(briefing) })]);
   section('Disclaimer', [el('p', { text: briefing.disclaimer })]);
@@ -87,7 +132,9 @@ export function createBriefingPanel(
       hide();
     }
     if (event.key !== 'Tab') return;
-    const nodes = [...root.querySelectorAll<HTMLElement>('button, a[href]')];
+    const nodes = [...root.querySelectorAll<HTMLElement>('button, a[href], summary')].filter(
+      (node) => !node.closest('details:not([open])') || node.tagName === 'SUMMARY',
+    );
     const first = nodes[0],
       last = nodes.at(-1);
     if (event.shiftKey && document.activeElement === first) {

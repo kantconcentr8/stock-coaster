@@ -37,7 +37,7 @@ Accept:
 - Native share, clipboard and manual fallback retain recap and candidate route while stripping private inputs. CTA preserves only sanitized attribution.
 - Keyboard, automated accessibility and desktop/mobile emulation checks pass, with physical-device evidence recorded separately.
 
-Status: implemented and locally verified. On November 1 the owner approved both supplied research documents and authorized the daily adaptation. The October 30 daily edition now uses those packaged sources, explicit session context and a conditional ending. See `market-expedition.md` for the separate longer-format outline. This does not satisfy physical-device acceptance or G5.
+Status: implemented and locally verified. Owner-approved research supports the October 30 edition, with explicit session context and a conditional ending. Public Charts & context contains four owner-supplied screenshots; original notes are archived outside public assets. The ES lower advance/decline panel is correctly described as Nasdaq. See `market-expedition.md` for the separate longer-format outline. Physical-device evidence remains tracked separately.
 
 ## P5.R3 - Content and physical-device acceptance
 

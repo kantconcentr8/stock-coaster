@@ -7,7 +7,7 @@ Status: 0 of 5 real sessions recorded. Browser automation is not counted as a pa
 Device: Pixel 8 Pro; browser and deployed build not recorded. Owner reports all CTA and sharing actions worked, the market-data window rendered well, and the overall experience looked good. Minor issue: only one or two individual symbols appeared during the ride on the smaller screen, compared with many more on larger screens. Mobile foreground candle traversal adjusted locally in response; physical-device recheck of that change remains pending. This owner review does not count as one of the five first-time viewer comprehension sessions. Audio, screen-reader and reduced-motion acceptance are not inferred.
 
 ## First-time session procedure
-Owner approved root promotion November 1. Test https://stock-coaster-seven.vercel.app/?b=2026-10-31-lower-value after the release deployment shows **The Daily Ride**, October 30 coverage and two research links. Existing prototype links remain compatible; the original game is now selected with `?experience=game`. These sessions remain unrecorded despite launch approval.
+Owner approved root promotion November 1. Test https://stock-coaster-seven.vercel.app/?b=2026-10-31-lower-value after the release deployment shows **The Daily Ride**, October 30 coverage and Charts & context (ES and participation first, NDX/SPX under More charts). Check full-size charts work on the actual phone. Existing prototype links remain compatible; the original game is now selected with `?experience=game`. These sessions remain unrecorded despite launch approval.
 Do not instruct the participant before they try it. Observe without coaching and record anonymous IDs only.
 
 Ask afterward: "What was the main point of the briefing?" and "What would you do next?"
