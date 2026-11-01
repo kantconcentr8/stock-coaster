@@ -18,7 +18,8 @@
     "test:e2e": "playwright test",
     "build:preview": "tsx scripts/validate-content.ts && tsc --noEmit && vite build --mode test-preview",
     "build:vercel": "tsx scripts/build-vercel.ts",
-    "check:bundle": "tsx scripts/check-bundle.ts"
+    "check:bundle": "tsx scripts/check-bundle.ts",
+    "recap:snapshot": "tsx scripts/import-market-snapshot.ts"
   },
   "keywords": [],
   "author": "",

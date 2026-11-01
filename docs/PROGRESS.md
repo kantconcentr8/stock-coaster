@@ -257,3 +257,13 @@ Start/Pause/Resume/Replay, Escape, blur/visibility pause, reduced motion and blo
 Validation: npm run check passes (101 unit tests); draft production build/bundle checks pass; four desktop/mobile WebKit prototype checks pass.
 Inspected crest/drop and landscape screenshots; mobile frame cap raised to 100ms after slow-render timing failure; disclaimer spacing refined.
 Original game, analytics-disabled decision, editorial draft and open G5 gates retained. Phase 6 has not started; physical-device/audio review pending.
+
+### Recap data - After-close Twelve Data snapshots (2026-11-01)
+Result: connected local private-key import and prototype candle rendering; no live polling or provider calls during playback/builds.
+Command: npm run recap:snapshot -- <briefingId>; uses New York coverage date, after-close guard, exact-date/type/OHLC validation, immutable saved files and no-call reuse.
+Saved October 30 OHLC for Mag 7 + SPY/QQQ/IWM in public/market/2026-10-31-lower-value.json; NDX/SPX/VIX/ES unavailable, no substitute instruments used.
+Symbol discovery exposed unrelated NDX/SPX listings and ES as Eversource; index/futures identifiers/access remain unresolved.
+Prototype labels real candles, independently scaled, with open-to-close percentages and accessible daily-data table; distant candles/track remain illustrative.
+Validation: npm run check (105 unit tests), all 24 desktop/mobile browser tests, repeat-import no-call check and draft build/bundle checks pass; key absent from build/snapshot.
+Inspected desktop/mobile labels; refined disclosure placement and reran four snapshot browser checks plus build. Workflow in docs/market-snapshots.md.
+Original game/editorial approval/open G5 gates unchanged. Analytics disabled; Phase 6 unstarted. Physical-device review remains pending.

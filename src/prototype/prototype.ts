@@ -1,9 +1,10 @@
 import './prototype.css';
 import { el } from '@/ui/dom';
 import { createRideTrack } from './geometry';
-import { drawScenery } from './scenery';
+import { drawMarketLabels, drawScenery } from './scenery';
 import { drawRideTrack } from './track';
 import { drawTrain } from './train';
+import { createMarketBackdrop } from './marketBackdrop';
 
 export function mountCoasterPrototype() {
   const root = el('main', {
@@ -59,6 +60,7 @@ export function mountCoasterPrototype() {
     progress,
   );
   document.body.replaceChildren(root);
+  const market = createMarketBackdrop(root);
   document.title = 'Experience the market | Candlestick Coaster';
   const track = createRideTrack();
   // Active seconds, track x, tangent speed: Hermite curves keep the pacing continuous.
@@ -211,7 +213,7 @@ export function mountCoasterPrototype() {
     const zoom = Math.max(0.1, Math.min(width / (width < 600 ? 900 : 2000), (height - 140) / 950));
     const dpr = Math.min(devicePixelRatio || 1, 2);
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    drawScenery(ctx, width, height, cameraX, time);
+    const labels = drawScenery(ctx, width, height, cameraX, time, market.candles);
     ctx.save();
     ctx.translate(width * (width < 600 ? 0.43 : 0.34), height * 0.45);
     ctx.scale(zoom, zoom);
@@ -219,6 +221,12 @@ export function mountCoasterPrototype() {
     drawRideTrack(ctx, track, cameraX - (width * 0.5) / zoom, cameraX + width / zoom);
     drawTrain(ctx, track, position, speed, time, motion.matches);
     ctx.restore();
+    drawMarketLabels(
+      ctx,
+      labels,
+      width * (width < 600 ? 0.43 : 0.34) + (p.x - cameraX) * zoom,
+      height * 0.45 + (p.y - cameraY) * zoom,
+    );
     const vignette = ctx.createLinearGradient(0, 0, 0, height);
     vignette.addColorStop(0, '#040c1be6');
     vignette.addColorStop(0.23, '#040c1b00');

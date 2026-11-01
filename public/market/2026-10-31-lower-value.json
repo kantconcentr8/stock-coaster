@@ -1,0 +1,105 @@
+{
+  "version": 1,
+  "briefingId": "2026-10-31-lower-value",
+  "sessionDate": "2026-10-30",
+  "fetchedAt": "2026-11-01T17:37:08.481Z",
+  "source": "Twelve Data",
+  "candles": [
+    {
+      "symbol": "AAPL",
+      "kind": "stock",
+      "date": "2026-10-30",
+      "open": 346.72,
+      "high": 349.19,
+      "low": 334.35001,
+      "close": 344.63
+    },
+    {
+      "symbol": "MSFT",
+      "kind": "stock",
+      "date": "2026-10-30",
+      "open": 525.27002,
+      "high": 526,
+      "low": 514.34998,
+      "close": 521.90997
+    },
+    {
+      "symbol": "AMZN",
+      "kind": "stock",
+      "date": "2026-10-30",
+      "open": 232.53999,
+      "high": 241.55,
+      "low": 229.36,
+      "close": 240.35001
+    },
+    {
+      "symbol": "GOOGL",
+      "kind": "stock",
+      "date": "2026-10-30",
+      "open": 281.12,
+      "high": 283.14001,
+      "low": 276.92001,
+      "close": 279.84
+    },
+    {
+      "symbol": "META",
+      "kind": "stock",
+      "date": "2026-10-30",
+      "open": 614.51001,
+      "high": 626.37,
+      "low": 610.13,
+      "close": 614.98999
+    },
+    {
+      "symbol": "NVDA",
+      "kind": "stock",
+      "date": "2026-10-30",
+      "open": 208.94,
+      "high": 209.059998,
+      "low": 200.92,
+      "close": 204.64
+    },
+    {
+      "symbol": "TSLA",
+      "kind": "stock",
+      "date": "2026-10-30",
+      "open": 393.22,
+      "high": 404.22,
+      "low": 387.51999,
+      "close": 399.81
+    },
+    {
+      "symbol": "SPY",
+      "kind": "etf",
+      "date": "2026-10-30",
+      "open": 761.38,
+      "high": 761.46002,
+      "low": 750.35999,
+      "close": 755.71997
+    },
+    {
+      "symbol": "QQQ",
+      "kind": "etf",
+      "date": "2026-10-30",
+      "open": 697.21002,
+      "high": 698.63,
+      "low": 683.45001,
+      "close": 690.48999
+    },
+    {
+      "symbol": "IWM",
+      "kind": "etf",
+      "date": "2026-10-30",
+      "open": 281.97,
+      "high": 282.70999,
+      "low": 276.91,
+      "close": 279.32999
+    }
+  ],
+  "unavailable": [
+    "NDX",
+    "SPX",
+    "VIX",
+    "ES"
+  ]
+}

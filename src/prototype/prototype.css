@@ -130,7 +130,49 @@
   width: 0;
   box-shadow: 0 0 12px #fca31188;
 }
+.ride-market {
+  position: absolute;
+  top: 104px;
+  left: clamp(18px, 4vw, 60px);
+  max-width: min(540px, calc(100vw - 36px));
+  color: #c6d1dd;
+  font-size: 11px;
+  z-index: 2;
+}
+.ride-market summary {
+  cursor: pointer;
+  padding: 6px 8px;
+  background: #0a1729e8;
+  border-radius: 6px;
+}
+.ride-market-panel {
+  padding: 12px;
+  background: #0a1729f5;
+  border: 1px solid #627386;
+  border-radius: 8px;
+  max-height: 35vh;
+  overflow: auto;
+}
+.ride-market-panel p {
+  line-height: 1.5;
+  margin: 0 0 10px;
+}
+.ride-market-panel table {
+  border-collapse: collapse;
+  font-size: 10px;
+}
+.ride-market-panel th,
+.ride-market-panel td {
+  padding: 5px;
+  text-align: right;
+}
+.ride-market-panel a {
+  color: #fca311;
+}
 @media (max-width: 600px) {
+  .ride-market {
+    top: 94px;
+  }
   .ride-top {
     top: 20px;
   }
@@ -181,6 +223,9 @@
   bottom: max(24px, env(safe-area-inset-bottom));
 }
 @media (max-height: 500px) {
+  .ride-market {
+    top: 60px;
+  }
   .ride-top h1 {
     font-size: 24px;
   }

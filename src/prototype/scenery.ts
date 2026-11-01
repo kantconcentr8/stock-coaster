@@ -1,10 +1,21 @@
+import type { MarketCandle } from '@/content/marketSnapshot';
+
+interface CandleLabel {
+  x: number;
+  y: number;
+  symbol: string;
+  change: number;
+}
+
 export function drawScenery(
   ctx: CanvasRenderingContext2D,
   width: number,
   height: number,
   cameraX: number,
   time: number,
+  candles: readonly MarketCandle[] = [],
 ) {
+  const labels: CandleLabel[] = [];
   const sky = ctx.createLinearGradient(0, 0, 0, height);
   sky.addColorStop(0, '#060e20');
   sky.addColorStop(0.55, '#172c43');
@@ -45,19 +56,37 @@ export function drawScenery(
     for (let index = start; index < start + width / spacing + 7; index++) {
       const seed = Math.abs(Math.sin(index * 127.1 + layer * 311.7));
       const x = index * spacing - movement;
-      const body = 55 + seed * height * 0.26;
-      const y = height * (0.45 + layer * 0.08) + Math.sin(index * 1.33 + layer) * height * 0.15;
+      const candle =
+        layer === 2 && candles.length
+          ? candles[((index % candles.length) + candles.length) % candles.length]
+          : undefined;
+      const extent = Math.min(240, height * 0.28);
+      const top = height * (0.35 + layer * 0.06) + Math.sin(index * 1.33 + layer) * height * 0.15;
+      const priceY = (price: number) =>
+        top + ((candle!.high - price) / Math.max(candle!.high - candle!.low, 0.00001)) * extent;
+      const body = candle
+        ? Math.max(2, Math.abs(priceY(candle.open) - priceY(candle.close)))
+        : 55 + seed * height * 0.26;
+      const y = candle ? Math.min(priceY(candle.open), priceY(candle.close)) : top;
       const w = layer === 2 ? 35 : 19;
-      ctx.globalAlpha = [0.12, 0.24, 0.55][layer]!;
-      const orange = seed > 0.53,
-        cream = seed < 0.19;
+      ctx.globalAlpha = candle ? 0.8 : [0.12, 0.24, 0.55][layer]!;
+      const orange = candle ? candle.close < candle.open : seed > 0.53,
+        cream = candle ? candle.close >= candle.open : seed < 0.19;
       const color = cream ? '#d9cdb4' : orange ? '#fca311' : '#274354';
       ctx.strokeStyle = color;
       ctx.lineWidth = layer === 2 ? 3 : 2;
       ctx.beginPath();
-      ctx.moveTo(x + w / 2, y - 32 - seed * 35);
-      ctx.lineTo(x + w / 2, y + body + 28);
+      ctx.moveTo(x + w / 2, candle ? priceY(candle.high) : y - 32 - seed * 35);
+      ctx.lineTo(x + w / 2, candle ? priceY(candle.low) : y + body + 28);
       ctx.stroke();
+      if (candle) {
+        labels.push({
+          x: x - 4,
+          y: top - 39,
+          symbol: candle.symbol,
+          change: ((candle.close - candle.open) / candle.open) * 100,
+        });
+      }
       const fill = ctx.createLinearGradient(x, y, x + w, y);
       fill.addColorStop(0, color);
       fill.addColorStop(0.24, orange ? '#f6be63' : cream ? '#e5dece' : '#335267');
@@ -89,4 +118,31 @@ export function drawScenery(
   }
   ctx.globalAlpha = 1;
   void time;
+  return labels;
+}
+
+/** Labels remain readable over trestles; leave space around the train itself. */
+export function drawMarketLabels(
+  ctx: CanvasRenderingContext2D,
+  labels: CandleLabel[],
+  trainX: number,
+  trainY: number,
+) {
+  for (const label of labels) {
+    if (Math.abs(label.x - trainX) < 130 && Math.abs(label.y - trainY) < 65) continue;
+    ctx.fillStyle = '#0a1729eb';
+    ctx.beginPath();
+    ctx.roundRect(label.x, label.y, 90, 34, 4);
+    ctx.fill();
+    ctx.font = '600 12px sans-serif';
+    ctx.fillStyle = '#f1e7d5';
+    ctx.fillText(label.symbol, label.x + 5, label.y + 13);
+    ctx.font = '10px sans-serif';
+    ctx.fillStyle = '#c8d3de';
+    ctx.fillText(
+      `O/C ${label.change >= 0 ? '+' : ''}${label.change.toFixed(2)}%`,
+      label.x + 5,
+      label.y + 27,
+    );
+  }
 }

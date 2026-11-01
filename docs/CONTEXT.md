@@ -97,3 +97,10 @@ Living architecture map. Update when a public export, file, or folder changes. K
 - `main.ts`: `?prototype=coaster` lazily mounts the separate motion study; normal URL retains briefing game.
 - `prototype/{geometry,track,train,scenery,prototype}.ts`, `prototype.css`: original Canvas 2D coaster, arc-length cars, rails/trestles, candlestick parallax, timed passenger choreography, captions, optional synthesized audio and responsive controls.
 - `docs/coaster-visual-prototype.md`, `tests/e2e/prototype.spec.ts`: scope, art limitations and desktop/mobile motion verification. No main-game mechanics or editorial changes.
+
+## Recap candle snapshots
+
+- `content/marketSnapshot.ts`: `MarketCandle`, `MarketSnapshot`, `MARKET_SYMBOLS`, `parseMarketCandle`, `isMarketSnapshot`; exact-session OHLC and instrument validation.
+- `scripts/import-market-snapshot.ts`: `npm run recap:snapshot -- <briefingId>`; private-key, after-close import to immutable `public/market/<briefingId>.json`; repeat imports skip provider calls.
+- `prototype/marketBackdrop.ts`: `createMarketBackdrop`, one saved-file read, accessible data disclosure/table, illustrative fallback. `scenery.ts` draws labeled normalized candles; `drawMarketLabels` preserves label visibility over supports.
+- `docs/market-snapshots.md`: recap workflow, timing, symbol limitations and data semantics. No provider requests from browser playback or builds.

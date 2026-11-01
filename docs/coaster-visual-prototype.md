@@ -23,3 +23,7 @@ Reduced motion removes streaks, passenger arm motion and camera easing. Nothing 
 
 Verification uses Chromium desktop and iPhone 13 WebKit emulation: complete ride, caption order, pause stability, replay, native Space activation, Escape, reduced motion, blocked audio, blur and landscape control visibility. Crest, drop and landscape screenshots are saved under `test-results/`.
 Physical-phone performance, audio quality and visual preference still require review. Editorial approval and Phase 5 release gates remain open; Phase 6 has not started. Analytics remains disabled.
+
+## Dated market candles
+
+The foreground now uses saved per-recap daily OHLC candles when available, with ticker labels and an accessible data table. Each candle is scaled independently; O/C is the open-to-close move. Distant unlabelled candles and the track remain illustrative. Playback and Replay never call Twelve Data. See [market-snapshots.md](market-snapshots.md) for the after-close import command and unavailable index/futures symbols.
