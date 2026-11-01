@@ -22,7 +22,8 @@ test('passenger recap connects introduction, briefing chapters, ending, sharing 
   await page.goto('/?prototype=coaster&utm_source=qa&utm_campaign=passenger&email=private#secret');
   await expect(page.getByRole('heading', { name: title, exact: true })).toBeVisible();
   await expect(page.locator('.recap-coverage')).toContainText('Oct 30, 2026');
-  await expect(page.locator('.recap-draft').first()).toContainText('not approved');
+  await expect(page.locator('.recap-draft')).toHaveCount(0);
+  await expect(page.locator('.ride-eyebrow')).toHaveText('The Daily Ride');
   await expect(page.getByRole('button', { name: /boost|brake/i })).toHaveCount(0);
   await expect(page.getByText('Momentum', { exact: true })).toHaveCount(0);
   expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
@@ -32,7 +33,7 @@ test('passenger recap connects introduction, briefing chapters, ending, sharing 
   await page.getByRole('button', { name: 'Start ride', exact: true }).focus();
   await page.keyboard.press('Space');
   await expect(page.locator('.ride-stage')).toHaveText('The climb');
-  await expect(page.locator('.ride-caption')).toContainText('Repeated lower value');
+  await expect(page.locator('.ride-caption')).toContainText('October 30: price fell');
   await expect(page.locator('.ride-stage')).toHaveText('At the crest', { timeout: 14000 });
   await page.screenshot({ path: `test-results/coaster-${test.info().project.name}-crest.png` });
   await expect(page.locator('.ride-stage')).toHaveText('The plunge', { timeout: 6000 });
@@ -40,9 +41,15 @@ test('passenger recap connects introduction, briefing chapters, ending, sharing 
   await page.screenshot({ path: `test-results/coaster-${test.info().project.name}-drop.png` });
   await page.getByRole('button', { name: 'Read briefing & sources' }).click();
   await expect(page.getByRole('dialog')).toBeVisible();
-  await expect(page.getByRole('dialog')).toContainText(
-    'approved public research links are pending',
-  );
+  const sources = page.getByRole('dialog').locator('a[href^="/research/"]');
+  await expect(sources).toHaveCount(2);
+  for (const source of await sources.all()) {
+    const response = await page.request.get((await source.getAttribute('href'))!);
+    expect(response.ok()).toBe(true);
+    expect(response.headers()['content-type']).toContain('text/plain');
+    expect((await response.text()).length).toBeGreaterThan(1000);
+  }
+  await expect(page.getByRole('dialog')).not.toContainText('TODO(owner)');
   const paused = await progress.getAttribute('style');
   await page.waitForTimeout(300);
   expect(await progress.getAttribute('style')).toBe(paused);
@@ -53,7 +60,7 @@ test('passenger recap connects introduction, briefing chapters, ending, sharing 
   await expect(page.locator('.ride-caption')).toContainText('Hypothetical / not observed', {
     timeout: 12000,
   });
-  await expect(page.locator('.ride-caption')).toContainText('If breadth fails');
+  await expect(page.locator('.ride-caption')).toContainText('will participation confirm');
   await expect(page.locator('.ride-stage')).toHaveText('Recap complete', { timeout: 10000 });
   await expect(progress).toHaveAttribute('style', 'width: 100%;');
   await expect(page.getByRole('heading', { name: 'Takeaways', exact: true })).toBeFocused();
@@ -83,7 +90,7 @@ test('passenger recap connects introduction, briefing chapters, ending, sharing 
   await page.screenshot({ path: `test-results/coaster-${test.info().project.name}-end.png` });
   await page.getByRole('button', { name: 'Replay the coaster sequence' }).click();
   await expect(page.getByRole('button', { name: 'Pause ride' })).toBeVisible();
-  await expect(page.locator('.ride-caption')).toContainText('Repeated lower value');
+  await expect(page.locator('.ride-caption')).toContainText('October 30: price fell');
   await page.keyboard.press('Escape');
   await expect(page.getByRole('button', { name: 'Resume ride' })).toBeVisible();
   expect(errors).toEqual([]);
@@ -192,6 +199,28 @@ test('phone-first text remains readable and controls stay separate at narrow and
     ).toBeGreaterThanOrEqual(16);
     await page.getByRole('button', { name: 'Close briefing' }).click();
   }
+});
+
+test('header reflow keeps market data and the recap below a taller phone title', async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 320, height: 568 });
+  await page.goto('/?prototype=coaster');
+  await page.locator('.ride-top h1').evaluate((title) => {
+    title.style.fontFamily = 'monospace';
+    title.style.letterSpacing = '0.08em';
+    title.style.lineHeight = '1.3';
+  });
+  await expect
+    .poll(async () => {
+      const header = (await page.locator('.ride-top').boundingBox())!;
+      const data = (await page.locator('.ride-market summary').boundingBox())!;
+      const card = (await page.locator('.recap-card:not([hidden])').boundingBox())!;
+      return data.y >= header.y + header.height + 11 && card.y >= data.y + data.height + 11;
+    })
+    .toBe(true);
+  await expect(page.getByRole('button', { name: 'Start ride', exact: true })).toBeInViewport();
+  await page.screenshot({ path: `test-results/header-reflow-${test.info().project.name}.png` });
 });
 
 test('briefing footer offers waitlist and return buttons without resetting the ride', async ({

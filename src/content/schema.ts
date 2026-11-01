@@ -9,6 +9,9 @@ export const isHttps = (value: string): boolean => {
     return false;
   }
 };
+// Only packaged plain-text research is allowed as a same-origin source.
+export const isSourceUrl = (value: string): boolean =>
+  isHttps(value) || /^\/research\/[a-z0-9-]+\.txt$/.test(value);
 export interface ValidationOptions {
   production?: boolean;
   allowUnapproved?: boolean;
@@ -134,7 +137,8 @@ export function validateBriefing(
   for (const item of array(b, 'sources', 0)) {
     const s = object(item, 'sources');
     str(s, 'title');
-    url(str(s, 'url'), 'sources.url');
+    if (!isSourceUrl(str(s, 'url')))
+      errors.push('sources.url: HTTPS URL or packaged /research/*.txt required');
   }
   for (const item of array(b, 'glossary', 0)) {
     const g = object(item, 'glossary');

@@ -13,6 +13,12 @@ for (const file of files) {
         allowUnapproved: process.env.ALLOW_UNAPPROVED === '1',
       },
     );
+    for (const source of briefing.sources) {
+      if (!source.url.startsWith('/research/')) continue;
+      const packaged = new URL(`../public${source.url}`, import.meta.url);
+      if (!readFileSync(packaged, 'utf8').trim())
+        throw new Error(`Empty packaged research: ${source.url}`);
+    }
     const courseDirectory = new URL('../src/content/courses/', import.meta.url);
     const courseExists = readdirSync(courseDirectory)
       .filter((f) => f.endsWith('.json'))

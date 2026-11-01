@@ -294,3 +294,27 @@ Verification: four desktop/mobile footer and text-fallback checks pass; typechec
 ### P5.R2c - Directional O/C label colors (2026-11-01)
 Result: negative open-to-close labels red (#ff8585), positive green (#6ee7a0), zero neutral; signed values retained.
 Verification: draft production build/typecheck and bundle checks pass. No data or candle-body semantics changed.
+
+### P5.R2d / P5.R3 content - Approved Daily Ride and expedition outline (2026-11-01)
+Owner approved both supplied research documents and authorized the recommended daily-first adaptation; this is content authorization, not launch approval.
+Result: current passenger candidate identifies itself as The Daily Ride, covers October 30 and uses session weakness → late bounce → conditional participation test. Readable briefing explains prior-session context and separates editorial ES references from saved stock/ETF candles.
+Content version 2 removes editorial TODOs, records approval and November 1 adaptation time, and links unchanged packaged research copies. Original Oct_10 filename mismatch is disclosed; hashes match both owner files. Existing briefing ID is retained for snapshot/share compatibility.
+Source validation/rendering allow only HTTPS or restricted packaged /research/*.txt paths; build validation checks packaged files. Source URL safety tests reject traversal, active URLs and arbitrary local files.
+Separate Market Expedition outline defines a roughly 90-second October 20–30 chapter journey and optional hypothetical November explanations. It is planning, not a playable second ride or Phase 6 work; prototype after daily phone observations.
+Validation: npm run check passes (109 unit tests), strict npm run build passes without editorial override and bundle budgets pass. All 16 focused Chromium/mobile WebKit browser cases passed, including source retrieval, complete ride, controls, fallback, readability, CTA/share and saved snapshot behavior. Desktop/mobile intro screenshots visually inspected. The sandbox's Node user-info error required running build/check outside the sandbox; no product workaround introduced.
+Updated phone-session script and current acceptance status. Changes remain local; no deployment/root promotion, real-phone observations, rollback rehearsal or launch approval claimed. G5 remains open; analytics disabled; Phase 6 not started.
+Browser-runner limitation: all 16 individual cases reported ok, but the sandboxed runner stalled during shutdown without a final summary; interrupted the completed test session. This is not a clean runner-exit claim.
+
+### P5.R3 observation / P5.R2e - Mobile symbol coverage (2026-11-01)
+Owner reports Pixel 8 Pro viewing looks good: CTA, sharing and market-data disclosure work. Browser/build unspecified; audio, reduced motion and screen-reader results not inferred. Recorded separately from the five first-time phone sessions, which remain pending.
+Observed issue: only one or two candle symbols appear on small screens, while desktop exposes more. Cause: foreground parallax travels only about two candle spacings across the full camera route.
+Fix: below 600px, saved foreground candles traverse one full symbol set across the 28-second active ride. Spacing, label type size, OHLC values and directional colors remain intact. The sweep follows active ride time, so pause freezes it and Replay resets it. Desktop parallax remains unchanged.
+Verification: typecheck, lint and strict production build/bundle pass. New real-time canvas-label coverage case reports all ten saved symbols drawn during a complete 390x844 ride on Chromium and mobile WebKit. Changes remain local; Pixel recheck after deployment remains pending. Analytics disabled; Phase 6 not started.
+Both browser cases reported ok; the runner again stalled after case completion and was interrupted during shutdown.
+
+### P5.R2f - CI narrow-header overlap (2026-11-01)
+Owner supplied GitHub Actions failure: both browser engines measured header bottom 131.375px versus market-data top 108px. Fixed offsets assumed fewer wrapped title lines; platform font differences can expose the overlap.
+Fix: measure header bounds with ResizeObserver and position market-data/stage rows and portrait recap cards below the actual header, retaining minimum spacing. Added a 320px regression that forces wider title glyphs and extra line wrapping; original overlap assertion retained.
+Removed the reported Vite native-config import warnings with explicit .ts imports and noEmit-compatible allowImportingTsExtensions. No warning suppression added.
+Validation: npm run check passes (109 unit tests), strict production build/bundle passes, and six focused Chromium/mobile WebKit cases report ok (original readability sweep, forced header reflow, resize/reduced-motion controls). Forced-reflow screenshot visually inspected. GitHub/Linux CI has not been rerun by this task; fixes remain local pending commit/push.
+The local browser runner again stalled after all cases reported ok and was interrupted during shutdown; no clean runner exit claimed.

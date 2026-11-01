@@ -37,13 +37,13 @@ Accept:
 - Native share, clipboard and manual fallback retain recap and candidate route while stripping private inputs. CTA preserves only sanitized attribution.
 - Keyboard, automated accessibility and desktop/mobile emulation checks pass, with physical-device evidence recorded separately.
 
-Status: implemented and locally verified for the current draft recap; see PROGRESS and `docs/qa/passenger-recap.md`. Editorial content remains draft; this does not satisfy P5.R3 or G5.
+Status: implemented and locally verified. On November 1 the owner approved both supplied research documents and authorized the daily adaptation. The October 30 daily edition now uses those packaged sources, explicit session context and a conditional ending. See `market-expedition.md` for the separate longer-format outline. This does not satisfy physical-device acceptance or G5.
 
 ## P5.R3 - Content and physical-device acceptance
 
 Deliver: approved research links and wording, confirmed dates/cutoff, five real first-time phone sessions, actual Safari/Android checks, screen-reader/audio/reduced-motion observations and recurring-issue fixes.
 The session script asks what the briefing meant, whether the viewer understood the passenger role and hypothetical ending, and what they would do next. Automated tests do not count as people or physical devices.
-Status: pending owner-supplied research/approval and real observations. Use `docs/qa/usability-sessions.md`.
+Status: owner research/content approval recorded November 1; source copies and daily adaptation are prepared. Five real first-time phone sessions and physical-device observations remain pending. Use `docs/qa/usability-sessions.md`. Source approval is not launch approval.
 
 ## P5.R4 - Release and root-route promotion
 

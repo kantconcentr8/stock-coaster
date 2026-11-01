@@ -1,9 +1,29 @@
 import { readFileSync, readdirSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
-import { validateBriefing } from '@/content/schema';
+import { isSourceUrl, validateBriefing } from '@/content/schema';
 import valid from '../fixtures/briefings/valid.json';
+import type { Briefing } from '@/core/types';
 
 describe('briefing schema', () => {
+  it('allows packaged research but rejects traversal, external relative URLs and active content', () => {
+    expect(isSourceUrl('/research/october-30-session-notes.txt')).toBe(true);
+    expect(isSourceUrl('https://example.org/research')).toBe(true);
+    for (const url of [
+      '//example.org/research.txt',
+      '/research/../private.txt',
+      '/research/%2e%2e/private.txt',
+      '/research/notes.html',
+      'javascript:alert(1)',
+      'file:///private.txt',
+      '/research/notes.txt?redirect=1',
+    ])
+      expect(isSourceUrl(url)).toBe(false);
+    const b = structuredClone(valid) as Briefing;
+    b.sources = [{ title: 'Packaged research', url: '/research/session.txt' }];
+    expect(() => validateBriefing(b)).not.toThrow();
+    b.sources[0]!.url = '/research/../private.txt';
+    expect(() => validateBriefing(b)).toThrow('sources.url');
+  });
   it('accepts complete content and enforces owner approval in production', () => {
     expect(validateBriefing(valid).briefing.briefingId).toBe(valid.briefingId);
     expect(() => validateBriefing(valid, { production: true })).toThrow('owner approval');

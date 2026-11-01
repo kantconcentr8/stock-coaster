@@ -50,7 +50,7 @@ Living architecture map. Update when a public export, file, or folder changes. K
 
 ## Phase 3 additions
 
-- `content/schema.ts`: `BRIEFING_ID`, `isHttps`, `validateBriefing` (hand-rolled validation, warnings, production approval gate).
+- `content/schema.ts`: `BRIEFING_ID`, `isHttps`, `isSourceUrl`, `validateBriefing` (validation, production approval gate; sources allow HTTPS or packaged `/research/*.txt` only).
 - `content/loader.ts`: `createBriefingLoader`, `defaultBriefingId`, `BriefingNotice`; `content/index.ts`: bundled `loadBriefing(search)` including referenced course.
 - `core/types.ts`: concrete `Briefing`, `Chapter`, `Classification`, `LearningQuestion`; `GameEvent` adds learningAnswer, briefingRead, app_error.
 - `sim/chapters.ts`: `createChapterScheduler` based on active time; `AppDeps.chapters` wires chapterSeen and reset per run.
@@ -113,3 +113,5 @@ Living architecture map. Update when a public export, file, or folder changes. K
 - `prototype/scene.ts`, `rideAudio.ts`: renderer/camera/pause/replay lifecycle and gesture-only original synthesis, separated from recap UI.
 - `services/share.ts`: shared URL allowlist also preserves `prototype=coaster` for passenger links; other private/debug fields remain excluded.
 - `docs/implementation-plan/passenger-experience.md`: current product overlay; revised Phase 6 uses observed evidence and a timed second recap, with analytics still disabled. G5 open.
+- `docs/implementation-plan/market-expedition.md`: daily pilot script and separate longer-format chapter outline; expedition prototype follows phone observations.
+- `public/research/*.txt`: unchanged owner-approved research copies, linked in the daily briefing; content validation requires referenced copies to exist and contain text.

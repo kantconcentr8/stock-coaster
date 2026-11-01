@@ -1,7 +1,7 @@
 # Passenger recap candidate - November 1, 2026
 
 Review route: `/?prototype=coaster&b=2026-10-31-lower-value`.
-Status: locally verified complete draft flow. This is not G5 approval or a Phase 6 pilot result.
+Status: complete passenger flow with a November 1 daily adaptation of owner-approved research, covering October 30. Research copies are packaged under `/research/`; the original source filename mismatch is disclosed. Physical-phone acceptance, deployment and G5 remain pending. This is not a Phase 6 pilot result. Earlier evidence below describes the draft implementation; the newest validation is recorded in PROGRESS.
 
 Validation: `npm run check` passed (108 unit tests), all 28 browser regression tests passed, and the draft production build/bundle checks passed. Six passenger checks were rerun after the final mobile card adjustment, including zero-violation intro/end axe scans on Chromium and mobile WebKit. The manual-share field is explicitly scrolled into view. No physical-phone results are claimed.
 
@@ -36,7 +36,7 @@ Verification: 108 unit tests and 14 focused desktop/mobile browser checks passed
 
 ## Remaining release work
 
-1. Owner supplies/approves public research, confirms thesis/cutoff/scenarios/wording and finalizes editorial approval. The source JSON remains unchanged and unapproved; no research links were invented.
+1. Content preparation is complete locally: owner approved both documents and authorized adaptation. Check the deployed candidate shows The Daily Ride, October 30 coverage and both packaged source links before recruiting viewers; this task does not deploy it. No external research links were invented.
 2. Observe five real first-time phone viewers with the revised usability script; verify caption reading time, comprehension, hypothetical distinction and voluntary replay.
 3. Check actual Safari/Android/in-app browser performance, audio behavior, reduced motion, screen readers, rotation and app-switch resume.
 4. Resolve recurring issues, promote the chosen passenger version to the main route with matching metadata/link tests, and rehearse Vercel rollback.

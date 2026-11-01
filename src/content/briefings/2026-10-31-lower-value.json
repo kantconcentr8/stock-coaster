@@ -1,10 +1,10 @@
 {
   "briefingId": "2026-10-31-lower-value",
-  "contentVersion": 1,
+  "contentVersion": 2,
   "title": "Lower value: a bounce is not repair",
-  "summary": "Draft interpretation of the October campaign notes. TODO(owner): confirm lower-value migration and the late bounce against approved research. The course illustrates the thesis; it is not a market chart.",
+  "summary": "The Daily Ride — October 30, 2026. The approved research describes a selloff confirmed by weakening market participation, followed by a late bounce. That bounce alone did not establish repair. Earlier October events provide context; the November outlook remains conditional. The track illustrates the story rather than plotting prices.",
   "brandName": "Candlestick Coaster",
-  "publishedAt": "2026-10-31T10:30:00-04:00",
+  "publishedAt": "2026-11-01T20:31:36Z",
   "coverageEnd": "2026-10-30T16:00:00-04:00",
   "displayTimezone": "America/New_York",
   "courseId": "course-01",
@@ -15,8 +15,8 @@
       "id": "lower-value",
       "startSec": 0,
       "endSec": 20,
-      "caption": "Repeated lower value: more than a brief dip.",
-      "summary": "TODO(owner): confirm the campaign description of repeated lower-value acceptance. Stepped descents illustrate this interpretation.",
+      "caption": "October 30: price fell, and market participation weakened with it.",
+      "summary": "The approved October 30 account describes lower prices alongside deteriorating breadth and cumulative advance/decline lines. This daily ride focuses on that session; the October 28 FOMC rejection is earlier context, not an event from the same day. The authored climb and descent are illustrative, not a measured intraday path.",
       "classification": "interpretation",
       "label": "Interpretation",
       "forwardLooking": false
@@ -26,7 +26,7 @@
       "startSec": 20,
       "endSec": 40,
       "caption": "A bounce alone does not establish repair.",
-      "summary": "A recovery in price alone does not demonstrate broad participation. This bounce is an illustration, not a measured price path.",
+      "summary": "The research describes ES rebounding from approximately 7558 to 7615 late in the session. Price recovered, but the broader structure and participation had not established meaningful repair. ES references come from the approved editorial notes, not the saved stock and ETF candles. The ride's recovery is illustrative.",
       "classification": "interpretation",
       "label": "Interpretation",
       "forwardLooking": false
@@ -35,8 +35,8 @@
       "id": "conditional",
       "startSec": 40,
       "endSec": 60,
-      "caption": "If breadth fails to confirm, the bounce could fade.",
-      "summary": "Proposed ending: an ordinary countertrend bounce fades without breadth confirmation. Alternatives: continuation lower, or a failed breakdown followed by recovery. None is an observed future outcome.",
+      "caption": "Next: will participation confirm the price move?",
+      "summary": "For the next session, lower prices with weaker breadth would support continuation. A new price low with improving breadth and a reclaim could indicate a failed breakdown. Rising price with expanding breadth and higher-value acceptance would support repair. These are conditional possibilities, not November results or trading instructions.",
       "classification": "hypothetical",
       "label": "Hypothetical scenario",
       "forwardLooking": true
@@ -44,7 +44,7 @@
   ],
   "takeaways": [
     {
-      "text": "Repeated lower value is the campaign thesis. TODO(owner): verify against approved research.",
+      "text": "October 30 weakness was confirmed by deteriorating market participation.",
       "classification": "interpretation",
       "label": "Interpretation"
     },
@@ -54,12 +54,21 @@
       "label": "Interpretation"
     },
     {
-      "text": "A bounce could fade if breadth fails to confirm; continuation and failed-breakdown recovery are alternatives.",
+      "text": "Next, watch whether participation confirms the price move. Continuation, failed breakdown and repair remain conditional paths.",
       "classification": "hypothetical",
       "label": "Hypothetical scenario"
     }
   ],
-  "sources": [],
+  "sources": [
+    {
+      "title": "Approved session research — October 30 account (original filename: Oct_10_2026_Market-Recap.md)",
+      "url": "/research/october-30-session-notes.txt"
+    },
+    {
+      "title": "Approved context — October → November 2026 Market Structure (updated November 1)",
+      "url": "/research/october-november-2026-market-structure.txt"
+    }
+  ],
   "cta": {
     "id": "waitlist",
     "label": "Join the Predictourney waitlist",
@@ -67,7 +76,7 @@
     "campaignId": "2026-10-31-nov-1",
     "destinationCategory": "waitlist"
   },
-  "shareText": "Explore a dated, illustrative market briefing in Candlestick Coaster.",
+  "shareText": "The Daily Ride: October 30's bounce did not establish repair. Experience the session in Candlestick Coaster.",
   "socialImage": "/social/default-1200x630.png",
   "glossary": [
     {
@@ -79,17 +88,16 @@
       "definition": "A price region where trading activity has concentrated over a specified period."
     }
   ],
-  "disclaimer": "An illustrative briefing and arcade game, not a trading simulation or investment advice. Geometry is illustrative, not an exact market chart. TODO(owner): verify publication time, coverage cutoff, sources and usage rights.",
+  "disclaimer": "An illustrative passenger briefing, not a trading simulation or investment advice. Coverage ends at the October 30, 2026 regular-session close; the adaptation was prepared November 1. Research documents were approved by the owner and are reproduced as supplied; references to charts and earlier notes inside them are not additional linked evidence. Index and futures levels are editorial references. Saved stock/ETF candles are separate market context. The track is not a historical price path. November scenarios are hypothetical, not observed outcomes.",
   "approval": {
-    "approved": false
+    "approved": true,
+    "approvedBy": "Project owner — both research documents approved in conversation; daily adaptation authorized",
+    "approvedAt": "2026-11-01T20:31:36Z"
   },
   "learningQuestion": {
     "id": "bounce-repair",
     "prompt": "Does a bounce alone establish structural repair?",
-    "answers": [
-      "Yes, any bounce proves repair.",
-      "No, broader confirmation is needed."
-    ],
+    "answers": ["Yes, any bounce proves repair.", "No, broader confirmation is needed."],
     "correctIndex": 1,
     "explanation": "A price bounce alone does not establish repair; participation and the surrounding structure matter."
   }

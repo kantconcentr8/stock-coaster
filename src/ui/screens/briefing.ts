@@ -1,5 +1,5 @@
 import type { Briefing } from '../../core/types';
-import { isHttps } from '../../content/schema';
+import { isHttps, isSourceUrl } from '../../content/schema';
 import { el } from '../dom';
 import { formatCoverage } from '../format';
 
@@ -38,7 +38,7 @@ export function createBriefingPanel(
     'Sources',
     briefing.sources.length
       ? briefing.sources
-          .filter((s) => isHttps(s.url))
+          .filter((s) => isSourceUrl(s.url))
           .map((s) =>
             el('p', {}, [
               el('a', { href: s.url, target: '_blank', rel: 'noopener noreferrer', text: s.title }),

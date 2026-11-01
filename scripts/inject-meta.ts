@@ -1,6 +1,6 @@
 import type { Plugin } from 'vite';
 import { readFileSync } from 'node:fs';
-import type { Briefing } from '../src/core/types';
+import type { Briefing } from '../src/core/types.ts';
 const briefing = JSON.parse(
   readFileSync(
     new URL('../src/content/briefings/2026-10-31-lower-value.json', import.meta.url),

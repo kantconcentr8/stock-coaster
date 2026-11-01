@@ -1,5 +1,34 @@
 import { expect, test } from '@playwright/test';
 
+test('a narrow phone exposes every saved symbol during one ride', async ({ page }) => {
+  test.setTimeout(70000);
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.addInitScript(() => {
+    const symbols = new Set<string>();
+    const original = CanvasRenderingContext2D.prototype.fillText;
+    CanvasRenderingContext2D.prototype.fillText = function (text, x, y, maxWidth) {
+      if (/^[A-Z]{1,5}$/.test(text)) symbols.add(text);
+      return maxWidth === undefined
+        ? original.call(this, text, x, y)
+        : original.call(this, text, x, y, maxWidth);
+    };
+    Object.assign(window, { renderedSymbols: symbols });
+  });
+  await page.goto('/?prototype=coaster');
+  await expect(page.locator('.ride-market summary')).toHaveText('Market data');
+  const expected = await page.locator('.ride-market tbody tr td:first-child').allTextContents();
+  expect(expected.length).toBe(10);
+  await page.evaluate(() => {
+    (window as unknown as { renderedSymbols: Set<string> }).renderedSymbols.clear();
+  });
+  await page.getByRole('button', { name: 'Start ride', exact: true }).click();
+  await expect(page.locator('.ride-stage')).toHaveText('Recap complete', { timeout: 55000 });
+  const seen = await page.evaluate(() => [
+    ...(window as unknown as { renderedSymbols: Set<string> }).renderedSymbols,
+  ]);
+  expect(seen).toEqual(expect.arrayContaining(expected));
+});
+
 test('recap candles load once from a saved file, with accessible OHLC and no provider calls', async ({
   page,
 }) => {

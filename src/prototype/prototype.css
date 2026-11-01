@@ -43,7 +43,7 @@
 }
 .ride-stage {
   position: absolute;
-  top: 120px;
+  top: max(120px, calc(var(--ride-header-bottom, 96px) + 24px));
   right: clamp(16px, 4vw, 60px);
   display: flex;
   align-items: center;
@@ -137,7 +137,7 @@
 }
 .ride-market {
   position: absolute;
-  top: 108px;
+  top: max(108px, calc(var(--ride-header-bottom, 96px) + 12px));
   left: clamp(16px, 4vw, 60px);
   color: #e5e9ee;
   font-size: 16px;
@@ -203,11 +203,11 @@
     max-width: 132px;
   }
   .ride-stage {
-    top: 122px;
+    top: max(122px, calc(var(--ride-header-bottom, 96px) + 24px));
     font-size: 14px;
   }
   .ride-market {
-    top: 108px;
+    top: max(108px, calc(var(--ride-header-bottom, 96px) + 12px));
   }
   .ride-market summary {
     padding: 12px;
@@ -254,10 +254,10 @@
     font-size: 28px;
   }
   .ride-market {
-    top: 76px;
+    top: max(76px, calc(var(--ride-header-bottom, 64px) + 12px));
   }
   .ride-stage {
-    top: 90px;
+    top: max(90px, calc(var(--ride-header-bottom, 64px) + 24px));
   }
   .ride-bottom {
     bottom: 12px;

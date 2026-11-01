@@ -1,6 +1,6 @@
 import { fileURLToPath } from 'node:url';
 import { defineConfig } from 'vitest/config';
-import { socialMetadata } from './scripts/inject-meta';
+import { socialMetadata } from './scripts/inject-meta.ts';
 
 export default defineConfig({
   build: { manifest: true },

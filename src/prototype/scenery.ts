@@ -1,4 +1,5 @@
 import type { MarketCandle } from '@/content/marketSnapshot';
+import { RIDE_DURATION } from './recapTimeline';
 
 interface CandleLabel {
   x: number;
@@ -51,7 +52,12 @@ export function drawScenery(
   }
   for (let layer = 0; layer < 3; layer++) {
     const spacing = layer === 2 ? 200 : 68;
-    const movement = cameraX * [0.035, 0.08, 0.14][layer]!;
+    // A narrow viewport otherwise sees only two symbols over the entire camera path.
+    // Advance one complete saved set across the ride, independent of train speed.
+    const movement =
+      layer === 2 && width < 600 && candles.length
+        ? -24 + Math.min(1, Math.max(0, time / RIDE_DURATION)) * (candles.length - 1) * spacing
+        : cameraX * [0.035, 0.08, 0.14][layer]!;
     const start = Math.floor(movement / spacing) - 3;
     for (let index = start; index < start + width / spacing + 7; index++) {
       const seed = Math.abs(Math.sin(index * 127.1 + layer * 311.7));
@@ -117,7 +123,6 @@ export function drawScenery(
     ctx.fill();
   }
   ctx.globalAlpha = 1;
-  void time;
   return labels;
 }
 

@@ -1,6 +1,6 @@
 .recap-card {
   position: absolute;
-  top: 178px;
+  top: max(178px, calc(var(--ride-header-bottom, 96px) + 82px));
   bottom: 112px;
   right: clamp(16px, 4vw, 60px);
   width: min(640px, calc(100vw - 32px));
@@ -185,7 +185,7 @@
     grid-template-columns: 1fr;
   }
   .recap-card {
-    top: 176px;
+    top: max(176px, calc(var(--ride-header-bottom, 94px) + 82px));
     bottom: 94px;
     padding: 20px;
   }

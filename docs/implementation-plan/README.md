@@ -15,6 +15,7 @@ The plan is split into one file per phase so a coding session never has to load 
 | File | Phase | PRD milestone | Tasks |
 | --- | --- | --- | --- |
 | [passenger-experience.md](passenger-experience.md) | Current passenger revision | Before G5 | P5.R1-R4 |
+| [market-expedition.md](market-expedition.md) | Daily pilot and longer-format outline | Expedition prototype after phone observations | Planning only |
 | [phase-0-foundation.md](phase-0-foundation.md) | 0 · Foundation | (pre-M1) | P0.1 – P0.5 |
 | [phase-1-playable-core.md](phase-1-playable-core.md) | 1 · Playable core | M1 | P1.1 – P1.12 |
 | [phase-2-mobile.md](phase-2-mobile.md) | 2 · Mobile experience | M2 | P2.1 – P2.5 |

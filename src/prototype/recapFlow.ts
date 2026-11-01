@@ -28,7 +28,7 @@ export function createRecapFlow(
     el('div', {}, [
       el('p', {
         class: 'ride-eyebrow',
-        text: draft ? 'Draft recap' : 'Candlestick Coaster',
+        text: draft ? 'Draft daily ride' : 'The Daily Ride',
       }),
       el('h1', { text: 'The market is a ride.' }),
     ]),
@@ -60,7 +60,7 @@ export function createRecapFlow(
   );
   const progress = el('div', { class: 'ride-progress', 'aria-hidden': 'true' });
   const intro = el('section', { class: 'recap-card', 'aria-labelledby': 'recap-intro-title' }, [
-    el('p', { class: 'recap-kicker', text: 'Your seat for the recap' }),
+    el('p', { class: 'recap-kicker', text: 'One session. The key change.' }),
     el('h2', { id: 'recap-intro-title', text: briefing.title }),
   ]);
   const introBody = el(
@@ -178,6 +178,16 @@ export function createRecapFlow(
     el('div', { class: 'ride-controls', 'aria-label': 'Ride controls' }, [ride, replay, sound]),
   ]);
   root.append(header, stage, intro, end, footer, progress, panel.root);
+  // System fonts wrap differently across phones and CI hosts. Position the next
+  // row from the actual header height rather than assuming a two-line title.
+  const measureHeader = () => {
+    root.style.setProperty(
+      '--ride-header-bottom',
+      `${header.getBoundingClientRect().bottom - root.getBoundingClientRect().top}px`,
+    );
+  };
+  measureHeader();
+  new ResizeObserver(measureHeader).observe(header);
   document.title = `${briefing.title} | Candlestick Coaster`;
   function begin(restart = false) {
     started = true;
