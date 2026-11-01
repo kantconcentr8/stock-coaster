@@ -1,10 +1,10 @@
 import './styles.css';
-import { bootstrap } from './bootstrap';
 import { renderFallback } from './ui/screens/fallback';
+const params = new URLSearchParams(location.search);
 const launch =
-  new URLSearchParams(location.search).get('prototype') === 'coaster'
-    ? import('./prototype/prototype').then(({ mountCoasterPrototype }) => mountCoasterPrototype())
-    : bootstrap();
+  params.get('experience') === 'game' && params.get('prototype') !== 'coaster'
+    ? import('./bootstrap').then(({ bootstrap }) => bootstrap())
+    : import('./prototype/prototype').then(({ mountCoasterPrototype }) => mountCoasterPrototype());
 void launch.catch(() => {
   const ui = document.getElementById('ui');
   if (ui) renderFallback(ui, true);

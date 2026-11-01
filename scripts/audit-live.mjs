@@ -41,7 +41,7 @@ await Promise.all(
       });
       await page.goto(
         new URL(
-          '?b=2026-10-31-lower-value&utm_source=phase5&utm_campaign=qa&email=excluded',
+          '?experience=game&b=2026-10-31-lower-value&utm_source=phase5&utm_campaign=qa&email=excluded',
           target,
         ).href,
       );

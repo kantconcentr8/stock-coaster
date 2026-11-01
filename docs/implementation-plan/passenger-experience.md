@@ -17,7 +17,7 @@ This is the current product overlay on plan v1.0 and the original game PRD. The 
 
 Phases 0-4 and much of Phase 5 were implemented for the original game. The passenger renderer, automatic 28-second ride and saved ten-symbol market snapshot are implemented. A complete draft passenger recap is now the candidate under development/QA. G5 remains open; Phase 6 has not started.
 
-The original game remains at `/`; the passenger candidate is `/?prototype=coaster`, with `&b=<briefingId>` for a dated recap. Preserve this separation until the passenger candidate is selected for root-route promotion during release. Shared candidate links must retain the allowlisted prototype route and remove unrelated/private query parameters.
+Owner explicitly approved passenger root promotion on November 1. The Daily Ride is now the default at `/`, with `?b=<briefingId>` for a dated recap. The original game is preserved at `/?experience=game`. Existing `?prototype=coaster` links remain compatible. Sharing preserves only allowlisted experience selection and attribution, removing unrelated/private query parameters.
 
 ## P5.R1 - Plan and product transition
 
@@ -49,7 +49,7 @@ Status: owner research/content approval recorded November 1; source copies and d
 
 Deliver: deliberately promote the validated passenger experience to the normal URL, preserve access to the original game, update canonical/share metadata, verify the full dated/attributed campaign flow, rehearse rollback, and record existing G5 launch approval.
 Root-route promotion must update browser tests and legacy entry links together. Earlier game performance/accessibility results cannot substitute for new passenger checks. Draft review deployment is not public-launch sign-off.
-Status: pending P5.R3 and release validation. Current candidate can be reviewed without changing `/`.
+Status: owner launch approval and explicit instruction to promote the passenger experience recorded November 1. Root promotion implemented; verify the pushed deployment before claiming live completion. Five first-time sessions, additional device/accessibility checks and actual Vercel rollback rehearsal remain evidence gaps, not silently completed gates. Owner instructed proceeding with release after Pixel 8 Pro feedback; this does not supply the missing observations or complete Phase 6.
 
 ## Revised Phase 6
 

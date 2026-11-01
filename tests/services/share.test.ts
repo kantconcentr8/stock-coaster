@@ -23,6 +23,26 @@ it('silently handles native cancellation without copying', async () => {
   expect(copy).not.toHaveBeenCalled();
   expect(emit).toHaveBeenCalledExactlyOnceWith('native');
 });
+it('preserves the explicit original-game route without leaking other inputs', () => {
+  const url = new URL(
+    buildShareUrl(
+      'https://example.test/?experience=game&email=private&testSpeed=8',
+      'recap',
+      'copy',
+    ),
+  );
+  expect(Object.fromEntries(url.searchParams)).toEqual({
+    b: 'recap',
+    utm_source: 'share',
+    utm_medium: 'copy',
+    experience: 'game',
+  });
+  expect(
+    new URL(
+      buildShareUrl('https://example.test/?experience=unknown', 'recap', 'copy'),
+    ).searchParams.has('experience'),
+  ).toBe(false);
+});
 it('keeps only the allowlisted coaster route when sharing a passenger recap', () => {
   const url = new URL(
     buildShareUrl(

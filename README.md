@@ -4,8 +4,9 @@ A TypeScript/Phaser arcade briefing: a 60-second run, accessible text briefing,
 versioned local bests, sharing and an attributed waitlist link. Production analytics are disabled.
 
 The current passenger pilot is **The Daily Ride**, a 28-second October 30 recap at
-`/?prototype=coaster&b=2026-10-31-lower-value`, with owner-approved research and saved
-session candles. The original game remains at `/`. The separate longer experience,
+`/` (dated link: `/?b=2026-10-31-lower-value`), with owner-approved research and saved
+session candles. The original game remains at `/?experience=game`; earlier
+`?prototype=coaster` links continue working. The separate longer experience,
 **The Market Expedition**, is [outlined here](docs/implementation-plan/market-expedition.md)
 for prototyping after real-phone observations; it is not yet playable.
 

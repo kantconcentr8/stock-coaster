@@ -4,7 +4,7 @@ test('unavailable graphics retains text briefing and CTA', async ({ page }) => {
   await page.addInitScript(() => {
     HTMLCanvasElement.prototype.getContext = () => null;
   });
-  await page.goto('/?utm_source=failure');
+  await page.goto('/?experience=game&utm_source=failure');
   await expect(page.locator('#screen-fallback')).toBeVisible();
   await expect(page.locator('#screen-fallback a[href^="https:"]')).toHaveAttribute(
     'href',
@@ -29,7 +29,7 @@ test('blocked storage and audio with invalid ID still completes a run', async ({
       },
     });
   });
-  await page.goto('/?b=bad!&testSpeed=8');
+  await page.goto('/?experience=game&b=bad!&testSpeed=8');
   await expect(page.getByRole('status')).toContainText('Invalid briefing link');
   await page.getByRole('checkbox', { name: 'Sound (when available)' }).check();
   await completeRun(page);
@@ -40,7 +40,7 @@ test('blocked storage and audio with invalid ID still completes a run', async ({
 test('runtime error shows a safe recovery action without exposing exception text', async ({
   page,
 }) => {
-  await page.goto('/');
+  await page.goto('/?experience=game');
   await expect(page.locator('#btn-start')).toBeEnabled();
   await page.evaluate(() =>
     window.dispatchEvent(new ErrorEvent('error', { message: 'private@example.test secret' })),
@@ -52,7 +52,7 @@ test('runtime error shows a safe recovery action without exposing exception text
 });
 test('failed renderer download keeps the briefing available', async ({ page }) => {
   await page.route('**/src/render/createGame.ts*', (route) => route.abort());
-  await page.goto('/');
+  await page.goto('/?experience=game');
   await expect(page.locator('#screen-fallback')).toBeVisible();
   await page.getByRole('link', { name: 'Read the briefing', exact: true }).click();
   await expect(page.locator('#briefing')).toBeVisible();

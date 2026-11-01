@@ -14,7 +14,7 @@ test('a narrow phone exposes every saved symbol during one ride', async ({ page 
     };
     Object.assign(window, { renderedSymbols: symbols });
   });
-  await page.goto('/?prototype=coaster');
+  await page.goto('/');
   await expect(page.locator('.ride-market summary')).toHaveText('Market data');
   const expected = await page.locator('.ride-market tbody tr td:first-child').allTextContents();
   expect(expected.length).toBe(10);
@@ -61,7 +61,7 @@ test('recap candles load once from a saved file, with accessible OHLC and no pro
       },
     });
   });
-  await page.goto('/?prototype=coaster');
+  await page.goto('/');
   const summary = page.locator('.ride-market summary');
   await expect(summary).toHaveText('Market data');
   await summary.click();
@@ -87,7 +87,7 @@ test('missing recap data keeps candles explicitly illustrative', async ({ page }
   await page.route('**/market/*.json', (route) =>
     route.fulfill({ status: 404, body: 'Not found' }),
   );
-  await page.goto('/?prototype=coaster');
+  await page.goto('/');
   await expect(page.locator('.ride-market summary')).toHaveText('No saved data');
   await page.getByRole('button', { name: 'Start ride', exact: true }).click();
   await expect(page.locator('.ride-stage')).toHaveText('The climb');
@@ -119,7 +119,7 @@ test('a saved candle file for the wrong session is not presented as recap data',
       },
     }),
   );
-  await page.goto('/?prototype=coaster');
+  await page.goto('/');
   await expect(page.locator('.ride-market summary')).toHaveText('No saved data');
   await expect(page.locator('.ride-market table')).toHaveCount(0);
 });

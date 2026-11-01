@@ -1,5 +1,13 @@
 # Deployment handoff - Vercel
 
+## Passenger root release — November 1, 2026
+
+Owner explicitly approved making The Daily Ride the main experience and instructed commit/push for deployment. `/` and `/?b=2026-10-31-lower-value` now select the passenger recap. The original game remains at `/?experience=game`; prior `?prototype=coaster` URLs are compatible. Root canonical/social metadata describes the passenger briefing. Analytics stays disabled.
+
+Previous production commit: `5f5d34e` (passenger available only via prototype query). To roll back this promotion, restore that production deployment through Vercel, or revert the root-promotion commit and push the revert to main. Confirm `/` restores the original game and `/?prototype=coaster` still opens the passenger ride. An actual hosted rollback rehearsal has not been performed.
+
+Five first-time viewer sessions and remaining physical-device/accessibility observations are still unrecorded. Launch approval does not turn those gaps into completed checks. Historical handoff and pre-release checklists below remain context, not a claim that all acceptance evidence exists.
+
 Owner chose Vercel and will configure the account/project and deploy from GitHub.
 No Vercel account, paid plan, production deployment or public release was created by the agent.
 

@@ -1,7 +1,9 @@
-/* global process, MutationObserver, document, window, performance, console */
+/* global URL, process, MutationObserver, document, window, performance, console */
 import { chromium, devices } from '@playwright/test';
 import { writeFile } from 'node:fs/promises';
-const target = process.argv[2];
+const target = new URL(process.argv[2]);
+// Historical game benchmark; passenger performance must be measured separately.
+target.searchParams.set('experience', 'game');
 const browser = await chromium.launch();
 try {
   const context = await browser.newContext({ ...devices['Pixel 5'] });
@@ -26,7 +28,7 @@ try {
     });
     observer.observe(document, { childList: true, subtree: true, attributes: true });
   });
-  await page.goto(target);
+  await page.goto(target.href);
   await page.waitForFunction(() => window.__qaReadyMs > 0);
   const report = {
     target,

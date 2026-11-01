@@ -21,6 +21,7 @@ test('full funnel, retry, local best, safe CTA and manual share', async ({ page 
     });
   });
   await page.goto(entry);
+  await expect(page.locator('#btn-start')).toBeEnabled();
   expect((await events(page)).filter((e) => e.name === 'landing_view')).toHaveLength(1);
   await completeRun(page);
   await expect(page.locator('#briefing-cta')).toBeInViewport();
@@ -54,7 +55,13 @@ test('full funnel, retry, local best, safe CTA and manual share', async ({ page 
   const share = new URL(
     await page.getByRole('textbox', { name: 'Briefing share link' }).inputValue(),
   );
-  expect([...share.searchParams.keys()].sort()).toEqual(['b', 'utm_medium', 'utm_source']);
+  expect([...share.searchParams.keys()].sort()).toEqual([
+    'b',
+    'experience',
+    'utm_medium',
+    'utm_source',
+  ]);
+  expect(share.searchParams.get('experience')).toBe('game');
   expect(share.hash).toBe('');
   expect((await events(page)).filter((e) => e.name === 'share_action')).toHaveLength(1);
   expect(JSON.stringify(await events(page))).not.toMatch(/a@b.c|email|fbclid/);
@@ -76,6 +83,7 @@ test('throwing analytics and blocked external requests leave gameplay and CTA wo
 }) => {
   await page.route('https://**/*', (route) => route.abort());
   await page.goto(entry);
+  await expect(page.locator('#btn-start')).toBeEnabled();
   await page.evaluate(() => {
     window.__ccEvents!.push = () => {
       throw new Error('transport blocked');
@@ -88,7 +96,7 @@ test('throwing analytics and blocked external requests leave gameplay and CTA wo
 });
 
 test('ordinary entry has no analytics identity and persists preferences', async ({ page }) => {
-  await page.goto('/');
+  await page.goto('/?experience=game');
   await expect(page.locator('#btn-start')).toBeVisible();
   expect(await page.evaluate(() => window.__ccEvents)).toBeUndefined();
   expect(await page.evaluate(() => sessionStorage.getItem('cc:v1:session'))).toBeNull();

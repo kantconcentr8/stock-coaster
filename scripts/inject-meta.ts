@@ -44,7 +44,11 @@ export function socialMetadata(): Plugin {
           tag('og:image', image, true),
           tag('og:image:width', '1200', true),
           tag('og:image:height', '630', true),
-          tag('og:image:alt', 'Candlestick Coaster illustrative arcade briefing', true),
+          tag(
+            'og:image:alt',
+            'The Daily Ride — Candlestick Coaster illustrative passenger briefing',
+            true,
+          ),
           tag('twitter:card', 'summary_large_image'),
           tag('twitter:title', briefing.title),
           tag('twitter:description', description),

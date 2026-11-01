@@ -6,7 +6,7 @@ async function audit(page: Page) {
 }
 test('keyboard menus, briefing, pause and results are accessible', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' });
-  await page.goto('/?testSpeed=8');
+  await page.goto('/?experience=game&testSpeed=8');
   await expect(page.locator('#btn-start')).toBeEnabled();
   await audit(page);
   await page.getByRole('button', { name: 'Read the briefing', exact: true }).focus();

@@ -19,7 +19,7 @@ test('passenger recap connects introduction, briefing chapters, ending, sharing 
       },
     });
   });
-  await page.goto('/?prototype=coaster&utm_source=qa&utm_campaign=passenger&email=private#secret');
+  await page.goto('/?utm_source=qa&utm_campaign=passenger&email=private#secret');
   await expect(page.getByRole('heading', { name: title, exact: true })).toBeVisible();
   await expect(page.locator('.recap-coverage')).toContainText('Oct 30, 2026');
   await expect(page.locator('.recap-draft')).toHaveCount(0);
@@ -83,7 +83,6 @@ test('passenger recap connects introduction, briefing chapters, ending, sharing 
     b: '2026-10-31-lower-value',
     utm_source: 'share',
     utm_medium: 'manual',
-    prototype: 'coaster',
   });
   expect(shared.hash).toBe('');
   expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
@@ -94,6 +93,18 @@ test('passenger recap connects introduction, briefing chapters, ending, sharing 
   await page.keyboard.press('Escape');
   await expect(page.getByRole('button', { name: 'Resume ride' })).toBeVisible();
   expect(errors).toEqual([]);
+});
+
+test('published root is passenger-first and old prototype links remain usable', async ({
+  page,
+}) => {
+  await page.goto('/?b=2026-10-31-lower-value');
+  await expect(page.locator('.ride-eyebrow')).toHaveText('The Daily Ride');
+  await expect(page.getByRole('button', { name: 'Start ride', exact: true })).toBeVisible();
+  expect(await page.evaluate(() => window.__ccEvents)).toBeUndefined();
+  await expect(page.locator('#btn-start')).toHaveCount(0);
+  await page.goto('/?prototype=coaster&b=2026-10-31-lower-value');
+  await expect(page.locator('.ride-eyebrow')).toHaveText('The Daily Ride');
 });
 
 test('reduced motion, resize, blur and unavailable audio preserve passenger controls', async ({
@@ -109,7 +120,7 @@ test('reduced motion, resize, blur and unavailable audio preserve passenger cont
       },
     });
   });
-  await page.goto('/?prototype=coaster');
+  await page.goto('/');
   await page.getByRole('button', { name: 'Sound off' }).click();
   await expect(page.getByRole('button', { name: 'Sound on' })).toHaveAttribute(
     'aria-pressed',
@@ -136,7 +147,7 @@ test('unknown recap falls back visibly and absent canvas retains dated text and 
   await page.addInitScript(() => {
     HTMLCanvasElement.prototype.getContext = () => null;
   });
-  await page.goto('/?prototype=coaster&b=missing-recap');
+  await page.goto('/?b=missing-recap');
   await expect(page.getByText('That recap is unavailable.', { exact: false })).toBeVisible();
   await expect(page.getByRole('button', { name: 'Start ride', exact: true })).toBeDisabled();
   await page.getByRole('button', { name: 'Read briefing & sources' }).click();
@@ -156,7 +167,7 @@ test('phone-first text remains readable and controls stay separate at narrow and
     [1440, 900],
   ]) {
     await page.setViewportSize({ width: width!, height: height! });
-    await page.goto('/?prototype=coaster');
+    await page.goto('/');
     await expect(page.locator('.ride-market summary')).toHaveText('Market data');
     const headerBox = (await page.locator('.ride-top').boundingBox())!;
     const dataBox = (await page.locator('.ride-market summary').boundingBox())!;
@@ -205,7 +216,7 @@ test('header reflow keeps market data and the recap below a taller phone title',
   page,
 }) => {
   await page.setViewportSize({ width: 320, height: 568 });
-  await page.goto('/?prototype=coaster');
+  await page.goto('/');
   await page.locator('.ride-top h1').evaluate((title) => {
     title.style.fontFamily = 'monospace';
     title.style.letterSpacing = '0.08em';
@@ -226,7 +237,7 @@ test('header reflow keeps market data and the recap below a taller phone title',
 test('briefing footer offers waitlist and return buttons without resetting the ride', async ({
   page,
 }) => {
-  await page.goto('/?prototype=coaster&utm_source=footer-qa');
+  await page.goto('/?utm_source=footer-qa');
   await page.getByRole('button', { name: 'Start ride', exact: true }).click();
   await expect(page.locator('.ride-stage')).toHaveText('The climb');
   await page.getByRole('button', { name: 'Read briefing & sources' }).click();
