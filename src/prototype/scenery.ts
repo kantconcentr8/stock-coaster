@@ -138,7 +138,7 @@ export function drawMarketLabels(
     ctx.fillStyle = '#f1e7d5';
     ctx.fillText(label.symbol, label.x + 10, label.y + 5);
     ctx.font = '16px sans-serif';
-    ctx.fillStyle = '#c8d3de';
+    ctx.fillStyle = label.change < 0 ? '#ff8585' : label.change > 0 ? '#6ee7a0' : '#c8d3de';
     ctx.fillText(
       `O/C ${label.change >= 0 ? '+' : ''}${label.change.toFixed(2)}%`,
       label.x + 10,

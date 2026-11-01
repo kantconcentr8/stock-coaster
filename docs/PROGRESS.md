@@ -290,3 +290,7 @@ Narrow-phone header collision found visually and fixed; additional overlap check
 Result: replaced adjacent plain links with orange Join waitlist CTA and secondary Back to game button; side by side on desktop, stacked on phones.
 Waitlist retains attributed destination. Back closes the briefing and restores opener focus, preserving the paused ride instead of navigating to the original game.
 Verification: four desktop/mobile footer and text-fallback checks pass; typecheck, lint and draft production build/bundle pass. Release gates unchanged.
+
+### P5.R2c - Directional O/C label colors (2026-11-01)
+Result: negative open-to-close labels red (#ff8585), positive green (#6ee7a0), zero neutral; signed values retained.
+Verification: draft production build/typecheck and bundle checks pass. No data or candle-body semantics changed.
