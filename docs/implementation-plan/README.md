@@ -185,8 +185,8 @@ PRD §22 items do not block prototyping. They block the tasks below.
 
 Mark `[x]` when the task's PROGRESS entry is written.
 
-- **Phase 0:** [ ] P0.1 [ ] P0.2 [ ] P0.3 [ ] P0.4 [ ] P0.5
-- **Phase 1:** [ ] P1.1 [ ] P1.2 [ ] P1.3 [ ] P1.4 [ ] P1.5 [ ] P1.6 [ ] P1.7 [ ] P1.8 [ ] P1.9 [ ] P1.10 [ ] P1.11 [ ] P1.12 · [ ] **G1**
+- **Phase 0:** [x] P0.1 [x] P0.2 [x] P0.3 [x] P0.4 [x] P0.5
+- **Phase 1:** [x] P1.1 [x] P1.2 [x] P1.3 [x] P1.4 [x] P1.5 [x] P1.6 [x] P1.7 [x] P1.8 [x] P1.9 [x] P1.10 [x] P1.11 [x] P1.12 · [ ] **G1**
 - **Phase 2:** [ ] P2.1 [ ] P2.2 [ ] P2.3 [ ] P2.4 [ ] P2.5 · [ ] **G2**
 - **Phase 3:** [ ] P3.1 [ ] P3.2 [ ] P3.3 [ ] P3.4 [ ] P3.5 [ ] P3.6 [ ] P3.7 [ ] P3.8 [ ] P3.9 · [ ] **G3**
 - **Phase 4:** [ ] P4.1 [ ] P4.2 [ ] P4.3 [ ] P4.4 [ ] P4.5 [ ] P4.6 · [ ] **G4**

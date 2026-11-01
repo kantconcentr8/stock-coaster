@@ -1,0 +1,36 @@
+{
+  "courseId": "dev-course",
+  "courseVersion": 1,
+  "length": 29700,
+  "railSpacing": 46,
+  "points": [
+    { "x": 0, "y": 0 },
+    { "x": 3300, "y": 500 },
+    { "x": 6600, "y": 1100 },
+    { "x": 9900, "y": 800 },
+    { "x": 13200, "y": 1300 },
+    { "x": 16500, "y": 700 },
+    { "x": 19800, "y": 1000 },
+    { "x": 23100, "y": 400 },
+    { "x": 26400, "y": 900 },
+    { "x": 29700, "y": 1200 }
+  ],
+  "objects": [
+    { "id": "p1", "kind": "pickup", "rail": 1, "s": 800 },
+    { "id": "p2", "kind": "pickup", "rail": 0, "s": 1500 },
+    { "id": "p3", "kind": "pickup", "rail": 2, "s": 2200 },
+    { "id": "p4", "kind": "pickup", "rail": 1, "s": 3000 },
+    { "id": "p5", "kind": "pickup", "rail": 0, "s": 3800 },
+    { "id": "p6", "kind": "pickup", "rail": 1, "s": 4600 },
+    { "id": "p7", "kind": "pickup", "rail": 2, "s": 5400 },
+    { "id": "p8", "kind": "pickup", "rail": 1, "s": 6200 },
+    { "id": "p9", "kind": "pickup", "rail": 0, "s": 7000 },
+    { "id": "p10", "kind": "pickup", "rail": 1, "s": 7800 },
+    { "id": "h1", "kind": "hazard", "rail": 1, "s": 1100 },
+    { "id": "h2", "kind": "hazard", "rail": 0, "s": 2600 },
+    { "id": "h3", "kind": "hazard", "rail": 2, "s": 4200 },
+    { "id": "h4", "kind": "hazard", "rail": 1, "s": 5000 },
+    { "id": "h5", "kind": "hazard", "rail": 1, "s": 6600 },
+    { "id": "h6", "kind": "hazard", "rail": 2, "s": 7400 }
+  ]
+}

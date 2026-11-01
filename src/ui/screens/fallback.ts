@@ -8,4 +8,3 @@ export function renderFallback(root: HTMLElement): void {
   ]);
   root.replaceChildren(screen);
 }
-

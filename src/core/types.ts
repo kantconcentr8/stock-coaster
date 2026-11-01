@@ -37,6 +37,14 @@ export interface CourseDef {
   points: { x: number; y: number }[];
   railSpacing: number;
   objects: CourseObject[];
+  /** Optional tagged course segments (e.g. braking zones). */
+  segments?: CourseSegment[];
+}
+
+export interface CourseSegment {
+  s0: number;
+  s1: number;
+  brakeZone?: boolean;
 }
 
 export interface RunStats {
@@ -89,4 +97,3 @@ export interface Briefing {
   socialImage: string;
   learningQuestion?: unknown;
 }
-

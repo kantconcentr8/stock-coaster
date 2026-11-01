@@ -4,7 +4,7 @@
  */
 export const SCORING_VERSION = 1;
 
-export const TUNING = Object.freeze({
+const base = {
   /** Active run length in seconds. */
   RUN_SECONDS: 60,
   /** Fixed simulation step (s). */
@@ -25,16 +25,20 @@ export const TUNING = Object.freeze({
   /** Max speed while boosting (wu/s). */
   vMaxBoost: 420,
 
-  /** Slope acceleration coefficient. */
+  /** Slope acceleration coefficient (wu/s^2 at 90 degrees). */
   gravityK: 180,
-  /** Speed drag coefficient (1/s). */
+  /** Speed drag coefficient (1/s), pulls speed toward vCruise. */
   drag: 0.4,
   /** Extra acceleration while boosting (wu/s^2). */
   boostAccel: 160,
   /** Deceleration while braking (wu/s^2). */
   brakeDecel: 220,
+  /** Rate at which speed above the current cap decays (wu/s^2). */
+  overCapDecel: 120,
   /** Boost meter capacity (units). */
   boostCapacity: 100,
+  /** Boost meter at the start of a run (units). */
+  boostStart: 50,
   /** Boost meter drain while boosting (units/s). */
   boostDrainPerSec: 35,
   /** Boost meter gained per pickup (units). */
@@ -49,5 +53,20 @@ export const TUNING = Object.freeze({
   laneChangeSeconds: 0.25,
   /** Points per world unit travelled. */
   distancePointsPerWu: 0.05,
-});
 
+  /** Collision half-width along the course (wu); slightly smaller than the visual size. */
+  hitHalfWidth: 14,
+  /** Steepest allowed track slope (degrees); steeper segments are clamped and flagged. */
+  maxSlopeDeg: 32,
+  /** Track resampling step (wu). */
+  trackStep: 1,
+  /** Required hazard preview time at max boosted speed (s). */
+  previewSeconds: 2,
+  /** Assumed player reaction time used by the fairness checker (s). */
+  reactionSeconds: 0.35,
+};
+
+export type Tuning = typeof base;
+
+/** Frozen in production builds; mutable in dev so the debug overlay can tweak values in memory. */
+export const TUNING: Readonly<Tuning> = import.meta.env?.PROD ? Object.freeze(base) : base;
