@@ -72,7 +72,9 @@ export type GameEvent =
   | { type: 'runComplete'; score: number; t: number }
   | { type: 'pause'; t: number }
   | { type: 'resume'; t: number }
-  | { type: 'restart'; t: number }
+  | { type: 'restart'; t: number; sourceScreen: 'paused' | 'results'; priorComplete: boolean }
+  | { type: 'ctaClick'; ctaId: string; destinationCategory: string }
+  | { type: 'shareAction'; method: 'native' | 'copy' | 'manual' }
   | { type: 'learningAnswer'; questionId: string; correct: boolean }
   | { type: 'briefingRead'; entryScreen: 'intro' | 'results' | 'fallback' }
   | { type: 'app_error'; code: string };

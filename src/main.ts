@@ -1,4 +1,8 @@
 import './styles.css';
+import { gameStorage } from '@/services/storage';
+import { captureAttribution, buildCtaUrl } from '@/services/attribution';
+import { createAnalytics } from '@/services/analytics/adapter';
+import { createTransport } from '@/services/analytics/transports';
 import { createApp } from '@/app';
 import { loadBriefing } from '@/content';
 import { createCaptions } from '@/ui/captions';
@@ -49,8 +53,34 @@ if (loaded) {
     chapters: briefing.chapters,
   });
 
-  const briefingPanel = createBriefingPanel(briefing, (entryScreen) =>
-    app.bus.emit({ type: 'briefingRead', entryScreen }),
+  const storage = gameStorage;
+  const attribution = captureAttribution(window.location.search);
+  const ctaUrl = buildCtaUrl(briefing.cta, attribution);
+  const onCta = () =>
+    app.bus.emit({
+      type: 'ctaClick',
+      ctaId: briefing.cta.id,
+      destinationCategory: briefing.cta.destinationCategory,
+    });
+  const analytics =
+    (import.meta.env.DEV || import.meta.env.MODE === 'test-preview') &&
+    new URLSearchParams(window.location.search).get('analytics') === 'debug'
+      ? createAnalytics({
+          bus: app.bus,
+          briefing,
+          attribution,
+          transport: createTransport(window.location.search),
+          stats: () => app.sim.state.stats,
+          deviceClass:
+            window.matchMedia?.('(pointer: coarse)').matches || window.innerWidth < 768
+              ? 'mobile'
+              : 'desktop',
+        })
+      : undefined;
+  const briefingPanel = createBriefingPanel(
+    briefing,
+    (entryScreen) => app.bus.emit({ type: 'briefingRead', entryScreen }),
+    { ctaUrl, onCta },
   );
   if (supportsGraphics()) {
     const layout = createLayoutManager(window);
@@ -77,7 +107,7 @@ if (loaded) {
         app.startRun();
         updateTouchVisibility();
       },
-      { briefing, notice, onRead: () => briefingPanel.open('intro') },
+      { briefing, notice, storage, onRead: () => briefingPanel.open('intro') },
     );
 
     if (isInAppBrowser()) {
@@ -121,6 +151,10 @@ if (loaded) {
       },
       {
         briefing,
+        storage,
+        ctaUrl,
+        onCta,
+        onShare: (method) => app.bus.emit({ type: 'shareAction', method }),
         onRead: () => briefingPanel.open('results'),
         onAnswer: (questionId, correct) =>
           app.bus.emit({ type: 'learningAnswer', questionId, correct }),
@@ -138,6 +172,8 @@ if (loaded) {
       touchControls.root,
     );
     intro.show();
+
+    analytics?.landing();
 
     app.bus.on('restart', () => {
       chapterView.reset();
@@ -174,7 +210,10 @@ if (loaded) {
           closing.remove();
           if (app.machine.phase === 'results') results.show(app.sim.state.stats);
         },
-        window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ? 0 : 1000,
+        (storage.getPrefs().reducedMotion ??
+          window.matchMedia?.('(prefers-reduced-motion: reduce)').matches)
+          ? 0
+          : 1000,
       );
     });
 
@@ -233,6 +272,7 @@ if (loaded) {
     });
   } else {
     renderFallback(ui);
+    app.bus.emit({ type: 'app_error', code: 'graphics_unavailable' });
     const read = ui.querySelector('a');
     read?.addEventListener('click', (event) => {
       event.preventDefault();

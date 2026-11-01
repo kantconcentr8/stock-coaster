@@ -162,7 +162,7 @@ PRD §22 items do not block prototyping. They block the tasks below.
 | D2 | Primary CTA URL + qualified-acquisition definition | P3.3 (draft), P5.8 (final) | **Resolved:** CTA URL: `https://predictourney.site/waitlist`; Goal: waitlist sign-up |
 | D3 | First-briefing facts, sources, cutoff, hypothetical ending | Gate 3 | Draft content prepared by agent; owner reviews and approves before launch |
 | D4 | Hosting + custom domain | P5.6 | Recommended: GitHub Pages, Cloudflare Pages, or Vercel (free static tier) |
-| D5 | Analytics service + consent behavior | P4.5 | Recommended: Plausible / Cloudflare Web Analytics / GA4 (or none/console for MVP) |
+| D5 | Analytics service + consent behavior | P4.5 | **Resolved (2026-10-31):** Owner: "not using analytics - not required". No provider; production no-op, local debug only. |
 | D6 | Reference phones + usability testers | Gate 2, P5.8 | Your own smartphone (iOS/Android) + 3–5 friends/followers to test the link |
 | D7 | Campaign conversion baseline + acceptable cost | P6.3 | Optional benchmark (how many signups/clicks you usually get from a post) |
 
@@ -189,7 +189,7 @@ Mark `[x]` when the task's PROGRESS entry is written.
 - **Phase 1:** [x] P1.1 [x] P1.2 [x] P1.3 [x] P1.4 [x] P1.5 [x] P1.6 [x] P1.7 [x] P1.8 [x] P1.9 [x] P1.10 [x] P1.11 [x] P1.12 · [ ] **G1**
 - **Phase 2:** [x] P2.1 [x] P2.2 [x] P2.3 [x] P2.4 [x] P2.5 · [ ] **G2**
 - **Phase 3:** [x] P3.1 [x] P3.2 [x] P3.3 [x] P3.4 [x] P3.5 [x] P3.6 [x] P3.7 [x] P3.8 [ ] P3.9 · [ ] **G3**
-- **Phase 4:** [ ] P4.1 [ ] P4.2 [ ] P4.3 [ ] P4.4 [ ] P4.5 [ ] P4.6 · [ ] **G4**
+- **Phase 4:** [x] P4.1 [x] P4.2 [x] P4.3 [x] P4.4 [x] P4.5 [x] P4.6 · [ ] **G4** (local funnel passed; public card debugger pending hosting)
 - **Phase 5:** [ ] P5.1 [ ] P5.2 [ ] P5.3 [ ] P5.4 [ ] P5.5 [ ] P5.6 [ ] P5.7 [ ] P5.8 · [ ] **G5**
 - **Phase 6:** [ ] P6.1 [ ] P6.2 [ ] P6.3 · [ ] **G6**
 

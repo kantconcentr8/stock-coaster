@@ -166,3 +166,38 @@ Outstanding review and required facts/links/phone+desktop checks are in docs/con
 Verification: npm run check passed (initial 80 tests); final verification recorded below. Production refusal confirmed; override preview build succeeds. Existing large Phaser bundle warning remains.
 
 Final phase 3 verification: `npm run check` passed (21 files / 82 tests), final dialog tests passed, and preview build succeeded (JS 372.76 kB gzip). Production approval refusal verified. Physical phone/desktop editorial review remains pending.
+
+### P4.1 - Storage, personal bests and preferences (2026-10-31)
+Result: done. Version-scoped bests and schema-safe preferences, with shared page-memory fallback on storage failure.
+Files: services/storage.ts, results.ts, intro.ts, GameScene.ts, storage tests.
+Notes: sound preference is retained for future audio; reduced motion controls hazard nudge and closing-bell delay.
+
+### P4.2 - Attribution and CTA URLs (2026-10-31)
+Result: done. Five allowlisted UTM fields, validated and session-persisted; both CTA sites emit before navigation.
+Files: services/attribution.ts, main.ts, results.ts, briefing.ts, attribution tests.
+Decision: retain entry URL (no history.replaceState); ignored fields never enter CTA, share or event payloads.
+Destination query parameters remain authoritative; HTTPS with no credentials required.
+
+### P4.3 - Sharing and social metadata (2026-10-31)
+Result: implemented and locally verified. Native share, silent cancellation, clipboard and selectable manual fallback.
+Files: services/share.ts, results.ts, scripts/inject-meta.ts, vite.config.ts, public/social/default-1200x630.png, share tests.
+Notes: shared URLs contain only briefing ID and share attribution; build-time tags use default briefing.
+Public-domain selection/final artwork remain in Phase 5; external card-debugger check deferred until a hosted URL exists.
+
+### P4.4 - Local event contract (2026-10-31)
+Result: done. Ten typed events, explicit property validation, once-per-page landing and once-per-run completion guards.
+Files: services/analytics/{contract,adapter,transports}.ts, core/types.ts, app.ts, main.ts, analytics tests.
+Notes: failure-isolated sends, ephemeral debug session/run IDs with LAN-safe random fallback; completion includes neutral game stats.
+Debug adapter enabled only in dev/test-preview with analytics=debug; ordinary production has no analytics initialization.
+
+### P4.5 - No analytics, owner decision D5 (2026-10-31)
+Result: done per explicit owner decision: "not using analytics - not required".
+No provider, remote tracking, analytics identifiers on ordinary entry, cookies, consent banner, retention or billing.
+Provider-specific integration/dashboard evidence waived; debug transport exists solely for local QA.
+
+### P4.6 - Funnel verification and Gate 4 (2026-10-31)
+Result: local funnel verified; developer sign-off recorded in docs/qa/g4-funnel.md.
+Files: playwright.config.ts, tests/e2e/{funnel.spec,helpers}.ts, package scripts/lock, QA report.
+Verification: npm run check passes (94 tests); all 6 Chromium/mobile WebKit browser tests pass.
+Normal preview build succeeds with existing editorial override; built OG/Twitter tags inspected. No editorial approval inferred.
+Follow-up: public social-card debugger check requires a hosted URL; deferred. Phase 5 not started.

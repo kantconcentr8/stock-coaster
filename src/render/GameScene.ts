@@ -1,4 +1,5 @@
 import Phaser from 'phaser';
+import { gameStorage } from '@/services/storage';
 import type { App } from '@/app';
 import type { LayoutRegion } from '@/ui/layout';
 import { createCameraRig, type CameraRig } from './camera';
@@ -26,7 +27,8 @@ export class GameScene extends Phaser.Scene {
       typeof window.matchMedia === 'function' &&
       window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     this.cameraRig = createCameraRig();
-    this.effects = createEffects(reduced);
+    const storage = gameStorage;
+    this.effects = createEffects(storage.getPrefs().reducedMotion ?? reduced);
     this.onFrame = onFrame;
   }
 
@@ -38,6 +40,14 @@ export class GameScene extends Phaser.Scene {
   }
 
   create(): void {
+    const storage = gameStorage;
+    const updateMotion = () =>
+      this.effects.setReducedMotion(
+        storage.getPrefs().reducedMotion ??
+          window.matchMedia('(prefers-reduced-motion: reduce)').matches,
+      );
+    window.addEventListener('cc-preferences', updateMotion);
+    this.events.once('destroy', () => window.removeEventListener('cc-preferences', updateMotion));
     this.trackView = createTrackView(this, this.app.track);
     this.objectView = createObjectView(this, this.app.course.objects, this.app.track);
     this.kartView = createKartView(this);
@@ -54,7 +64,14 @@ export class GameScene extends Phaser.Scene {
 
   update(_time: number, delta: number): void {
     const frameSec = delta / 1000;
-    const steps = this.app.tick(frameSec);
+    // Test acceleration is compiled out of ordinary production builds.
+    const speed =
+      (import.meta.env.DEV || import.meta.env.MODE === 'test-preview') &&
+      new URLSearchParams(window.location.search).get('testSpeed') === '8'
+        ? 8
+        : 1;
+    let steps = 0;
+    for (let i = 0; i < speed; i++) steps += this.app.tick(frameSec);
     this.syncViews();
     this.onFrame?.(this.cameraRig.visibleAheadSeconds(), frameSec, steps);
   }

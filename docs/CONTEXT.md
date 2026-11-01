@@ -60,4 +60,16 @@ Living architecture map. Update when a public export, file, or folder changes. K
 - `ui/screens/learningQuestion.ts`: `createLearningQuestion`, optional answer/explanation/reset; intro/results accept briefing and callbacks.
 - `scripts/validate-content.ts`: `npm run validate`, runs under check and production prebuild; preview override `ALLOW_UNAPPROVED=1`.
 - `scripts/course-timeline.ts`: `courseTimeline` for idle/boost-all/brake-all; `caption-quiet-zones.ts`: `checkCaptionQuietZones`, consumed by fairness.
-- `docs/content/2026-10-31-review-sheet.md`: claim audit and outstanding Gate 3 owner review. No phase 4 services implemented.
+- `docs/content/2026-10-31-review-sheet.md`: claim audit and outstanding Gate 3 owner review. Editorial content remains unchanged by Phase 4.
+
+## Phase 4 additions
+
+- `services/storage.ts`: `createSafeStore`, `createStorage`, shared `gameStorage`; page memory fallback, namespaced versioned bests and preferences.
+- `services/attribution.ts`: `sanitizeAttribution`, `captureAttribution`, `buildCtaUrl`; five validated UTM fields, session persistence, HTTPS destination preservation.
+- `services/share.ts`: `buildShareUrl`, `shareBriefing`, `ShareMethod`; native/copy/manual with silent cancellation and privacy-safe URLs.
+- `services/analytics/contract.ts`: typed `Payloads`, `sanitizeEvent`, explicit event/property allowlists. `adapter.ts`: `createAnalytics`, session/run IDs, landing/completion guards, fault isolation.
+- `services/analytics/transports.ts`: production disabled, opt-in local `?analytics=debug` console/`window.__ccEvents`. D5: owner chose no analytics; no remote provider/consent UI.
+- Intro persists preferences; renderer honors reduced motion. Results submit versioned bests and share; briefing/results use attributed CTA and emit click before navigation.
+- `scripts/inject-meta.ts`: Vite default-briefing social metadata; `SITE_URL` overrides local preview canonical; placeholder PNG under `public/social/`.
+- `playwright.config.ts`, `tests/e2e/`: Chromium and mobile WebKit funnel/failure checks. `?testSpeed=8` available in dev or explicit `test-preview` mode, compiled out of normal production builds.
+- `docs/qa/g4-funnel.md`: evidence and remaining public social-card check; Phase 5 remains unstarted.

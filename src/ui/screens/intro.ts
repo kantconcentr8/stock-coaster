@@ -2,6 +2,7 @@ import type { Briefing } from '../../core/types';
 import type { BriefingNotice } from '../../content/loader';
 import { formatCoverage } from '../format';
 import { el } from '../dom';
+import type { GameStorage } from '@/services/storage';
 
 export interface IntroScreen {
   readonly root: HTMLElement;
@@ -13,6 +14,7 @@ export function createIntroScreen(
   onStart: () => void,
   options?: {
     briefing: Briefing;
+    storage?: GameStorage;
     notice?: BriefingNotice;
     onRead: () => void;
   },
@@ -47,7 +49,19 @@ export function createIntroScreen(
       text: 'Read the briefing',
     });
     read.addEventListener('click', onRead);
-    const sound = el('input', { type: 'checkbox', id: 'sound-preference' });
+    const sound = el('input', { type: 'checkbox', id: 'sound-preference' }) as HTMLInputElement;
+    sound.checked = !(options.storage?.getPrefs().muted ?? true);
+    sound.addEventListener('change', () => options.storage?.setPrefs({ muted: !sound.checked }));
+    const motion = el('input', { type: 'checkbox', id: 'motion-preference' }) as HTMLInputElement;
+    motion.checked =
+      options.storage?.getPrefs().reducedMotion ??
+      window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ??
+      false;
+    motion.addEventListener('change', () => {
+      options.storage?.setPrefs({ reducedMotion: motion.checked });
+      window.dispatchEvent(new Event('cc-preferences'));
+    });
+    root.insertBefore(el('label', {}, [motion, ' Reduce motion']), startBtn);
     root.insertBefore(el('p', { text: formatCoverage(briefing) }), startBtn);
     root.insertBefore(el('p', { text: briefing.summary }), startBtn);
     root.insertBefore(el('label', {}, [sound, ' Sound (when available)']), startBtn);

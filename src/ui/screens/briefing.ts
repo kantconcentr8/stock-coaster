@@ -6,6 +6,7 @@ import { formatCoverage } from '../format';
 export function createBriefingPanel(
   briefing: Briefing,
   onOpen: (entry: 'intro' | 'results' | 'fallback') => void = () => {},
+  options: { ctaUrl?: string; onCta?: () => void } = {},
 ) {
   const close = el('button', { type: 'button', class: 'btn-secondary', text: 'Close briefing' });
   const root = el('dialog', {
@@ -51,8 +52,15 @@ export function createBriefingPanel(
   );
   section('Coverage & publication', [el('p', { text: formatCoverage(briefing) })]);
   section('Disclaimer', [el('p', { text: briefing.disclaimer })]);
-  if (isHttps(briefing.cta.url))
-    root.append(el('a', { href: briefing.cta.url, rel: 'noopener', text: briefing.cta.label }));
+  if (isHttps(briefing.cta.url)) {
+    const cta = el('a', {
+      href: options.ctaUrl ?? briefing.cta.url,
+      rel: 'noopener',
+      text: briefing.cta.label,
+    });
+    cta.addEventListener('click', () => options.onCta?.());
+    root.append(cta);
+  }
   let opener: HTMLElement | null = null;
   let siblings: { node: HTMLElement; inert: boolean }[] = [];
   const restore = () => {
@@ -66,7 +74,9 @@ export function createBriefingPanel(
     restore();
   };
   close.addEventListener('click', hide);
-  root.addEventListener('close', () => { if (!root.open) restore(); });
+  root.addEventListener('close', () => {
+    if (!root.open) restore();
+  });
   root.addEventListener('cancel', (event) => {
     event.preventDefault();
     hide();

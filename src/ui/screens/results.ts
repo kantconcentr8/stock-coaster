@@ -1,5 +1,8 @@
 import { createLearningQuestion } from './learningQuestion';
 import { isHttps } from '../../content/schema';
+import type { GameStorage } from '@/services/storage';
+import { SCORING_VERSION } from '@/config/tuning';
+import { shareBriefing, type ShareMethod } from '@/services/share';
 import type { Briefing, RunStats } from '@/core/types';
 import { scoreBreakdown } from '@/sim/scoring';
 import { el } from '../dom';
@@ -14,6 +17,10 @@ export function createResultsScreen(
   onRetry: () => void,
   options?: {
     briefing: Briefing;
+    storage?: GameStorage;
+    ctaUrl?: string;
+    onCta?: () => void;
+    onShare?: (method: ShareMethod) => void;
     onRead: () => void;
     onAnswer: (questionId: string, correct: boolean) => void;
   },
@@ -66,13 +73,43 @@ export function createResultsScreen(
         el('a', {
           id: 'briefing-cta',
           class: 'btn-primary',
-          href: cta.url,
+          href: options.ctaUrl ?? cta.url,
           rel: 'noopener',
           text: cta.label,
         }),
         retryBtn,
       );
-    root.append(el('span', { id: 'share-slot', hidden: '' }));
+    root.querySelector('#briefing-cta')?.addEventListener('click', () => options.onCta?.());
+    const share = el('button', {
+      type: 'button',
+      id: 'btn-share',
+      text: 'Share briefing',
+    }) as HTMLButtonElement;
+    const status = el('p', { role: 'status' });
+    const manual = el('input', {
+      type: 'text',
+      readonly: '',
+      hidden: '',
+      'aria-label': 'Briefing share link',
+    }) as HTMLInputElement;
+    share.addEventListener('click', async () => {
+      share.disabled = true;
+      manual.hidden = true;
+      status.textContent = '';
+      try {
+        const result = await shareBriefing(options.briefing, (method) => options.onShare?.(method));
+        if (result.method === 'manual') {
+          manual.value = result.url;
+          manual.hidden = false;
+          manual.focus();
+          manual.select();
+          status.textContent = 'Copy this briefing link.';
+        } else if (result.method === 'copy') status.textContent = 'Briefing link copied.';
+      } finally {
+        share.disabled = false;
+      }
+    });
+    root.append(share, status, manual);
     const read = el('button', {
       type: 'button',
       class: 'btn-secondary',
@@ -86,6 +123,19 @@ export function createResultsScreen(
     root,
     show(stats) {
       learning?.reset();
+      if (options?.storage) {
+        const best = options.storage.submitScore(
+          options.briefing.briefingId,
+          options.briefing.courseVersion,
+          SCORING_VERSION,
+          scoreBreakdown(stats).total,
+        );
+        const slot = root.querySelector<HTMLElement>('#local-best');
+        if (slot) {
+          slot.hidden = false;
+          slot.textContent = `Your best: ${best.best}${best.isNewBest ? ' - New best!' : ''}`;
+        }
+      }
       const breakdown = scoreBreakdown(stats);
       scoreEl.textContent = String(breakdown.total);
       distEl.textContent = `${Math.round(stats.distance)} wu (+${breakdown.distancePoints} pts)`;

@@ -80,6 +80,8 @@ export function createApp({
       syncPlayingClass(machine.phase);
     },
     restartRun() {
+      const sourceScreen = machine.phase === 'results' ? 'results' : 'paused';
+      const priorComplete = machine.phase === 'results';
       if (!machine.send('restart')) return;
       sim.reset();
       scheduler.reset();
@@ -87,7 +89,7 @@ export function createApp({
       input.clearAll();
       countdownRemaining = TUNING.COUNTDOWN_SECONDS;
       syncPlayingClass(machine.phase);
-      bus.emit({ type: 'restart', t: 0 });
+      bus.emit({ type: 'restart', t: 0, sourceScreen, priorComplete });
     },
     pauseRun() {
       if (!machine.send('pause')) return;
