@@ -122,3 +122,47 @@ Notes: `body.is-playing` suppresses touch-action/overscroll/selection only durin
 ### P2.5 — Reference-device test pass and Gate 2 (2026-10-31)
 Result: done (automated checks green; physical device rows in `docs/qa/device-matrix.md` ready for owner LAN check)
 Files: docs/qa/device-matrix.md, docs/PROGRESS.md.
+
+### P3.1 - Schema and validation (2026-10-31)
+Result: implemented; strict hand-rolled validator avoids a new runtime dependency (0 dependency gzip bytes; total preview JS 372.61 kB gzip at initial build).
+Files: content/schema.ts, core/types.ts, scripts/validate-content.ts, package.json, schema fixtures/tests.
+Rules cover typed fields, dates/timezones, ordered active-time chapters, labels, HTTPS links, references, answer indices and approval metadata. Captions warn above 12 words, fail above 16.
+Production build refuses unapproved content; explicit ALLOW_UNAPPROVED=1 preview succeeds.
+
+### P3.2 - Content registry and selection (2026-10-31)
+Result: implemented. Bundled briefing/course registry, ID validation, default fallback notices, runtime revalidation and content-error fallback text.
+Files: content/{loader,index}.ts, main.ts, fallback.ts, loader tests. Only b is read by loader; no attribution added.
+
+### P3.3 - Campaign draft (2026-10-31)
+Result: draft prepared, unapproved. Read campaign headings then thesis/structural/scenario sections only.
+Files: content/briefings/2026-10-31-lower-value.json, docs/content/2026-10-31-review-sheet.md.
+D2 already resolved to https://predictourney.site/waitlist. D3 pending: public source links, facts, dates/cutoff, ending and usage rights require owner review. No market numbers or fabricated links added.
+
+### P3.4 - Intro (2026-10-31)
+Result: implemented. Semantic main, brand/title, named-timezone publication/cutoff, draft/unknown-ID notices, controls, session-only sound preference slot, Start focus and read-without-playing.
+Files: intro.ts, format.ts, styles.css, UI tests. Audio delivery/persistence remains outside phase 3; no storage service introduced.
+
+### P3.5 - Active-time chapters (2026-10-31)
+Result: implemented. Pure scheduler, once-per-run chapterSeen, reset on retry, pause-safe active time, classification icon/text and polite live announcements.
+Files: sim/chapters.ts, ui/captions.ts, app.ts, main.ts, layout.ts, styles.css and tests. Reserved 144px plus safe-top inset HUD band keeps caption text above track; phone visual walkthrough remains owner QA.
+
+### P3.6 - Results debrief (2026-10-31)
+Result: implemented. One-second closing bell (immediate with reduced motion), neutral arcade breakdown, labeled takeaways before CTA, optional learning question with event/explanation/reset, Retry and full briefing.
+Files: results.ts, learningQuestion.ts, main.ts, UI tests. Best/share slots intentionally remain unwired for phase 4.
+
+### P3.7 - Text briefing (2026-10-31)
+Result: implemented. Accessible dialog and fallback, heading structure, chapters/labels, glossary, sources, named-zone dates, disclaimer and CTA; focus trap/restoration; briefingRead event.
+Files: briefing.ts, main.ts, fallback.ts, UI tests. Missing research links are openly marked pending; all actual source links must be HTTPS with safe rel attributes.
+
+### P3.8 - Course alignment (2026-10-31)
+Result: implemented with illustrative timing limitation documented in review sheet. Stepped descent, partial recovery below prior high, hypothetical fade with generous terrain margin.
+Timeline at active 20/40/60s: idle 4964/8056/12833 wu; boost-all 5714/9443/15121; brake-all 2428/4828/7228. Each intended terrain section is encountered during its chapter on idle/boost paths; sustained braking can lag editorial terrain.
+Fairness passes: 30268wu track, safe rails/reachability/preview, brake hits 0 vs boost 1. Quiet zones: 0..489, 4964..5549, 8056..8397wu, all hazard-free. No published course existed; version stays 1.
+Files: course-01.json, scripts/{course-timeline,caption-quiet-zones,check-fairness}.ts.
+
+### P3.9 - Editorial review / Gate 3 (2026-10-31)
+Result: preview built for review; G3 PENDING explicit owner sign-off. approval.approved remains false.
+Outstanding review and required facts/links/phone+desktop checks are in docs/content/2026-10-31-review-sheet.md. No owner approval inferred and no phase 4 work started.
+Verification: npm run check passed (initial 80 tests); final verification recorded below. Production refusal confirmed; override preview build succeeds. Existing large Phaser bundle warning remains.
+
+Final phase 3 verification: `npm run check` passed (21 files / 82 tests), final dialog tests passed, and preview build succeeded (JS 372.76 kB gzip). Production approval refusal verified. Physical phone/desktop editorial review remains pending.

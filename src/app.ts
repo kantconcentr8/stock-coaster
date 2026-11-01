@@ -1,5 +1,6 @@
+import { createChapterScheduler } from '@/sim/chapters';
 import { TUNING } from '@/config/tuning';
-import type { CourseDef } from '@/core/types';
+import type { Chapter, CourseDef } from '@/core/types';
 import type { EventBus } from '@/core/events';
 import type { RunClock } from '@/core/runClock';
 import type { RunMachine } from '@/core/stateMachine';
@@ -33,6 +34,7 @@ export interface AppDeps {
   machine: RunMachine;
   clock: RunClock;
   course?: CourseDef;
+  chapters?: Chapter[];
   input?: InputController;
 }
 
@@ -48,9 +50,13 @@ export function createApp({
   clock,
   course = devCourseJson as CourseDef,
   input = createInput(),
+  chapters = [],
 }: AppDeps): App {
   const track = buildTrack(course);
   const sim = createSim(track, course, (ev) => bus.emit(ev));
+  const scheduler = createChapterScheduler(chapters, (chapter, t) =>
+    bus.emit({ type: 'chapterSeen', chapterId: chapter.id, t }),
+  );
   let countdownRemaining = 0;
 
   return {
@@ -67,6 +73,7 @@ export function createApp({
     startRun() {
       if (!machine.send('start')) return;
       sim.reset();
+      scheduler.reset();
       clock.reset();
       input.clearAll();
       countdownRemaining = TUNING.COUNTDOWN_SECONDS;
@@ -75,6 +82,7 @@ export function createApp({
     restartRun() {
       if (!machine.send('restart')) return;
       sim.reset();
+      scheduler.reset();
       clock.reset();
       input.clearAll();
       countdownRemaining = TUNING.COUNTDOWN_SECONDS;
@@ -96,6 +104,7 @@ export function createApp({
     exitRun() {
       if (!machine.send('exit')) return;
       sim.reset();
+      scheduler.reset();
       clock.reset();
       input.clearAll();
       countdownRemaining = 0;
@@ -146,6 +155,7 @@ export function createApp({
       if (machine.phase !== 'running') return 0;
 
       const result = clock.advance(frameSeconds, (dt) => {
+        scheduler.update(sim.state.t);
         sim.step(input.consumeLanes(), dt);
       });
       if (result.finished) {

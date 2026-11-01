@@ -11,8 +11,10 @@
     "test": "vitest run",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
-    "check": "npm run typecheck && npm run lint && npm run test && npm run fairness",
-    "fairness": "tsx scripts/check-fairness.ts src/content/courses/course-01.json"
+    "check": "npm run typecheck && npm run lint && npm run test && npm run fairness && npm run validate",
+    "fairness": "tsx scripts/check-fairness.ts src/content/courses/course-01.json",
+    "validate": "tsx scripts/validate-content.ts",
+    "prebuild": "tsx scripts/validate-content.ts --production"
   },
   "keywords": [],
   "author": "",

@@ -5,6 +5,11 @@ import { createInAppBrowserBanner, isInAppBrowser } from '@/ui/inAppBrowser';
 import { computeLayoutMetrics } from '@/ui/layout';
 
 describe('mobile layout and preview distance', () => {
+  it('reserves the caption band plus the top safe area above the track', () => {
+    const metrics = computeLayoutMetrics(360, 640, 2, true, 44);
+    expect(metrics.trackRegion.top).toBe(188);
+    expect(metrics.trackRegion.top).toBeGreaterThan(44 + 76 + 64);
+  });
   const sizes: [number, number, boolean][] = [
     [360, 640, true],
     [390, 844, true],

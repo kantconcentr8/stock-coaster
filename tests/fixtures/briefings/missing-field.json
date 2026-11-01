@@ -1,0 +1,95 @@
+{
+  "briefingId": "2026-10-31-lower-value",
+  "contentVersion": 1,
+  "summary": "Draft interpretation of the October campaign notes. TODO(owner): confirm lower-value migration and the late bounce against approved research. The course illustrates the thesis; it is not a market chart.",
+  "brandName": "Candlestick Coaster",
+  "publishedAt": "2026-10-31T10:30:00-04:00",
+  "coverageEnd": "2026-10-30T16:00:00-04:00",
+  "displayTimezone": "America/New_York",
+  "courseId": "course-01",
+  "courseVersion": 1,
+  "scoringVersion": 1,
+  "chapters": [
+    {
+      "id": "lower-value",
+      "startSec": 0,
+      "endSec": 20,
+      "caption": "Repeated lower value: more than a brief dip.",
+      "summary": "TODO(owner): confirm the campaign description of repeated lower-value acceptance. Stepped descents illustrate this interpretation.",
+      "classification": "interpretation",
+      "label": "Interpretation",
+      "forwardLooking": false
+    },
+    {
+      "id": "bounce",
+      "startSec": 20,
+      "endSec": 40,
+      "caption": "A bounce alone does not establish repair.",
+      "summary": "A recovery in price alone does not demonstrate broad participation. This bounce is an illustration, not a measured price path.",
+      "classification": "interpretation",
+      "label": "Interpretation",
+      "forwardLooking": false
+    },
+    {
+      "id": "conditional",
+      "startSec": 40,
+      "endSec": 60,
+      "caption": "If breadth fails to confirm, the bounce could fade.",
+      "summary": "Proposed ending: an ordinary countertrend bounce fades without breadth confirmation. Alternatives: continuation lower, or a failed breakdown followed by recovery. None is an observed future outcome.",
+      "classification": "hypothetical",
+      "label": "Hypothetical scenario",
+      "forwardLooking": true
+    }
+  ],
+  "takeaways": [
+    {
+      "text": "Repeated lower value is the campaign thesis. TODO(owner): verify against approved research.",
+      "classification": "interpretation",
+      "label": "Interpretation"
+    },
+    {
+      "text": "A bounce alone does not establish structural repair.",
+      "classification": "interpretation",
+      "label": "Interpretation"
+    },
+    {
+      "text": "A bounce could fade if breadth fails to confirm; continuation and failed-breakdown recovery are alternatives.",
+      "classification": "hypothetical",
+      "label": "Hypothetical scenario"
+    }
+  ],
+  "sources": [],
+  "cta": {
+    "id": "waitlist",
+    "label": "Join the Predictourney waitlist",
+    "url": "https://predictourney.site/waitlist",
+    "campaignId": "2026-10-31-nov-1",
+    "destinationCategory": "waitlist"
+  },
+  "shareText": "Explore a dated, illustrative market briefing in Candlestick Coaster.",
+  "socialImage": "TODO(owner): approved social preview asset",
+  "glossary": [
+    {
+      "term": "Breadth",
+      "definition": "How widely market participation is spread across advancing and declining securities."
+    },
+    {
+      "term": "Value area",
+      "definition": "A price region where trading activity has concentrated over a specified period."
+    }
+  ],
+  "disclaimer": "An illustrative briefing and arcade game, not a trading simulation or investment advice. Geometry is illustrative, not an exact market chart. TODO(owner): verify publication time, coverage cutoff, sources and usage rights.",
+  "approval": {
+    "approved": false
+  },
+  "learningQuestion": {
+    "id": "bounce-repair",
+    "prompt": "Does a bounce alone establish structural repair?",
+    "answers": [
+      "Yes, any bounce proves repair.",
+      "No, broader confirmation is needed."
+    ],
+    "correctIndex": 1,
+    "explanation": "A price bounce alone does not establish repair; participation and the surrounding structure matter."
+  }
+}

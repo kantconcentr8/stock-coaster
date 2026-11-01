@@ -47,3 +47,17 @@ Living architecture map. Update when a public export, file, or folder changes. K
 | `src/ui/debugOverlay.ts` | Dev-only `?debug=1` live readout & tuning sliders | `createDebugOverlay`, `DebugOverlay` | config/tuning, core/types, sim/track, ui/dom |
 | `src/content/courses/` | `dev-course.json`, `course-01.json` | — | — |
 | `scripts/check-fairness.ts` | Automated fairness verifier (`npm run fairness`) | `evaluateCourseFairness` | config/tuning, core/types, sim/* |
+
+## Phase 3 additions
+
+- `content/schema.ts`: `BRIEFING_ID`, `isHttps`, `validateBriefing` (hand-rolled validation, warnings, production approval gate).
+- `content/loader.ts`: `createBriefingLoader`, `defaultBriefingId`, `BriefingNotice`; `content/index.ts`: bundled `loadBriefing(search)` including referenced course.
+- `core/types.ts`: concrete `Briefing`, `Chapter`, `Classification`, `LearningQuestion`; `GameEvent` adds learningAnswer, briefingRead, app_error.
+- `sim/chapters.ts`: `createChapterScheduler` based on active time; `AppDeps.chapters` wires chapterSeen and reset per run.
+- `ui/captions.ts`: `createCaptions`; caption band reserved by layout above track (HUD band 144px plus safe-top inset).
+- `ui/format.ts`: `formatCoverage` formats publication and cutoff in named timezone.
+- `ui/screens/briefing.ts`: `createBriefingPanel`, accessible modal with source safety, focus restoration, fallback and briefingRead callback.
+- `ui/screens/learningQuestion.ts`: `createLearningQuestion`, optional answer/explanation/reset; intro/results accept briefing and callbacks.
+- `scripts/validate-content.ts`: `npm run validate`, runs under check and production prebuild; preview override `ALLOW_UNAPPROVED=1`.
+- `scripts/course-timeline.ts`: `courseTimeline` for idle/boost-all/brake-all; `caption-quiet-zones.ts`: `checkCaptionQuietZones`, consumed by fairness.
+- `docs/content/2026-10-31-review-sheet.md`: claim audit and outstanding Gate 3 owner review. No phase 4 services implemented.

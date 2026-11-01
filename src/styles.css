@@ -8,7 +8,7 @@
   --safe-right: env(safe-area-inset-right, 0px);
   --safe-bottom: env(safe-area-inset-bottom, 0px);
   --safe-left: env(safe-area-inset-left, 0px);
-  --hud-band: 56px;
+  --hud-band: 144px;
   --controls-band: 0px;
 }
 
@@ -368,4 +368,68 @@ h1.screen,
   grid-template-columns: 110px 38px 1fr;
   align-items: center;
   gap: 0.25rem;
+}
+
+.chapter-caption {
+  position: fixed;
+  top: calc(var(--safe-top) + 76px);
+  left: calc(var(--safe-left) + 12px);
+  right: calc(var(--safe-right) + 12px);
+  max-height: 64px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px 12px;
+  padding: 4px 8px;
+  font-size: 0.8rem;
+  background: #000;
+  border-left: 3px solid var(--color-orange);
+  animation: caption-in 180ms ease-out;
+}
+.classification {
+  color: var(--color-orange);
+  display: block;
+}
+.takeaway {
+  text-align: left;
+  border-top: 1px solid #777;
+  padding-top: 12px;
+}
+.screen button,
+.screen a.btn-primary {
+  margin: 6px;
+  display: inline-block;
+}
+.screen :focus-visible {
+  outline: 3px solid white;
+  outline-offset: 3px;
+}
+.briefing-panel {
+  color: var(--color-white);
+  text-align: left;
+  overflow-wrap: anywhere;
+}
+.briefing-panel::backdrop {
+  background: rgb(0 0 0 / 75%);
+}
+.briefing-panel[open] {
+  pointer-events: auto;
+}
+.closing-bell {
+  font-size: 2rem;
+  background: #000;
+  padding: 1rem;
+  color: var(--color-orange);
+}
+@keyframes caption-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .chapter-caption {
+    animation: none;
+  }
 }

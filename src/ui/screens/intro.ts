@@ -1,3 +1,6 @@
+import type { Briefing } from '../../core/types';
+import type { BriefingNotice } from '../../content/loader';
+import { formatCoverage } from '../format';
 import { el } from '../dom';
 
 export interface IntroScreen {
@@ -6,7 +9,14 @@ export interface IntroScreen {
   hide(): void;
 }
 
-export function createIntroScreen(onStart: () => void): IntroScreen {
+export function createIntroScreen(
+  onStart: () => void,
+  options?: {
+    briefing: Briefing;
+    notice?: BriefingNotice;
+    onRead: () => void;
+  },
+): IntroScreen {
   const startBtn = el('button', {
     id: 'btn-start',
     type: 'button',
@@ -16,15 +26,42 @@ export function createIntroScreen(onStart: () => void): IntroScreen {
 
   startBtn.addEventListener('click', () => onStart());
 
-  const root = el('section', { id: 'screen-intro', class: 'screen modal-card' }, [
-    el('h1', { text: 'Candlestick Coaster' }),
+  const root = el('main', { id: 'screen-intro', class: 'screen modal-card' }, [
+    el('p', { text: options?.briefing.brandName ?? 'Candlestick Coaster' }),
+    el('h1', { text: options?.briefing.title ?? 'Candlestick Coaster' }),
     el('p', {
       class: 'controls-hint',
-      text: 'Controls: Up/W & Down/S to switch rails · Hold Space to Boost · Hold Shift to Brake',
+      text:
+        typeof matchMedia === 'function' && matchMedia('(pointer: coarse)').matches
+          ? 'Tap Up/Down to switch rails; Hold Boost; Hold Brake'
+          : 'Up/W & Down/S to switch rails; Hold Space to Boost; Hold Shift to Brake',
     }),
     startBtn,
   ]);
 
+  if (options) {
+    const { briefing, notice, onRead } = options;
+    const read = el('button', {
+      type: 'button',
+      class: 'btn-secondary',
+      text: 'Read the briefing',
+    });
+    read.addEventListener('click', onRead);
+    const sound = el('input', { type: 'checkbox', id: 'sound-preference' });
+    root.insertBefore(el('p', { text: formatCoverage(briefing) }), startBtn);
+    root.insertBefore(el('p', { text: briefing.summary }), startBtn);
+    root.insertBefore(el('label', {}, [sound, ' Sound (when available)']), startBtn);
+    root.append(read);
+    if (!briefing.approval.approved)
+      root.prepend(el('p', { role: 'note', text: 'Editorial draft - awaiting owner approval.' }));
+    if (notice)
+      root.prepend(
+        el('p', {
+          role: 'status',
+          text: `${notice === 'invalid-id' ? 'Invalid' : 'Unknown'} briefing link. Showing the default dated briefing.`,
+        }),
+      );
+  }
   return {
     root,
     show() {

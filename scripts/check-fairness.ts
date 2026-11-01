@@ -1,3 +1,6 @@
+import { checkCaptionQuietZones } from './caption-quiet-zones';
+import briefing from '../src/content/briefings/2026-10-31-lower-value.json';
+import type { Briefing } from '../src/core/types';
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { TUNING } from '../src/config/tuning';
@@ -168,6 +171,8 @@ export function evaluateCourseFairness(course: CourseDef): FairnessCheckResult {
       detail: `Zone [${zone.s0}..${zone.s1}]: brake hits=${brakeHits}, boost hits=${boostHits}`,
     });
   }
+
+  if (course.courseId === briefing.courseId) checks.push(...checkCaptionQuietZones(course, (briefing as Briefing).chapters));
 
   return {
     passed: checks.every((c) => c.passed),

@@ -29,12 +29,13 @@ export function computeLayoutMetrics(
   viewportHeight: number,
   rawDpr = 1,
   coarsePointer = false,
+  safeTop = 0,
 ): LayoutMetrics {
   const width = Math.max(1, viewportWidth);
   const height = Math.max(1, viewportHeight);
   const orientation: OrientationMode = height >= width ? 'portrait' : 'landscape';
   const dpr = Math.min(Math.max(1, rawDpr || 1), 2);
-  const hudBandHeight = 56;
+  const hudBandHeight = 144 + Math.max(0, safeTop);
 
   // Portrait reserves bottom 24% (clamped 120..210px) when touch/coarse or narrow; landscape splits controls on sides
   const showBottomBand = orientation === 'portrait' && (coarsePointer || width <= 768);
@@ -72,7 +73,12 @@ export function createLayoutManager(targetWindow: Window = window): LayoutManage
     const coarse =
       typeof targetWindow.matchMedia === 'function' &&
       targetWindow.matchMedia('(pointer: coarse)').matches;
-    return computeLayoutMetrics(w, h, targetWindow.devicePixelRatio, coarse);
+    const probe = document.createElement('div');
+    probe.style.cssText = 'position:absolute;pointer-events:none;height:var(--safe-top, 0px)';
+    document.body.append(probe);
+    const safeTop = probe.getBoundingClientRect().height;
+    probe.remove();
+    return computeLayoutMetrics(w, h, targetWindow.devicePixelRatio, coarse, safeTop);
   };
 
   let current = readMetrics();

@@ -1,4 +1,6 @@
-import type { RunStats } from '@/core/types';
+import { createLearningQuestion } from './learningQuestion';
+import { isHttps } from '../../content/schema';
+import type { Briefing, RunStats } from '@/core/types';
 import { scoreBreakdown } from '@/sim/scoring';
 import { el } from '../dom';
 
@@ -8,7 +10,14 @@ export interface ResultsScreen {
   hide(): void;
 }
 
-export function createResultsScreen(onRetry: () => void): ResultsScreen {
+export function createResultsScreen(
+  onRetry: () => void,
+  options?: {
+    briefing: Briefing;
+    onRead: () => void;
+    onAnswer: (questionId: string, correct: boolean) => void;
+  },
+): ResultsScreen {
   const scoreEl = el('strong', { id: 'res-score', text: '0' });
   const distEl = el('span', { id: 'res-distance', text: '0 wu' });
   const pickupsEl = el('span', { id: 'res-pickups', text: '0' });
@@ -25,7 +34,7 @@ export function createResultsScreen(onRetry: () => void): ResultsScreen {
 
   const root = el('section', { id: 'screen-results', class: 'screen modal-card', hidden: '' }, [
     el('h1', { text: 'Run Complete' }),
-    el('p', { class: 'results-score' }, ['Score: ', scoreEl]),
+    el('p', { class: 'results-score' }, ['Arcade score: ', scoreEl]),
     el('ul', { class: 'results-stats' }, [
       el('li', {}, ['Distance: ', distEl]),
       el('li', {}, ['Pickups collected: ', pickupsEl]),
@@ -34,9 +43,49 @@ export function createResultsScreen(onRetry: () => void): ResultsScreen {
     retryBtn,
   ]);
 
+  const question = options?.briefing.learningQuestion;
+  const learning = question
+    ? createLearningQuestion(question, (correct) => options?.onAnswer(question.id, correct))
+    : undefined;
+  if (options) {
+    const takeaways = el('section', { id: 'takeaways' }, [
+      el('h2', { text: 'Briefing takeaways' }),
+      ...options.briefing.takeaways.map((t) =>
+        el('article', { class: 'takeaway' }, [
+          el('strong', { class: 'classification', text: `? ${t.label}` }),
+          el('p', { text: t.text }),
+        ]),
+      ),
+    ]);
+    root.insertBefore(el('p', { id: 'local-best', hidden: '', text: 'Local best' }), retryBtn);
+    root.insertBefore(takeaways, retryBtn);
+    if (learning) root.insertBefore(learning.root, retryBtn);
+    const cta = options.briefing.cta;
+    if (isHttps(cta.url))
+      root.insertBefore(
+        el('a', {
+          id: 'briefing-cta',
+          class: 'btn-primary',
+          href: cta.url,
+          rel: 'noopener',
+          text: cta.label,
+        }),
+        retryBtn,
+      );
+    root.append(el('span', { id: 'share-slot', hidden: '' }));
+    const read = el('button', {
+      type: 'button',
+      class: 'btn-secondary',
+      text: 'Read full briefing',
+    });
+    read.addEventListener('click', options.onRead);
+    root.append(read);
+    root.append(el('p', { text: options.briefing.disclaimer }));
+  }
   return {
     root,
     show(stats) {
+      learning?.reset();
       const breakdown = scoreBreakdown(stats);
       scoreEl.textContent = String(breakdown.total);
       distEl.textContent = `${Math.round(stats.distance)} wu (+${breakdown.distancePoints} pts)`;

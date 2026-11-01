@@ -72,11 +72,31 @@ export type GameEvent =
   | { type: 'runComplete'; score: number; t: number }
   | { type: 'pause'; t: number }
   | { type: 'resume'; t: number }
-  | { type: 'restart'; t: number };
+  | { type: 'restart'; t: number }
+  | { type: 'learningAnswer'; questionId: string; correct: boolean }
+  | { type: 'briefingRead'; entryScreen: 'intro' | 'results' | 'fallback' }
+  | { type: 'app_error'; code: string };
 
 export type GameEventType = GameEvent['type'];
 
-/** Placeholder mirroring PRD §12 fields; refined in P3.1. */
+export type Classification = 'historical' | 'interpretation' | 'hypothetical';
+export interface Chapter {
+  id: string;
+  startSec: number;
+  endSec: number;
+  caption: string;
+  summary: string;
+  classification: Classification;
+  label: string;
+  forwardLooking: boolean;
+}
+export interface LearningQuestion {
+  id: string;
+  prompt: string;
+  answers: string[];
+  correctIndex: number;
+  explanation: string;
+}
 export interface Briefing {
   briefingId: string;
   contentVersion: number;
@@ -89,11 +109,14 @@ export interface Briefing {
   courseId: string;
   courseVersion: number;
   scoringVersion: number;
-  chapters: unknown[];
-  takeaways: string[];
+  chapters: Chapter[];
+  takeaways: { text: string; classification: Classification; label: string }[];
   sources: { title: string; url: string }[];
-  cta: { label: string; url: string; campaignId: string };
+  cta: { id: string; label: string; url: string; campaignId: string; destinationCategory: string };
   shareText: string;
   socialImage: string;
-  learningQuestion?: unknown;
+  glossary: { term: string; definition: string }[];
+  disclaimer: string;
+  approval: { approved: boolean; approvedBy?: string; approvedAt?: string };
+  learningQuestion?: LearningQuestion;
 }
