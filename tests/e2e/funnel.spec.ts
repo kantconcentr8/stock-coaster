@@ -23,6 +23,13 @@ test('full funnel, retry, local best, safe CTA and manual share', async ({ page 
   await page.goto(entry);
   expect((await events(page)).filter((e) => e.name === 'landing_view')).toHaveLength(1);
   await completeRun(page);
+  await expect(page.locator('#briefing-cta')).toBeInViewport();
+  await expect(page.locator('#btn-retry')).toBeInViewport();
+  await expect(page.locator('#btn-share')).toBeInViewport();
+  expect(
+    await page.locator('#screen-results').evaluate((node) => node.scrollWidth <= node.clientWidth),
+  ).toBe(true);
+  await page.screenshot({ path: `test-results/results-${test.info().project.name}.png` });
   await expect(page.locator('#local-best')).toContainText('Your best:');
   await expect(page.locator('#local-best')).toContainText('New best!');
   expect((await events(page)).filter((e) => e.name === 'run_complete')).toHaveLength(1);

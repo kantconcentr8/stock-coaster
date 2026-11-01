@@ -201,3 +201,11 @@ Files: playwright.config.ts, tests/e2e/{funnel.spec,helpers}.ts, package scripts
 Verification: npm run check passes (94 tests); all 6 Chromium/mobile WebKit browser tests pass.
 Normal preview build succeeds with existing editorial override; built OG/Twitter tags inspected. No editorial approval inferred.
 Follow-up: public social-card debugger check requires a hosted URL; deferred. Phase 5 not started.
+
+### P4.UI - Results cleanup before Phase 5 (2026-10-31)
+Result: wider opaque results card, compact score summary, desktop columns and mobile scrolling content with always-visible actions.
+Files: results.ts, styles.css, funnel.spec.ts; desktop/mobile screenshots generated under test-results/.
+Removed stray classification question marks, styled sharing, kept draft review notes in an explicit expandable disclosure.
+Original briefing data and approval remain unchanged; Retry focus no longer scrolls away from the score.
+Validation: project checks (94 unit tests) and desktop/mobile funnel tests; action visibility and horizontal overflow checked.
+Phase 5 remains unstarted.
