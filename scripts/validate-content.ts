@@ -1,5 +1,6 @@
 import { readdirSync, readFileSync } from 'node:fs';
 import { validateBriefing } from '../src/content/schema';
+import { validateIntraday } from '../src/intraday/data';
 
 const directory = new URL('../src/content/briefings/', import.meta.url);
 const files = readdirSync(directory).filter((f) => f.endsWith('.json'));
@@ -36,4 +37,12 @@ for (const file of files) {
     console.error(`${file}: ${String(error)}`);
     process.exitCode = 1;
   }
+}
+for (const symbol of ['ES', 'AAPL'] as const) {
+  const saved = new URL(
+    `../public/intraday/2026-11-02-${symbol.toLowerCase()}-15m.json`,
+    import.meta.url,
+  );
+  validateIntraday(JSON.parse(readFileSync(saved, 'utf8')), symbol);
+  console.log(`Valid intraday prototype: ${symbol} / 15 minutes`);
 }

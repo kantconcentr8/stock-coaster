@@ -1,0 +1,162 @@
+.intraday {
+  position: fixed;
+  inset: 0;
+  overflow: auto;
+  background: #060e20;
+  color: #f1eee7;
+  font:
+    18px/1.5 system-ui,
+    sans-serif;
+  display: flex;
+  flex-direction: column;
+  padding: 20px clamp(16px, 4vw, 60px);
+  gap: 16px;
+}
+.intraday canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+.intraday header,
+.intraday section,
+.intraday footer {
+  position: relative;
+  z-index: 1;
+}
+.intraday header {
+  max-width: 760px;
+}
+.intraday h1 {
+  font-size: 32px;
+  margin: 0;
+  line-height: 1.2;
+}
+.intraday h2 {
+  font-size: 22px;
+  margin: 0 0 8px;
+}
+.intraday p {
+  margin: 8px 0;
+}
+.intraday .eyebrow {
+  color: #ffc66b;
+  font-size: 16px;
+  font-weight: 700;
+}
+.instrument-selectors,
+.intraday-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 12px 0;
+}
+.intraday button,
+.intraday a {
+  font:
+    650 16px/1.4 system-ui,
+    sans-serif;
+  min-height: 48px;
+  padding: 12px 16px;
+  border-radius: 8px;
+}
+.intraday button {
+  cursor: pointer;
+  color: #f1eee7;
+  border: 1px solid #8294a7;
+  background: #102035;
+}
+.intraday button[aria-pressed='true'],
+.intraday-controls button:first-child {
+  background: #fca311;
+  color: #07101d;
+}
+.intraday button:disabled {
+  opacity: 0.55;
+  cursor: default;
+}
+.intraday-summary {
+  background: #0a1729ed;
+  border: 1px solid #738597;
+  border-radius: 12px;
+  padding: 16px;
+  max-width: 640px;
+}
+.intraday-summary p {
+  font-size: 16px;
+}
+.intraday footer {
+  margin-top: auto;
+  background: #0a1729f5;
+  border: 1px solid #738597;
+  border-radius: 12px;
+  padding: 16px;
+  max-width: 760px;
+}
+.intraday-caption {
+  font-size: 22px;
+  min-height: 60px;
+}
+.intraday-clock {
+  color: #ffd185;
+  font-size: 16px;
+}
+.intraday progress,
+.intraday input {
+  width: 100%;
+}
+.intraday input {
+  padding: 12px;
+  font-size: 16px;
+}
+.intraday dialog {
+  color: #f1eee7;
+  background: #0a1729;
+  border: 1px solid #8294a7;
+  border-radius: 12px;
+  padding: 24px;
+  max-width: 760px;
+  width: calc(100% - 32px);
+  max-height: 88dvh;
+  overflow: auto;
+  font:
+    18px/1.55 system-ui,
+    sans-serif;
+}
+.intraday dialog::backdrop {
+  background: #000b;
+}
+.intraday a {
+  display: inline-block;
+  color: #ffc66b;
+}
+.intraday .bars-scroll {
+  overflow: auto;
+}
+.intraday table {
+  border-collapse: collapse;
+  min-width: 500px;
+  font-size: 16px;
+}
+.intraday td,
+.intraday th {
+  border-bottom: 1px solid #738597;
+  padding: 10px;
+  text-align: right;
+}
+.intraday :focus-visible {
+  outline: 3px solid white;
+  outline-offset: 3px;
+}
+.intraday[data-phase='ride'] .intraday-summary {
+  display: none;
+}
+@media (max-width: 600px) {
+  .intraday header p {
+    font-size: 16px;
+  }
+  .intraday-controls button {
+    flex: 1;
+  }
+}

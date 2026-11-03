@@ -13,3 +13,5 @@ Game art and effects are original project assets. The passenger briefing also us
 | `public/charts/october-30-{es,participation,ndx,spx}.jpg` | Owner-supplied thinkorswim screenshots; owner authorized use | Unchanged originals from ES.jpg, 6 charts.jpg, NDX.jpg, SPX.jpg. Plain-language captions are separate editorial interpretations. |
 
 Audio is optional and defaults to muted. Synthesizing effects replaces fetching encoded sound files, avoiding 404/loading and codec risks. Total external audio transfer is 0 KB (under the 300 KB budget).
+
+November 2 prototype: `public/charts/november-2-{es,add-1m,add-hourly}.jpg` and `november-2-aapl.png` are unchanged owner-supplied thinkorswim screenshots supplied with authorization to build the intraday prototype. ES/AAPL intraday snapshots are separately sourced from Yahoo Finance (exact ESZ26.CME future) and Twelve Data (AAPL common stock); see `intraday-prototype.md`. Supplied NDX/SPX images remain contextual attachments and are not mislabeled as the selected ES/AAPL 15-minute data.

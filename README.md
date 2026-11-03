@@ -10,6 +10,10 @@ session candles. The original game remains at `/?experience=game`; earlier
 **The Market Expedition**, is [outlined here](docs/implementation-plan/market-expedition.md)
 for prototyping after real-phone observations; it is not yet playable.
 
+Separate November 2 intraday review: `/intraday.html?symbol=ES` or
+`/intraday.html?symbol=AAPL`. Both use saved 15-minute bars and 54-second data-shaped
+rides. [Data, research corrections and import workflow](docs/intraday-prototype.md).
+
 ## Local development
 
 Requires Node.js 22 and npm.

@@ -19,7 +19,8 @@
     "build:preview": "tsx scripts/validate-content.ts && tsc --noEmit && vite build --mode test-preview",
     "build:vercel": "tsx scripts/build-vercel.ts",
     "check:bundle": "tsx scripts/check-bundle.ts",
-    "recap:snapshot": "tsx scripts/import-market-snapshot.ts"
+    "recap:snapshot": "tsx scripts/import-market-snapshot.ts",
+    "ride:import": "tsx scripts/import-intraday.ts"
   },
   "keywords": [],
   "author": "",

@@ -28,7 +28,30 @@ export function socialMetadata(): Plugin {
   });
   return {
     name: 'briefing-social-metadata',
-    transformIndexHtml(html) {
+    transformIndexHtml(html, context) {
+      if (context.filename.endsWith('intraday.html')) {
+        const title = 'November 2 — ES & AAPL 15-minute ride prototype';
+        const summary =
+          'Explore two saved November 2 sessions: ES December 2026 futures and AAPL, each shaped by 15-minute closes. A 54-second passenger prototype.';
+        const url = new URL('/intraday.html', site).href;
+        return {
+          html,
+          tags: [
+            tag('robots', 'noindex, follow'),
+            tag('description', summary),
+            tag('og:type', 'website', true),
+            tag('og:title', title, true),
+            tag('og:description', summary, true),
+            tag('og:url', url, true),
+            tag('og:image', image, true),
+            tag('twitter:card', 'summary_large_image'),
+            tag('twitter:title', title),
+            tag('twitter:description', summary),
+            tag('twitter:image', image),
+            { tag: 'link', attrs: { rel: 'canonical', href: url } },
+          ],
+        };
+      }
       return {
         html: html.replace(
           /<title>.*?<\/title>/,

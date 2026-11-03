@@ -116,3 +116,11 @@ Living architecture map. Update when a public export, file, or folder changes. K
 - `docs/implementation-plan/market-expedition.md`: daily pilot script and separate longer-format chapter outline; expedition prototype follows phone observations.
 - `public/charts/*.jpg`: four unchanged owner-supplied screenshots; `ui/screens/briefingCharts.css` styles public chart cards, full-size links and expandable NDX/SPX context. Build validation checks JPEG assets.
 - `docs/editorial/`: archived working notes outside public assets; README records the Nasdaq/NYSE correction. This is editorial separation, not repository access control.
+
+## November 2 intraday prototype
+
+- `intraday/data.ts`: `validateIntraday`, `loadIntraday`, `priceAt`, fixed-session ESZ26/AAPL 15-minute contracts; rejects missing/mismatched bars.
+- `intraday/track.ts`, `scene.ts`: piecewise-linear percentage track, 54-second playback, real bar endpoints and stationary reduced-motion overview; reuse procedural track/train art.
+- `intraday/app.ts`, `style.css`: isolated review screen with ES/AAPL selection, independent context, bar table, safe selected-symbol sharing and missing-data fallback.
+- `scripts/{probe-intraday,probe-es-intraday,import-intraday}.ts`: date-specific retrieval and immutable normalized imports; no browser provider calls.
+- `docs/intraday-prototype.md`: session boundaries, provenance, geometry semantics, original-note corrections and reproduction steps.
